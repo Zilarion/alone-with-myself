@@ -1,0 +1,31 @@
+{
+  "name": "alone-with-myself",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel ./index.html",
+    "check": "rome check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zilarion/alone-with-myself.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zilarion/alone-with-myself/issues"
+  },
+  "homepage": "https://github.com/Zilarion/alone-with-myself#readme",
+  "devDependencies": {
+    "parcel": "^1.12.4",
+    "rome": "^10.0.3-beta",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "rxjs": "^6.6.2"
+  }
+}
