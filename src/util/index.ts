@@ -1,2 +1,1 @@
-export * from './distanceBetween';
-export * from './gravitationalForceBetween';
+export * from './createSatelliteOf';

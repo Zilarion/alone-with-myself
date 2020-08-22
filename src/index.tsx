@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { render } from 'react-dom';
+import { System } from './views/System';
 
 render(
-    <h1>Application</h1>,
+    <System />,
     document.getElementById('root')
 );
