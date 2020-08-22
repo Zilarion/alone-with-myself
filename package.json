@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Zilarion/alone-with-myself#readme",
   "devDependencies": {
+    "@types/react-dom": "^16.9.8",
     "parcel": "^1.12.4",
     "rome": "^10.0.3-beta",
     "typescript": "^3.9.7"
