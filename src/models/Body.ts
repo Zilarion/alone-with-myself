@@ -6,7 +6,7 @@ interface BodyProps {
     mass: number;
     orbit?: {
         radius: number;
-        focus: Vector;
+        focus: Body;
         velocity: number;
         angle: number;
     };
@@ -19,7 +19,7 @@ export class Body {
     private _mass: number;
     private _orbit?: {
         radius: number;
-        focus: Vector;
+        focus: Body;
         velocity: number;
         angle: number;
     };
@@ -64,8 +64,8 @@ export class Body {
         this._orbit.angle = newAngle;
 
         this._position = {
-            x: focus.x + radius * Math.cos(newAngle),
-            y: focus.y + radius * Math.sin(newAngle),
+            x: focus.position.x + radius * Math.cos(newAngle),
+            y: focus.position.y + radius * Math.sin(newAngle),
         }
     }
 
@@ -79,7 +79,7 @@ export class Body {
         context.strokeStyle = 'rgba(100, 100, 100, 0.4)';
 
         context.arc(
-            focus.x, focus.y,
+            focus.position.x, focus.position.y,
             radius,
             0, 2 * Math.PI
         );

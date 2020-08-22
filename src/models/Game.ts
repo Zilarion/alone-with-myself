@@ -1,5 +1,5 @@
 import { Body } from "./Body";
-import { createSatelliteOf } from "../util";
+import { createPlanet } from "../util/createPlanet";
 
 const sun = new Body({
     position: {
@@ -15,20 +15,32 @@ export class Game {
     private _animationFrameId: number | null = null;
     private _context: CanvasRenderingContext2D;
     private _lastFrame: number | null = null;
+    private _canvas: HTMLCanvasElement;
 
-    constructor(context: CanvasRenderingContext2D) {
-        this._context = context;
-        console.log("Game starting");
+    constructor(canvas: HTMLCanvasElement) {
+        this._canvas = canvas;
+
+        const ctx = canvas.getContext('2d');
+        if (ctx == null) {
+            throw Error("Expected context to exist");
+        }
+        this._context = ctx;
         this.start();
 
         this.addBody(sun);
-        this.addBody(createSatelliteOf(sun));
-        this.addBody(createSatelliteOf(sun));
-        this.addBody(createSatelliteOf(sun));
+        this.addBodies(createPlanet(sun, 3));
+        this.addBodies(createPlanet(sun, 1));
+        this.addBodies(createPlanet(sun, 0));
+        this.addBodies(createPlanet(sun, 0));
+        this.addBodies(createPlanet(sun, 8));
     }
 
     public addBody = (body: Body) => {
         this._bodies.push(body);
+    }
+
+    public addBodies = (bodies: Body[]) => {
+        this._bodies.push(...bodies);
     }
 
     public destroy() {
@@ -42,11 +54,13 @@ export class Game {
 
     private _draw = (time: number) => {
         const delta = this._lastFrame ? time - this._lastFrame : 0;
-        this._context.clearRect(0, 0, 1000, 1000);
+        this._context.fillStyle = "black";
+        const { width, height } = this._canvas.getBoundingClientRect();
+        this._context.fillRect(0, 0, width, height);
+
 
         this._bodies.forEach((body) => body.update(delta));
 
-        // Draw
         this._bodies.forEach((body) => body.draw(this._context));
         this._animationFrameId = window.requestAnimationFrame(this._draw);
         this._lastFrame = time;
