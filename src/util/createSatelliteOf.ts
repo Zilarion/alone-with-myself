@@ -1,21 +1,12 @@
 import { Body } from "../models/Body";
+import { randomNumber } from "./random";
 
-const planetColors = ['blue', 'red', 'brown', 'green']
 
-function getRandomInt(max: number) {
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max + 1));
-}
-
-function randomPlanetColor() {
-    return planetColors[getRandomInt(4)];
-}
-
-export function createSatelliteOf(body: Body) {
+export function createSatelliteOf(body: Body, maxOrbit: number, color: string) {
     // Take random mass and orbit radius
-    const mass = 1;
-    const radius = Math.random() * 4 + 3;
-    const orbitRadius = Math.random() * 300 + 10;
+    const mass = randomNumber(10, body.mass / 10);
+    const radius = randomNumber(1, body.radius / 2);
+    const orbitRadius = randomNumber(body.radius * 1.2, body.radius * maxOrbit);
 
     // Calculate orbit velocity
     const orbitVelocity = Math.sqrt((body.mass + mass) / orbitRadius);
@@ -27,18 +18,16 @@ export function createSatelliteOf(body: Body) {
         y: Math.sin(angle) * orbitRadius + body.position.y,
     }
 
-    console.log("New satellite:")
-    console.log({ mass, radius, orbitRadius, orbitVelocity, position })
     return new Body({
         position,
         mass,
         radius,
         orbit: {
             angle: 0,
-            focus: body.position,
+            focus: body,
             radius: orbitRadius,
             velocity: orbitVelocity,
         },
-        color: randomPlanetColor(),
+        color,
     })
 }
