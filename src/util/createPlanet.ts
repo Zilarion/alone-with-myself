@@ -1,6 +1,6 @@
 import { createSatelliteOf } from "./createSatelliteOf";
 import { randomInt } from "./random";
-import { Body } from "../models/Body";
+import { BodyModel } from "../models/BodyModel";
 import { emptyArray } from "./emptyArray";
 
 
@@ -15,7 +15,7 @@ function randomMoonColor() {
     return moonColors[randomInt(moonColors.length - 1)];
 }
 
-export function createPlanet(star: Body, numberOfMoons: number): Body[] {
+export function createPlanet(star: BodyModel, numberOfMoons: number): BodyModel[] {
     const planet = createSatelliteOf(star, 20, randomPlanetColor());
 
     const moons = emptyArray(numberOfMoons).map(() => createSatelliteOf(planet, 4, randomMoonColor()));

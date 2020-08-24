@@ -6,20 +6,20 @@ interface BodyProps {
     mass: number;
     orbit?: {
         radius: number;
-        focus: Body;
+        focus: BodyModel;
         velocity: number;
         angle: number;
     };
     color: string;
 }
 
-export class Body {
+export class BodyModel {
     private _position: Vector;
     private _radius: number;
     private _mass: number;
     private _orbit?: {
         radius: number;
-        focus: Body;
+        focus: BodyModel;
         velocity: number;
         angle: number;
     };
@@ -39,12 +39,20 @@ export class Body {
         this._color = color;
     }
 
+    public get color() {
+        return this._color;
+    }
+
     public get position() {
         return this._position;
     }
 
     public get radius() {
         return this._radius;
+    }
+
+    public get orbit() {
+        return this._orbit;
     }
 
     public get mass() {
@@ -67,36 +75,5 @@ export class Body {
             x: focus.position.x + radius * Math.cos(newAngle),
             y: focus.position.y + radius * Math.sin(newAngle),
         }
-    }
-
-    private _drawOrbit(context: CanvasRenderingContext2D) {
-        if (this._orbit == null) {
-            return;
-        }
-
-        const { radius, focus } = this._orbit;
-        context.beginPath();
-        context.strokeStyle = 'rgba(100, 100, 100, 0.4)';
-
-        context.arc(
-            focus.position.x, focus.position.y,
-            radius,
-            0, 2 * Math.PI
-        );
-        context.stroke();
-    }
-
-    public draw(context: CanvasRenderingContext2D) {
-        this._drawOrbit(context);
-
-        const { x, y } = this.position;
-        context.beginPath();
-        context.fillStyle = this._color;
-        context.arc(
-            x, y,
-            this.radius,
-            0, 2 * Math.PI
-        );
-        context.fill();
     }
 }

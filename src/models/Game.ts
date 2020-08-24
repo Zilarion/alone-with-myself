@@ -1,7 +1,7 @@
-import { Body } from "./Body";
+import { BodyModel } from "./BodyModel";
 import { createPlanet } from "../util/createPlanet";
 
-const sun = new Body({
+const sun = new BodyModel({
     position: {
         x: 500, y: 500,
     },
@@ -11,7 +11,7 @@ const sun = new Body({
 });
 
 export class Game {
-    private _bodies: Body[] = [];
+    private _bodies: BodyModel[] = [];
     private _animationFrameId: number | null = null;
     private _context: CanvasRenderingContext2D;
     private _lastFrame: number | null = null;
@@ -35,11 +35,11 @@ export class Game {
         this.addBodies(createPlanet(sun, 8));
     }
 
-    public addBody = (body: Body) => {
+    public addBody = (body: BodyModel) => {
         this._bodies.push(body);
     }
 
-    public addBodies = (bodies: Body[]) => {
+    public addBodies = (bodies: BodyModel[]) => {
         this._bodies.push(...bodies);
     }
 
