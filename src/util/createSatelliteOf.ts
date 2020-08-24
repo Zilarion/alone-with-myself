@@ -23,7 +23,7 @@ export function createSatelliteOf(body: Body, maxOrbit: number, color: string) {
         mass,
         radius,
         orbit: {
-            angle: 0,
+            angle,
             focus: body,
             radius: orbitRadius,
             velocity: orbitVelocity,
