@@ -12,8 +12,12 @@ const sun = new BodyModel({
 
 export class Game {
     private _bodies: BodyModel[] = [];
+    private _animationFrameId: number | null = null;
+    private _lastFrame: number | null = null;
 
     constructor() {
+        this.start();
+
         this.addBody(sun);
         this.addBodies(createPlanet(sun, 3));
         this.addBodies(createPlanet(sun, 1));
@@ -32,5 +36,22 @@ export class Game {
 
     public get bodies() {
         return this._bodies;
+    }
+
+    public destroy() {
+        if (this._animationFrameId != null) {
+            window.cancelAnimationFrame(this._animationFrameId);
+        }
+    }
+
+    public start() {
+        this._animationFrameId = window.requestAnimationFrame(this._update);
+    }
+
+    private _update = (time: number) => {
+        const delta = this._lastFrame ? time - this._lastFrame : 0;
+        this._bodies.forEach((body) => body.update(delta));
+        this._animationFrameId = window.requestAnimationFrame(this._update);
+        this._lastFrame = time;
     }
 }

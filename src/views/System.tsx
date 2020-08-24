@@ -5,7 +5,7 @@ import {
     Stage,
 } from 'react-konva';
 
-import { Body } from '../components/Body';
+import { Body } from '../components';
 import { useWindowSize } from '../hooks';
 import { Game } from '../models';
 
@@ -15,13 +15,12 @@ interface SystemProps {
 
 export const System = ({ game }: SystemProps) => {
     const {
-        height, width,
+        height,
+        width,
     } = useWindowSize();
+
     return (
         <Stage width={width} height={height}>
-            <Layer>
-                <Rect fill='black' width={width} height={height} />
-            </Layer>
             <Layer>
                 { game.bodies.map((body) =>
                     <Body

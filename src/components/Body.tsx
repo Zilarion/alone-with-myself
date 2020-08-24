@@ -1,13 +1,18 @@
+import {
+    animated,
+    useSpring,
+} from '@react-spring/konva';
+
 import * as React from 'react';
 import {
-    Arc,
-    Circle,
     Group,
     Ring,
 } from 'react-konva';
 
-import { Orbit } from '../models';
-import { Vector } from '../models/Vector';
+import {
+    Orbit,
+    Vector,
+} from '../models';
 
 interface BodyProps {
     position: Vector;
@@ -22,6 +27,11 @@ export function Body({
     orbit,
     color,
 }: BodyProps) {
+    const props = useSpring({
+        x: position.x,
+        y: position.y,
+    });
+
     return (
         <Group>
             {orbit && <Ring
@@ -29,12 +39,10 @@ export function Body({
                 y={orbit.focus.position.y}
                 innerRadius={orbit.radius}
                 outerRadius={orbit.radius}
-                angle={2 * Math.PI}
                 stroke='rgba(100, 100, 100, 0.4)'
             />}
-            <Circle
-                x={position.x}
-                y={position.y}
+            <animated.Circle
+                {... props}
                 radius={radius}
                 angle
                 fill={color}
