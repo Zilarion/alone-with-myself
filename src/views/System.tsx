@@ -1,19 +1,37 @@
 import * as React from 'react';
 import {
+    Layer,
+    Rect,
     Stage,
-    Layer, Text,
 } from 'react-konva';
-import { useWindowSize } from '../hooks';
 
-export const System = () => {
+import { Body } from '../components/Body';
+import { useWindowSize } from '../hooks';
+import { Game } from '../models';
+
+interface SystemProps {
+    game: Game;
+}
+
+export const System = ({ game }: SystemProps) => {
     const {
         height, width,
     } = useWindowSize();
     return (
         <Stage width={width} height={height}>
             <Layer>
-                <Text text="Try click on rect" />
-                {/* <ColoredRect /> */}
+                <Rect fill='black' width={width} height={height} />
+            </Layer>
+            <Layer>
+                { game.bodies.map((body) =>
+                    <Body
+                        key={body.id}
+                        color={body.color}
+                        position={body.position}
+                        radius={body.radius}
+                        orbit={body.orbit}
+                    />,
+                )}
             </Layer>
         </Stage>
     );

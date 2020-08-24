@@ -13,16 +13,19 @@ interface BodyProps {
     color: string;
 }
 
+export interface Orbit {
+    radius: number;
+    focus: BodyModel;
+    velocity: number;
+    angle: number;
+}
+
 export class BodyModel {
+    private _id: string;
     private _position: Vector;
     private _radius: number;
     private _mass: number;
-    private _orbit?: {
-        radius: number;
-        focus: BodyModel;
-        velocity: number;
-        angle: number;
-    };
+    private _orbit?: Orbit;
     private _color: string;
 
     constructor({
@@ -37,6 +40,12 @@ export class BodyModel {
         this._mass = mass;
         this._orbit = orbit;
         this._color = color;
+
+        this._id = (Math.random() * 10000).toString();
+    }
+
+    public get id() {
+        return this._id;
     }
 
     public get color() {
