@@ -1,5 +1,5 @@
-import { BodyModel } from "./BodyModel";
-import { createPlanet } from "../util/createPlanet";
+import { BodyModel } from './BodyModel';
+import { createPlanet } from '../util/createPlanet';
 
 const sun = new BodyModel({
     position: {
@@ -7,7 +7,7 @@ const sun = new BodyModel({
     },
     radius: 30,
     mass: 100,
-    color: "#FEB813"
+    color: '#FEB813',
 });
 
 export class Game {
@@ -22,7 +22,7 @@ export class Game {
 
         const ctx = canvas.getContext('2d');
         if (ctx == null) {
-            throw Error("Expected context to exist");
+            throw Error('Expected context to exist');
         }
         this._context = ctx;
         this.start();
@@ -44,8 +44,9 @@ export class Game {
     }
 
     public destroy() {
-        if (this._animationFrameId != null)
+        if (this._animationFrameId != null) {
             window.cancelAnimationFrame(this._animationFrameId);
+        }
     }
 
     public start() {
@@ -54,8 +55,10 @@ export class Game {
 
     private _draw = (time: number) => {
         const delta = this._lastFrame ? time - this._lastFrame : 0;
-        this._context.fillStyle = "black";
-        const { width, height } = this._canvas.getBoundingClientRect();
+        this._context.fillStyle = 'black';
+        const {
+            width, height,
+        } = this._canvas.getBoundingClientRect();
         this._context.fillRect(0, 0, width, height);
 
 

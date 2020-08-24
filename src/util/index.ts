@@ -1,2 +1,2 @@
 export * from './createSatelliteOf';
-export * from './random'
+export * from './random';

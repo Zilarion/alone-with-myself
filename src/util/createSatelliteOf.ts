@@ -1,5 +1,5 @@
-import { BodyModel } from "../models/BodyModel";
-import { randomNumber } from "./random";
+import { BodyModel } from '../models/BodyModel';
+import { randomNumber } from './random';
 
 
 export function createSatelliteOf(body: BodyModel, maxOrbit: number, color: string) {
@@ -16,7 +16,7 @@ export function createSatelliteOf(body: BodyModel, maxOrbit: number, color: stri
     const position = {
         x: Math.cos(angle) * orbitRadius + body.position.x,
         y: Math.sin(angle) * orbitRadius + body.position.y,
-    }
+    };
 
     return new BodyModel({
         position,
@@ -29,5 +29,5 @@ export function createSatelliteOf(body: BodyModel, maxOrbit: number, color: stri
             velocity: orbitVelocity,
         },
         color,
-    })
+    });
 }

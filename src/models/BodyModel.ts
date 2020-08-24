@@ -1,4 +1,4 @@
-import { Vector } from "./Vector";
+import { Vector } from './Vector';
 
 interface BodyProps {
     position: Vector;
@@ -56,7 +56,7 @@ export class BodyModel {
     }
 
     public get mass() {
-        return this._mass
+        return this._mass;
     }
 
     public update = (delta: number) => {
@@ -64,16 +64,19 @@ export class BodyModel {
     }
 
     private _updateOrbit = (delta: number) => {
-        if (this._orbit == null)
+        if (this._orbit == null) {
             return;
+        }
         const s = delta / 1000;
-        const { angle, velocity, focus, radius } = this._orbit;
+        const {
+            angle, velocity, focus, radius,
+        } = this._orbit;
         const newAngle = angle + velocity * s;
         this._orbit.angle = newAngle;
 
         this._position = {
             x: focus.position.x + radius * Math.cos(newAngle),
             y: focus.position.y + radius * Math.sin(newAngle),
-        }
+        };
     }
 }

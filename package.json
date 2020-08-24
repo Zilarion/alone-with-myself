@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "parcel ./index.html",
-    "check": "rome check"
+    "lint": "eslint ./src/**/*.ts",
+    "lint:fix": "eslint --fix ./src/**/*.ts"
   },
   "repository": {
     "type": "git",
@@ -20,13 +21,19 @@
   "homepage": "https://github.com/Zilarion/alone-with-myself#readme",
   "devDependencies": {
     "@types/react-dom": "^16.9.8",
+    "@typescript-eslint/eslint-plugin": "^3.10.0",
+    "@typescript-eslint/parser": "^3.10.0",
+    "eslint": "^7.7.0",
+    "eslint-plugin-react": "^7.20.6",
     "parcel": "^1.12.4",
-    "rome": "^10.0.3-beta",
     "typescript": "^3.9.7"
   },
   "dependencies": {
+    "hooks": "^0.3.2",
+    "konva": "^7.0.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-konva": "^16.13.0-6",
     "rxjs": "^6.6.2"
   }
 }
