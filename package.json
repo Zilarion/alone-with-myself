@@ -29,11 +29,13 @@
     "typescript": "^3.9.7"
   },
   "dependencies": {
+    "@react-spring/konva": "^9.0.0-rc.3",
     "hooks": "^0.3.2",
     "konva": "^7.0.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-konva": "^16.13.0-6",
+    "react-spring": "^8.0.27",
     "rxjs": "^6.6.2"
   }
 }
