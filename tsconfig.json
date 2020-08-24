@@ -6,7 +6,6 @@
         "module": "commonjs",
         "target": "es2019",
         "jsx": "react",
-        "baseUrl": "src",
         "forceConsistentCasingInFileNames": true,
         "noUnusedParameters": true,
         "noImplicitReturns": true,
