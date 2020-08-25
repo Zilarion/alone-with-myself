@@ -1,6 +1,7 @@
 import { Body } from '../components';
 import { CanvasCamera } from '../util/CanvasCamera';
 import { clearCanvas } from '../util/clearCanvas';
+import { createAsteroidBelt } from '../util/createAsteroidBelt';
 import { createPlanet } from '../util/createPlanet';
 import { BodyModel } from './BodyModel';
 
@@ -36,6 +37,7 @@ export class Game {
         this.addBodies(createPlanet(sun, 0));
         this.addBodies(createPlanet(sun, 0));
         this.addBodies(createPlanet(sun, 8));
+        this.addBodies(createAsteroidBelt(sun));
     }
 
     public addBody = (body: BodyModel) => {

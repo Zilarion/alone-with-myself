@@ -4,6 +4,8 @@ export function Orbit(context: CanvasRenderingContext2D, {
     radius,
     focus,
 }: Orbit) {
+
+    return;
     context.beginPath();
     context.strokeStyle = 'rgba(100, 100, 100, 0.8)';
     context.lineWidth = 10;
