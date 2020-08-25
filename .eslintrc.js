@@ -7,11 +7,17 @@ module.exports = {
     'extends': [
         'eslint:recommended',
         'plugin:@typescript-eslint/eslint-recommended',
-        'plugin:react/recommended'
+        'plugin:react/recommended',
+        "plugin:react-hooks/recommended",
     ],
     'globals': {
         'Atomics': 'readonly',
         'SharedArrayBuffer': 'readonly',
+    },
+    "settings": {
+        "react": {
+            "version": "detect",
+        }
     },
     'parser': '@typescript-eslint/parser',
     'parserOptions': {
@@ -19,9 +25,13 @@ module.exports = {
         'sourceType': 'module',
         'project': './tsconfig.json',
         'extraFileExtensions': ['.ts', '.d.ts'],
+        "ecmaFeatures": {
+          "jsx": true
+        },
     },
     'plugins': [
         '@typescript-eslint',
+        'react',
     ],
     'rules': {
         'brace-style': [
