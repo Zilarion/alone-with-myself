@@ -15,13 +15,13 @@ export const System = () => {
             throw Error('Expected canvas to exist');
         }
         new Game(canvas);
-    });
+    }, []);
 
-    return <div>
+    return (
         <canvas
             width={width}
             height={height}
             ref={canvasRef}
         />
-    </div>;
+    );
 };
