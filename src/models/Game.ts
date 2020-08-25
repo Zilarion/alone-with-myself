@@ -1,13 +1,16 @@
 import { Body } from '../components';
+import { CanvasCamera } from '../util/CanvasCamera';
+import { clearCanvas } from '../util/clearCanvas';
 import { createPlanet } from '../util/createPlanet';
 import { BodyModel } from './BodyModel';
 
 const sun = new BodyModel({
     position: {
-        x: 500, y: 500,
+        x: 0,
+        y: 0,
     },
-    radius: 30,
-    mass: 100,
+    radius: 693, // 639e3
+    mass: 1989, // 10e30
     color: '#FEB813',
 });
 
@@ -16,15 +19,14 @@ export class Game {
     private _animationFrameId: number | null = null;
     private _context: CanvasRenderingContext2D;
     private _lastFrame: number | null = null;
-    private _canvas: HTMLCanvasElement;
+    private _camera: CanvasCamera;
 
     constructor(canvas: HTMLCanvasElement) {
-        this._canvas = canvas;
-
         const ctx = canvas.getContext('2d');
         if (ctx == null) {
             throw Error('Expected context to exist');
         }
+        this._camera = new CanvasCamera(ctx);
         this._context = ctx;
         this.start();
 
@@ -51,22 +53,34 @@ export class Game {
     }
 
     public start() {
-        this._animationFrameId = window.requestAnimationFrame(this._draw);
+        this._animationFrameId = window.requestAnimationFrame(this._tick);
     }
 
-    private _draw = (time: number) => {
-        const delta = this._lastFrame ? time - this._lastFrame : 0;
-        this._context.fillStyle = 'black';
-        const {
-            width, height,
-        } = this._canvas.getBoundingClientRect();
-        this._context.fillRect(0, 0, width, height);
-
-
+    private _update(delta: number) {
         this._bodies.forEach((body) => body.update(delta));
+    }
+
+    private _draw() {
+
+
+        clearCanvas({
+            context: this._context,
+            ...this._camera.viewport,
+        });
 
         this._bodies.forEach((body) => Body(this._context, body));
-        this._animationFrameId = window.requestAnimationFrame(this._draw);
+    }
+
+    private _tick = (time: number) => {
+        const delta = this._lastFrame ? time - this._lastFrame : 0;
+
+        this._update(delta);
+
+        this._camera.apply();
+        this._draw();
+        this._camera.restore();
+
         this._lastFrame = time;
+        this._animationFrameId = window.requestAnimationFrame(this._tick);
     }
 }

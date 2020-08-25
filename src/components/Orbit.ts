@@ -5,7 +5,8 @@ export function Orbit(context: CanvasRenderingContext2D, {
     focus,
 }: Orbit) {
     context.beginPath();
-    context.strokeStyle = 'rgba(100, 100, 100, 0.4)';
+    context.strokeStyle = 'rgba(100, 100, 100, 0.8)';
+    context.lineWidth = 10;
 
     context.arc(
         focus.position.x, focus.position.y,

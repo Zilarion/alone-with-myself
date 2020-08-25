@@ -4,7 +4,7 @@ import { emptyArray } from './emptyArray';
 import { randomInt } from './random';
 
 const planetColors = [ 'blue', 'red', 'brown', 'green' ];
-const moonColors = [ 'grey', 'black', 'brown' ];
+const moonColors = [ 'grey', 'brown' ];
 
 
 function randomPlanetColor() {
