@@ -17,7 +17,7 @@ export function drawOrbit({
         context,
         position: focus.position,
         radius,
-        strokeColor: 'rgba(100, 100, 100, 0.3)',
-        lineWidth: 14,
+        strokeColor: 'rgba(100, 100, 100, 0.2)',
+        lineWidth: 30,
     });
 }
