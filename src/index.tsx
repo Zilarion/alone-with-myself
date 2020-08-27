@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 
-import { System } from './views/System';
+import { App } from './views/App';
 
 render(
-    <System />,
+    <App />,
     document.getElementById('root'),
 );
