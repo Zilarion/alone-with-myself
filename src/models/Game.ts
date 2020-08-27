@@ -68,10 +68,13 @@ export class Game {
     private _update(delta: number) {
         const dialatedDelta = delta * this._gameSpeed;
 
+        let hasMouseOver = false;
+
         this._entities.forEach((entity) => {
             const mousePosition = this._camera.screenToWorld(this._mousePosition);
 
             const isMouseOver = entity.pointIsInside(mousePosition);
+            hasMouseOver = hasMouseOver || isMouseOver;
             entity.mouseOver = isMouseOver;
             if (this._isClick) {
                 entity.selected = isMouseOver;
@@ -79,6 +82,8 @@ export class Game {
         });
 
         this._isClick = false;
+
+        this._context.canvas.style.cursor = hasMouseOver ? 'pointer' : 'default';
 
         this._entities.forEach((entity) => entity.update(dialatedDelta));
     }
