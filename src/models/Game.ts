@@ -2,6 +2,7 @@ import { drawEntity } from '../components';
 import { CanvasCamera } from '../util/CanvasCamera';
 import { clearCanvas } from '../util/clearCanvas';
 import { createSolarSystem } from '../util/createSolarSystem';
+import { Body } from './Body';
 import { Entity } from './Entity';
 import { Vector } from './Vector';
 
@@ -17,6 +18,7 @@ export class Game {
         y: 0,
     };
     private _isClick: boolean = false;
+    private _selectedEntity: Entity | null = null;
 
     constructor(canvas: HTMLCanvasElement) {
         const ctx = canvas.getContext('2d');
@@ -69,6 +71,7 @@ export class Game {
         const dialatedDelta = delta * this._gameSpeed;
 
         let hasMouseOver = false;
+        let foundClick = false;
 
         this._entities.forEach((entity) => {
             const mousePosition = this._camera.screenToWorld(this._mousePosition);
@@ -78,14 +81,24 @@ export class Game {
             entity.mouseOver = isMouseOver;
             if (this._isClick) {
                 entity.selected = isMouseOver;
+                if (isMouseOver) {
+                    this._selectedEntity = entity;
+                    foundClick = true;
+                }
             }
         });
 
+        if (!foundClick && this._isClick) {
+            this._selectedEntity = null;
+        }
         this._isClick = false;
 
         this._context.canvas.style.cursor = hasMouseOver ? 'pointer' : 'default';
 
         this._entities.forEach((entity) => entity.update(dialatedDelta));
+        if (this._selectedEntity && this._selectedEntity instanceof Body) {
+            this._camera.moveTo(this._selectedEntity.position);
+        }
     }
 
     private _draw() {
