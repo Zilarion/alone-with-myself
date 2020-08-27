@@ -6,20 +6,20 @@ import {
     randomNumber,
 } from './random';
 
-const planetColors = [ 'blue', 'red', 'brown', 'green' ];
-const moonColors = [ 'grey', 'brown' ];
+const planetColors = [ 'blue', 'brown', 'green' ];
+const moonColors = [ 'grey', 'silver' ];
 
 
 function randomPlanetColor() {
     return planetColors[randomInt({
         min : 0,
-        max: planetColors.length - 1,
+        max: planetColors.length,
     })];
 }
 function randomMoonColor() {
     return moonColors[randomInt({
         min: 0,
-        max: moonColors.length - 1,
+        max: moonColors.length,
     })];
 }
 
@@ -54,7 +54,7 @@ export function createPlanet({
         body: planet,
         orbitRadius: randomNumber(planet.radius * 2, planet.radius * 4),
         mass: randomNumber(planet.mass / 20, planet.mass / 10),
-        radius: randomNumber(planet.radius / 10, planet.radius / 4),
+        radius: randomNumber(planet.radius / 10, planet.radius / 3),
         color: randomMoonColor(),
     }));
     return [ planet, ...moons ];

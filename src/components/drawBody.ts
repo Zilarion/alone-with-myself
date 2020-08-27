@@ -1,5 +1,5 @@
 
-import tinycolor, { TinyColor } from '@ctrl/tinycolor';
+import { TinyColor } from '@ctrl/tinycolor';
 
 import { Body } from '../models';
 import { drawCircle } from './drawCircle';
@@ -43,10 +43,21 @@ export function drawBody({
         new TinyColor(color).lighten(20).toHexString() :
         color;
 
+    const gradient = context.createRadialGradient(
+        position.x,
+        position.y,
+        0,
+        position.x,
+        position.y,
+        radius * 1.5,
+    );
+    gradient.addColorStop(0, fillColor);
+    gradient.addColorStop(1, 'black');
+
     drawCircle({
         context,
         position,
-        fillColor,
+        fillColor: gradient,
         radius,
     });
 }

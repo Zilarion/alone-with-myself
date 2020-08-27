@@ -4,7 +4,7 @@ import { Vector } from '../models';
 interface DrawArcProps {
     position: Vector;
     radius: number;
-    fillColor?: string;
+    fillColor?: string | CanvasGradient;
     strokeColor?: string;
     lineWidth?: number;
     context: CanvasRenderingContext2D;

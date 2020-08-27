@@ -26,7 +26,7 @@ export function createAsteroidBelt({
         return createSatelliteOf({
             body,
             orbitRadius,
-            radius: randomNumber(2, 40),
+            radius: randomNumber(10, 50),
             mass: randomNumber(100, 1000),
             color: '#767676',
         });
