@@ -15,7 +15,7 @@ export class CanvasCamera {
     private _zoom: number;
 
     constructor(context: CanvasRenderingContext2D) {
-        this._zoom = 20000;
+        this._zoom = 50000;
         this._center = {
             x: 0,
             y: 0,
