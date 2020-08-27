@@ -8,7 +8,7 @@ interface DrawSelectionCircleProps {
 
 const SELECTION_COLOR = '#019EBC';
 const SELECTION_WIDTH = 0.3;
-const SELECTION_DISTANCE = 1.8;
+const SELECTION_DISTANCE = 1.6;
 
 export function drawSelectionCircle({
     context,
