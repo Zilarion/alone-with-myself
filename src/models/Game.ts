@@ -38,7 +38,9 @@ export class Game {
             this._isClick = true;
         });
 
-        this._camera = new CanvasCamera(ctx);
+        this._camera = new CanvasCamera({
+            context: ctx, zoomBound: { min: 1000 },
+        });
         this._context = ctx;
         this.start();
 

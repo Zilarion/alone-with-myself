@@ -8,18 +8,33 @@ interface Viewport {
     scale: Vector;
 }
 
+interface CanvasCameraProps {
+    context: CanvasRenderingContext2D;
+    zoomBound?: {
+        min?: number;
+        max?: number;
+    };
+}
+
 export class CanvasCamera {
     private _context: CanvasRenderingContext2D;
     private _viewport: Viewport;
     private _center: Vector;
     private _zoom: number;
+    private _zoomMinBound: number;
+    private _zoomMaxBound?: number;
 
-    constructor(context: CanvasRenderingContext2D) {
+    constructor({
+        context,
+        zoomBound,
+    }: CanvasCameraProps) {
         this._zoom = 50000;
         this._center = {
             x: 0,
             y: 0,
         };
+        this._zoomMinBound = zoomBound?.min ?? 0;
+        this._zoomMaxBound = zoomBound?.max;
         this._context = context;
         this._viewport = {
             left: 0,
@@ -38,7 +53,10 @@ export class CanvasCamera {
 
 
     public set zoom(distance: number) {
-        this._zoom = distance;
+        this._zoom = Math.max(distance, this._zoomMinBound);
+        if (this._zoomMaxBound) {
+            this._zoom = Math.min(distance, this._zoomMaxBound);
+        }
         this._updateViewport();
     }
 
