@@ -1,25 +1,33 @@
 import { Body } from '../models';
 import { AsteroidBelt } from '../models/AsteroidBelt';
+import { createSatelliteOf } from './createSatelliteOf';
 import { emptyArray } from './emptyArray';
+import {
+    randomNormalDistribution,
+    randomNumber,
+} from './random';
 
-export function createAsteroidBelt(body: Body): AsteroidBelt {
-    const count = Math.round(Math.random() * 300 + 200);
-    const asteroidOrbitCenter = Math.random() * 10000 + 4000;
+interface CreateAsteroidBeltProps {
+    body: Body;
+    width: number;
+    numberOfAsteroids: number;
+    centerRadius: number;
+}
 
-    const bodies = emptyArray(count).map(() => {
-        return new Body({
-            position: {
-                x: 0,
-                y: 0,
-            },
-            orbit: {
-                angle: Math.random() * Math.PI * 2 ,
-                focus: body,
-                radius: asteroidOrbitCenter + Math.random() * 400,
-                velocity: 0.05 + Math.random() * 0.02,
-            },
-            radius: Math.random() * 20, // 639e3
-            mass: 1989, // 10e30
+export function createAsteroidBelt({
+    body,
+    width,
+    numberOfAsteroids,
+    centerRadius,
+}: CreateAsteroidBeltProps): AsteroidBelt {
+    const bodies = emptyArray(numberOfAsteroids).map(() => {
+        const orbitRadius = centerRadius + randomNormalDistribution() * width;
+
+        return createSatelliteOf({
+            body,
+            orbitRadius,
+            radius: randomNumber(2, 40),
+            mass: randomNumber(100, 1000),
             color: '#767676',
         });
     });

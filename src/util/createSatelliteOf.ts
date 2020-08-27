@@ -1,12 +1,21 @@
 import { Body } from '../models';
 import { randomNumber } from './random';
 
-export function createSatelliteOf(body: Body, maxOrbit: number, color: string) {
-    // Take random mass and orbit radius
-    const mass = randomNumber(10, body.mass / 100);
-    const radius = randomNumber(1, body.radius / 2);
-    const orbitRadius = randomNumber(body.radius * 1.2, body.radius * maxOrbit);
+interface CreateSatelliteOfProps {
+    body: Body;
+    orbitRadius: number;
+    color: string;
+    mass: number;
+    radius: number;
+}
 
+export function createSatelliteOf({
+    body,
+    orbitRadius,
+    color,
+    mass,
+    radius,
+}: CreateSatelliteOfProps) {
     // Calculate orbit velocity
     const orbitVelocity = Math.sqrt((body.mass + mass) / orbitRadius);
 

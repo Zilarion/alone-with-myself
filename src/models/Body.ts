@@ -78,7 +78,7 @@ export class Body extends Entity {
         if (this._orbit == null) {
             return;
         }
-        const s = delta / 1000;
+        const s = delta / 1000 / 10;
         const {
             angle, velocity, focus, radius,
         } = this._orbit;

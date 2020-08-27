@@ -1,20 +1,8 @@
 import { drawEntity } from '../components';
 import { CanvasCamera } from '../util/CanvasCamera';
 import { clearCanvas } from '../util/clearCanvas';
-import { createAsteroidBelt } from '../util/createAsteroidBelt';
-import { createPlanet } from '../util/createPlanet';
-import { Body } from './Body';
+import { createSolarSystem } from '../util/createSolarSystem';
 import { Entity } from './Entity';
-
-const sun = new Body({
-    position: {
-        x: 0,
-        y: 0,
-    },
-    radius: 693, // 639e3
-    mass: 1989, // 10e30
-    color: '#FEB813',
-});
 
 export class Game {
     private _entities: Entity[] = [];
@@ -22,6 +10,7 @@ export class Game {
     private _context: CanvasRenderingContext2D;
     private _lastFrame: number | null = null;
     private _camera: CanvasCamera;
+    private _gameSpeed: number = 1;
 
     constructor(canvas: HTMLCanvasElement) {
         const ctx = canvas.getContext('2d');
@@ -32,14 +21,11 @@ export class Game {
         this._context = ctx;
         this.start();
 
-        this.addEntity(sun);
-        this.addEntities(createPlanet(sun, 3));
-        this.addEntities(createPlanet(sun, 1));
-        this.addEntities(createPlanet(sun, 0));
-        this.addEntities(createPlanet(sun, 0));
-        this.addEntities(createPlanet(sun, 8));
-        this.addEntity(createAsteroidBelt(sun));
-        this.addEntity(createAsteroidBelt(sun));
+        this.addEntities(createSolarSystem({
+            numberOfPlanets: 8,
+            maxMoons: 4,
+            numberOfAsteroidBelts: 1,
+        }));
     }
 
     public addEntity = (entity: Entity) => {
@@ -61,7 +47,8 @@ export class Game {
     }
 
     private _update(delta: number) {
-        this._entities.forEach((entity) => entity.update(delta));
+        const dialatedDelta = delta * this._gameSpeed;
+        this._entities.forEach((entity) => entity.update(dialatedDelta));
     }
 
     private _draw() {
