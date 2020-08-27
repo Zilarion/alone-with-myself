@@ -1,11 +1,17 @@
 import { Orbit } from '../models';
 
-export function Orbit(context: CanvasRenderingContext2D, {
-    radius,
-    focus,
-}: Orbit) {
+interface DrawOrbitProps {
+    context: CanvasRenderingContext2D;
+    orbit: Orbit;
+}
 
-    return;
+export function drawOrbit({
+    context,
+    orbit: {
+        focus,
+        radius,
+    },
+}: DrawOrbitProps) {
     context.beginPath();
     context.strokeStyle = 'rgba(100, 100, 100, 0.8)';
     context.lineWidth = 10;

@@ -1,11 +1,12 @@
-import { Body } from '../components';
+import { drawEntity } from '../components';
 import { CanvasCamera } from '../util/CanvasCamera';
 import { clearCanvas } from '../util/clearCanvas';
 import { createAsteroidBelt } from '../util/createAsteroidBelt';
 import { createPlanet } from '../util/createPlanet';
-import { BodyModel } from './BodyModel';
+import { Body } from './Body';
+import { Entity } from './Entity';
 
-const sun = new BodyModel({
+const sun = new Body({
     position: {
         x: 0,
         y: 0,
@@ -16,7 +17,7 @@ const sun = new BodyModel({
 });
 
 export class Game {
-    private _bodies: BodyModel[] = [];
+    private _entities: Entity[] = [];
     private _animationFrameId: number | null = null;
     private _context: CanvasRenderingContext2D;
     private _lastFrame: number | null = null;
@@ -31,21 +32,22 @@ export class Game {
         this._context = ctx;
         this.start();
 
-        this.addBody(sun);
-        this.addBodies(createPlanet(sun, 3));
-        this.addBodies(createPlanet(sun, 1));
-        this.addBodies(createPlanet(sun, 0));
-        this.addBodies(createPlanet(sun, 0));
-        this.addBodies(createPlanet(sun, 8));
-        this.addBodies(createAsteroidBelt(sun));
+        this.addEntity(sun);
+        this.addEntities(createPlanet(sun, 3));
+        this.addEntities(createPlanet(sun, 1));
+        this.addEntities(createPlanet(sun, 0));
+        this.addEntities(createPlanet(sun, 0));
+        this.addEntities(createPlanet(sun, 8));
+        this.addEntity(createAsteroidBelt(sun));
+        this.addEntity(createAsteroidBelt(sun));
     }
 
-    public addBody = (body: BodyModel) => {
-        this._bodies.push(body);
+    public addEntity = (entity: Entity) => {
+        this._entities.push(entity);
     }
 
-    public addBodies = (bodies: BodyModel[]) => {
-        this._bodies.push(...bodies);
+    public addEntities = (entities: Entity[]) => {
+        this._entities.push(...entities);
     }
 
     public destroy() {
@@ -59,18 +61,16 @@ export class Game {
     }
 
     private _update(delta: number) {
-        this._bodies.forEach((body) => body.update(delta));
+        this._entities.forEach((entity) => entity.update(delta));
     }
 
     private _draw() {
-
-
         clearCanvas({
             context: this._context,
             ...this._camera.viewport,
         });
 
-        this._bodies.forEach((body) => Body(this._context, body));
+        this._entities.forEach((entity) => drawEntity(this._context, entity));
     }
 
     private _tick = (time: number) => {

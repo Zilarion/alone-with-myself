@@ -1,7 +1,7 @@
-import { BodyModel } from '../models/BodyModel';
+import { Body } from '../models';
 import { randomNumber } from './random';
 
-export function createSatelliteOf(body: BodyModel, maxOrbit: number, color: string) {
+export function createSatelliteOf(body: Body, maxOrbit: number, color: string) {
     // Take random mass and orbit radius
     const mass = randomNumber(10, body.mass / 100);
     const radius = randomNumber(1, body.radius / 2);
@@ -17,7 +17,7 @@ export function createSatelliteOf(body: BodyModel, maxOrbit: number, color: stri
         y: Math.sin(angle) * orbitRadius + body.position.y,
     };
 
-    return new BodyModel({
+    return new Body({
         position,
         mass,
         radius,

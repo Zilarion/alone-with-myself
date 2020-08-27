@@ -1,3 +1,4 @@
+import { Entity } from './Entity';
 import { Vector } from './Vector';
 
 interface BodyProps {
@@ -6,7 +7,7 @@ interface BodyProps {
     mass: number;
     orbit?: {
         radius: number;
-        focus: BodyModel;
+        focus: Body;
         velocity: number;
         angle: number;
     };
@@ -15,12 +16,12 @@ interface BodyProps {
 
 export interface Orbit {
     radius: number;
-    focus: BodyModel;
+    focus: Body;
     velocity: number;
     angle: number;
 }
 
-export class BodyModel {
+export class Body extends Entity {
     private _id: string;
     private _position: Vector;
     private _radius: number;
@@ -35,6 +36,7 @@ export class BodyModel {
         orbit,
         color,
     }: BodyProps) {
+        super();
         this._position = position;
         this._radius = radius;
         this._mass = mass;
