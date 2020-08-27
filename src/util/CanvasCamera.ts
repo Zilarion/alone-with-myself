@@ -39,7 +39,6 @@ export class CanvasCamera {
 
     public set zoom(distance: number) {
         this._zoom = distance;
-        console.log(this._zoom);
         this._updateViewport();
     }
 
