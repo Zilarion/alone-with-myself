@@ -1,5 +1,9 @@
+
+import tinycolor, { TinyColor } from '@ctrl/tinycolor';
+
 import { Body } from '../models';
 import { drawOrbit } from './drawOrbit';
+import { drawSelectionCircle } from './drawSelectionCircle';
 
 interface DrawBodyProps {
     context: CanvasRenderingContext2D;
@@ -14,6 +18,8 @@ export function drawBody({
         position,
         orbit,
         radius,
+        mouseOver,
+        selected,
     },
     showOrbit = true,
 }: DrawBodyProps) {
@@ -24,11 +30,24 @@ export function drawBody({
         });
     }
 
+    if (selected) {
+        drawSelectionCircle({
+            context,
+            radius,
+            center: position,
+        });
+    }
+
+    const fillColor = mouseOver ?
+        new TinyColor(color).lighten(20).toHexString() :
+        color;
+
     const {
-        x, y,
+        x,
+        y,
     } = position;
     context.beginPath();
-    context.fillStyle = color;
+    context.fillStyle = fillColor;
     context.arc(
         x, y,
         radius,

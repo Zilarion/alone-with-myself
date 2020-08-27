@@ -76,7 +76,7 @@ export class Body extends Entity {
     }
 
     public pointIsInside(vector: Vector) {
-        return distanceBetween(this._position, vector) < this._radius;
+        return distanceBetween(this._position, vector) <= this._radius;
     }
 
     private _updateOrbit = (delta: number) => {

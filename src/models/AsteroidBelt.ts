@@ -29,6 +29,17 @@ export class AsteroidBelt extends Entity {
         this._orbitFocus = orbitFocus;
     }
 
+    public get width() {
+        return this._width;
+    }
+
+    public get orbitCenter() {
+        return this._orbitCenter;
+    }
+
+    public get orbitFocus() {
+        return this._orbitFocus;
+    }
 
     public get bodies() {
         return this._bodies;
@@ -38,7 +49,7 @@ export class AsteroidBelt extends Entity {
         this._bodies.forEach((body) => body.update(delta));
         return;
     }
-    public pointIsInside(vector: Vector) {
+    public pointIsInside = (vector: Vector) => {
         const distanceFromOrbitCenter = distanceBetween(this._orbitFocus.position, vector) - this._orbitCenter;
         return Math.abs(distanceFromOrbitCenter) < this._width;
     }

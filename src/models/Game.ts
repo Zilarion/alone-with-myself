@@ -3,6 +3,7 @@ import { CanvasCamera } from '../util/CanvasCamera';
 import { clearCanvas } from '../util/clearCanvas';
 import { createSolarSystem } from '../util/createSolarSystem';
 import { Entity } from './Entity';
+import { Vector } from './Vector';
 
 export class Game {
     private _entities: Entity[] = [];
@@ -11,12 +12,30 @@ export class Game {
     private _lastFrame: number | null = null;
     private _camera: CanvasCamera;
     private _gameSpeed: number = 1;
+    private _mousePosition: Vector = {
+        x: 0,
+        y: 0,
+    };
+    private _isClick: boolean = false;
 
     constructor(canvas: HTMLCanvasElement) {
         const ctx = canvas.getContext('2d');
         if (ctx == null) {
             throw Error('Expected context to exist');
         }
+        canvas.addEventListener('mousemove', ({
+            x, y,
+        }) => {
+            this._mousePosition = {
+                x, y,
+            };
+        });
+
+
+        canvas.addEventListener('click', () => {
+            this._isClick = true;
+        });
+
         this._camera = new CanvasCamera(ctx);
         this._context = ctx;
         this.start();
@@ -48,6 +67,19 @@ export class Game {
 
     private _update(delta: number) {
         const dialatedDelta = delta * this._gameSpeed;
+
+        this._entities.forEach((entity) => {
+            const mousePosition = this._camera.screenToWorld(this._mousePosition);
+
+            const isMouseOver = entity.pointIsInside(mousePosition);
+            entity.mouseOver = isMouseOver;
+            if (this._isClick) {
+                entity.selected = isMouseOver;
+            }
+        });
+
+        this._isClick = false;
+
         this._entities.forEach((entity) => entity.update(dialatedDelta));
     }
 
