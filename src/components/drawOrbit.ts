@@ -13,7 +13,7 @@ export function drawOrbit({
     },
 }: DrawOrbitProps) {
     context.beginPath();
-    context.strokeStyle = 'rgba(100, 100, 100, 0.8)';
+    context.strokeStyle = 'rgba(100, 100, 100, 0.3)';
     context.lineWidth = 10;
 
     context.arc(
