@@ -1,5 +1,6 @@
 import { AsteroidBelt } from '../models/AsteroidBelt';
 import { drawBody } from './drawBody';
+import { drawCircle } from './drawCircle';
 
 interface DrawAsteroidBeltProps {
     context: CanvasRenderingContext2D;
@@ -17,21 +18,13 @@ export function drawAsteroidBelt({
     },
 }: DrawAsteroidBeltProps) {
     if (mouseOver) {
-        const {
-            x,
-            y,
-        } = orbitFocus.position;
-        context.save();
-        context.beginPath();
-        context.fillStyle = 'rgba(100, 100, 100, 0.2)';
-        context.arc(
-            x, y,
-            orbitCenter + width / 2,
-            0, 2 * Math.PI,
-        );
-        context.lineWidth = width;
-        context.stroke();
-        context.restore();
+        drawCircle({
+            context,
+            position: orbitFocus.position,
+            radius: orbitCenter + width / 2,
+            lineWidth: width,
+            strokeColor: 'rgba(100, 100, 100, 0.2)',
+        });
     }
 
     bodies.forEach((body) => {

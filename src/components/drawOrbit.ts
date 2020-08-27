@@ -1,4 +1,5 @@
 import { Orbit } from '../models';
+import { drawCircle } from './drawCircle';
 
 interface DrawOrbitProps {
     context: CanvasRenderingContext2D;
@@ -12,14 +13,11 @@ export function drawOrbit({
         radius,
     },
 }: DrawOrbitProps) {
-    context.beginPath();
-    context.strokeStyle = 'rgba(100, 100, 100, 0.3)';
-    context.lineWidth = 10;
-
-    context.arc(
-        focus.position.x, focus.position.y,
+    drawCircle({
+        context,
+        position: focus.position,
         radius,
-        0, 2 * Math.PI,
-    );
-    context.stroke();
+        strokeColor: 'rgba(100, 100, 100, 0.3)',
+        lineWidth: 14,
+    });
 }

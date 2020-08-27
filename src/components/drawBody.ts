@@ -2,6 +2,7 @@
 import tinycolor, { TinyColor } from '@ctrl/tinycolor';
 
 import { Body } from '../models';
+import { drawCircle } from './drawCircle';
 import { drawOrbit } from './drawOrbit';
 import { drawSelectionCircle } from './drawSelectionCircle';
 
@@ -42,16 +43,10 @@ export function drawBody({
         new TinyColor(color).lighten(20).toHexString() :
         color;
 
-    const {
-        x,
-        y,
-    } = position;
-    context.beginPath();
-    context.fillStyle = fillColor;
-    context.arc(
-        x, y,
+    drawCircle({
+        context,
+        position,
+        fillColor,
         radius,
-        0, 2 * Math.PI,
-    );
-    context.fill();
+    });
 }
