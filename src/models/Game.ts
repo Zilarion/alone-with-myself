@@ -45,7 +45,7 @@ export class Game {
         this.addEntities(createSolarSystem({
             numberOfPlanets: 8,
             maxMoons: 4,
-            numberOfAsteroidBelts: 1,
+            numberOfAsteroidBelts: 2,
         }));
     }
 

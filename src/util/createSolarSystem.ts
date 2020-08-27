@@ -35,24 +35,35 @@ export function createSolarSystem({
         max: star.radius * 4,
     });
 
-    const planets = emptyArray(numberOfPlanets).reduce<Entity[]>((entities, _, idx) => {
-        const numberOfMoons = Math.floor(randomNormalDistribution(maxMoons));
-
-        return entities.concat(
-            createPlanet({
-                star,
-                numberOfMoons,
-                orbitRadius: idx * radiusIncrements,
-            }),
+    const generationOrder: ('planet' | 'asteroid')[] = emptyArray(numberOfPlanets)
+        .fill('planet')
+        .concat(
+            emptyArray(numberOfAsteroidBelts)
+                .fill('asteroid'),
         );
+    generationOrder.sort(() => Math.random() - 0.5);
+
+    const entities = generationOrder.reduce<Entity[]>((entities, type, idx) => {
+        const radius = (1 + idx) * radiusIncrements;
+        if (type === 'planet') {
+            const numberOfMoons = Math.floor(randomNormalDistribution(maxMoons));
+
+            return entities.concat(
+                createPlanet({
+                    star,
+                    numberOfMoons,
+                    orbitRadius: radius,
+                }),
+            );
+        } else {
+            return entities.concat(createAsteroidBelt({
+                body: star,
+                numberOfAsteroids: Math.floor(radius / 30),
+                centerRadius: radius,
+                width: radiusIncrements / 2,
+            }));
+        }
     }, []);
 
-    const asteroidBelts = emptyArray(numberOfAsteroidBelts).map((_, idx) => createAsteroidBelt({
-        body: star,
-        numberOfAsteroids: 500,
-        centerRadius: radiusIncrements * (idx + numberOfPlanets),
-        width: 3000,
-    }));
-
-    return [ star, ... planets, ...asteroidBelts ];
+    return [ star,... entities ];
 }
