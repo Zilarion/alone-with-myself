@@ -1,3 +1,4 @@
+import { distanceBetween } from '../util/distanceBetween';
 import { Entity } from './Entity';
 import { Vector } from './Vector';
 
@@ -72,6 +73,10 @@ export class Body extends Entity {
 
     public update = (delta: number) => {
         this._updateOrbit(delta);
+    }
+
+    public pointIsInside(vector: Vector) {
+        return distanceBetween(this._position, vector) < this._radius;
     }
 
     private _updateOrbit = (delta: number) => {

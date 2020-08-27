@@ -32,5 +32,10 @@ export function createAsteroidBelt({
         });
     });
 
-    return new AsteroidBelt(bodies);
+    return new AsteroidBelt({
+        bodies,
+        orbitCenter: centerRadius,
+        orbitFocus: body,
+        width,
+    });
 }

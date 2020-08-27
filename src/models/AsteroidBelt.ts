@@ -1,12 +1,32 @@
+import { distanceBetween } from '../util/distanceBetween';
 import { Body } from './Body';
 import { Entity } from './Entity';
+import { Vector } from './Vector';
+
+interface AsteroidBeltProps {
+    width: number;
+    orbitCenter: number;
+    orbitFocus: Body;
+    bodies: Body[];
+}
 
 export class AsteroidBelt extends Entity {
     private _bodies: Body[];
+    private _width: number;
+    private _orbitCenter: number;
+    private _orbitFocus: Body;
 
-    constructor(bodies: Body[]) {
+    constructor({
+        width,
+        orbitCenter,
+        bodies,
+        orbitFocus,
+    }: AsteroidBeltProps) {
         super();
         this._bodies = bodies;
+        this._width = width;
+        this._orbitCenter = orbitCenter;
+        this._orbitFocus = orbitFocus;
     }
 
 
@@ -17,5 +37,9 @@ export class AsteroidBelt extends Entity {
     public update(delta: number) {
         this._bodies.forEach((body) => body.update(delta));
         return;
+    }
+    public pointIsInside(vector: Vector) {
+        const distanceFromOrbitCenter = distanceBetween(this._orbitFocus.position, vector) - this._orbitCenter;
+        return Math.abs(distanceFromOrbitCenter) < this._width;
     }
 }
