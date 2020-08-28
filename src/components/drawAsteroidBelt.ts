@@ -1,3 +1,4 @@
+import { FULL_CIRCLE } from '../constants';
 import { AsteroidBelt } from '../models/AsteroidBelt';
 import { drawBody } from './drawBody';
 import { drawCircle } from './drawCircle';
@@ -21,17 +22,26 @@ export function drawAsteroidBelt({
         drawCircle({
             context,
             position: orbitFocus.position,
-            radius: orbitCenter + width / 2,
+            radius: orbitCenter,
             lineWidth: width,
             strokeColor: 'rgba(100, 100, 100, 0.2)',
         });
     }
 
-    bodies.forEach((body) => {
-        drawBody({
-            context,
-            model: body,
-            showOrbit: false,
-        });
+    context.beginPath();
+    context.fillStyle = 'grey';
+
+    bodies.forEach(({
+        position: {
+            x, y,
+        }, radius,
+    }) => {
+        context.moveTo(x, y);
+        context.arc(
+            x, y,
+            radius,
+            0, FULL_CIRCLE,
+        );
     });
+    context.fill();
 }
