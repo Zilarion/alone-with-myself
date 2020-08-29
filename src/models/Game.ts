@@ -7,6 +7,7 @@ import { drawEntity } from '../components';
 import { CanvasCamera } from '../util/CanvasCamera';
 import { clearCanvas } from '../util/clearCanvas';
 import { createSolarSystem } from '../util/createSolarSystem';
+import { AsteroidBelt } from './AsteroidBelt';
 import { Body } from './Body';
 import { Entity } from './Entity';
 import { Vector } from './Vector';
@@ -112,8 +113,12 @@ export class Game {
         this._context.canvas.style.cursor = hasMouseOver ? 'pointer' : 'default';
 
         this._entities.forEach((entity) => entity.update(dialatedDelta));
-        if (this._selectedEntity && this._selectedEntity instanceof Body) {
-            this._camera.moveTo(this._selectedEntity.position);
+        if (this._selectedEntity) {
+            if (this._selectedEntity instanceof Body) {
+                this._camera.moveTo(this._selectedEntity.position);
+            } else if (this._selectedEntity instanceof AsteroidBelt) {
+                this._camera.moveTo(this._selectedEntity.orbitFocus.position);
+            }
         }
     }
 

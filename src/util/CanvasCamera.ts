@@ -68,7 +68,7 @@ export class CanvasCamera {
     public apply() {
         // TODO we should be able to get rid of this update
         // it's only needed on initialize somehow
-        this._updateViewport();
+        // this._updateViewport();
         this._context.save();
         this._scaleViewport();
         this._translateViewport();
