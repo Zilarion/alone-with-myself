@@ -1,16 +1,14 @@
 
 import * as React from 'react';
+import { ThemeProvider } from 'styled-components';
 
-import { FloatingSidebar } from '../components/FloatingSidebar';
 import { System } from '../components/System';
+import theme from '../theme';
 
 export function App() {
     return (
-        <div>
+        <ThemeProvider theme={theme}>
             <System />
-            <FloatingSidebar>
-                hi
-            </FloatingSidebar>
-        </div>
+        </ThemeProvider>
     );
 }
