@@ -12,7 +12,7 @@ import { Entity } from './Entity';
 import { Vector } from './Vector';
 
 export class Game {
-    @observable private _entities: Entity[] = [];
+    private _entities: Entity[] = [];
     @observable private _selectedEntity: Entity | null = null;
 
     private _animationFrameId: number | null = null;
