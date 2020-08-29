@@ -20,11 +20,11 @@ export const BodySummary = observer(({
     const orbitInfo = orbit && (<>
         <LabelValue
             label="Orbital velocity"
-            value={`${orbit.velocity} m/s`}
+            value={`${orbit.velocity.toFixed(0)} km/s`}
         />
         <LabelValue
             label="Orbital distance"
-            value={`${orbit.radius} km`} />
+            value={`${orbit.radius.toFixed(0)} km`} />
     </>);
 
     return (

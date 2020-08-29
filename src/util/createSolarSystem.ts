@@ -7,6 +7,7 @@ import {
     randomInt,
     randomNormalDistribution,
 } from './random';
+import { randomStarName } from './randomStarName';
 
 interface CreateSolarSystemProps {
     numberOfPlanets: number;
@@ -19,6 +20,7 @@ export function createSolarSystem({
     maxMoons,
     numberOfAsteroidBelts,
 }: CreateSolarSystemProps): Entity[] {
+    const starName = randomStarName();
     const radius = 693; // 639e3
     const star = new Body({
         position: {
@@ -28,6 +30,7 @@ export function createSolarSystem({
         radius,
         mass: 1989, // 10e30
         color: '#FEB813',
+        id: starName,
     });
 
     const radiusIncrements = randomInt({
@@ -53,6 +56,7 @@ export function createSolarSystem({
                     star,
                     numberOfMoons,
                     orbitRadius: radius,
+                    id: `${idx}`,
                 }),
             );
         } else {

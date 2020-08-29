@@ -15,6 +15,7 @@ interface BodyProps {
         angle: number;
     };
     color: string;
+    id: string;
 }
 
 export interface Orbit {
@@ -38,6 +39,7 @@ export class Body extends Entity {
         mass,
         orbit,
         color,
+        id,
     }: BodyProps) {
         super();
         this._position = position;
@@ -45,8 +47,7 @@ export class Body extends Entity {
         this._mass = mass;
         this._orbit = orbit;
         this._color = color;
-
-        this._id = (Math.random() * 10000).toString();
+        this._id = id;
     }
 
     public get id() {

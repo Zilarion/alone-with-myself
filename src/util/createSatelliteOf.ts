@@ -1,5 +1,4 @@
 import { Body } from '../models';
-import { randomNumber } from './random';
 
 interface CreateSatelliteOfProps {
     body: Body;
@@ -7,6 +6,7 @@ interface CreateSatelliteOfProps {
     color: string;
     mass: number;
     radius: number;
+    id: string;
 }
 
 export function createSatelliteOf({
@@ -15,6 +15,7 @@ export function createSatelliteOf({
     color,
     mass,
     radius,
+    id,
 }: CreateSatelliteOfProps) {
     // Calculate orbit velocity
     const orbitVelocity = Math.sqrt((body.mass + mass) / orbitRadius);
@@ -37,5 +38,6 @@ export function createSatelliteOf({
             velocity: orbitVelocity,
         },
         color,
+        id,
     });
 }

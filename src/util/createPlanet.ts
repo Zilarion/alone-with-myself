@@ -27,12 +27,14 @@ interface CreatePlanetProps {
     star: Body;
     numberOfMoons: number;
     orbitRadius: number;
+    id: string;
 }
 
 export function createPlanet({
     star,
     numberOfMoons,
     orbitRadius,
+    id,
 }: CreatePlanetProps): Body[] {
     const mass = randomNumber(star.mass / 10, star.mass / 5);
     const radius = randomNumber(star.radius / 4, star.radius / 2);
@@ -43,6 +45,7 @@ export function createPlanet({
         mass,
         radius,
         color: randomPlanetColor(),
+        id : `P/${id}`,
     });
 
     const hasMoons = Math.random() > 0.6;
@@ -50,12 +53,14 @@ export function createPlanet({
         return [ planet ];
     }
 
-    const moons = emptyArray(numberOfMoons).map(() => createSatelliteOf({
+    const moons = emptyArray(numberOfMoons).map((_, idx) => createSatelliteOf({
         body: planet,
         orbitRadius: randomNumber(planet.radius * 2, planet.radius * 4),
         mass: randomNumber(planet.mass / 5, planet.mass / 3),
         radius: randomNumber(planet.radius / 10, planet.radius / 3),
         color: randomMoonColor(),
+        id: `S/${id} S${idx}`,
+
     }));
     return [ planet, ...moons ];
 }

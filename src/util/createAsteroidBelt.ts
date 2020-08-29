@@ -20,7 +20,7 @@ export function createAsteroidBelt({
     numberOfAsteroids,
     centerRadius,
 }: CreateAsteroidBeltProps): AsteroidBelt {
-    const bodies = emptyArray(numberOfAsteroids).map(() => {
+    const bodies = emptyArray(numberOfAsteroids).map((_, idx) => {
         const orbitRadius = centerRadius + (randomNormalDistribution() - 0.5) * width;
 
         return createSatelliteOf({
@@ -29,6 +29,7 @@ export function createAsteroidBelt({
             radius: randomNumber(10, 40),
             mass: randomNumber(100, 1000),
             color: '#767676',
+            id: `A/${idx}`,
         });
     });
 
