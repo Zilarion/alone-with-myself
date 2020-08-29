@@ -51,6 +51,6 @@ export class AsteroidBelt extends Entity {
     }
     public pointIsInside = (vector: Vector) => {
         const distanceFromOrbitCenter = distanceBetween(this._orbitFocus.position, vector) - this._orbitCenter;
-        return Math.abs(distanceFromOrbitCenter) < this._width;
+        return Math.abs(distanceFromOrbitCenter) < this._width / 2;
     }
 }
