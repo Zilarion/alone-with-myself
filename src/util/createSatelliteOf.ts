@@ -1,4 +1,5 @@
 import { Body } from '../models';
+import { Planet } from '../models/Planet';
 
 interface CreateSatelliteOfProps {
     body: Body;
@@ -7,7 +8,14 @@ interface CreateSatelliteOfProps {
     mass: number;
     radius: number;
     id: string;
+    type: 'asteroid' | 'planet' | 'moon';
 }
+
+const typeMap = {
+    'asteroid': Body,
+    'planet': Planet,
+    'moon': Planet,
+};
 
 export function createSatelliteOf({
     body,
@@ -16,7 +24,8 @@ export function createSatelliteOf({
     mass,
     radius,
     id,
-}: CreateSatelliteOfProps) {
+    type,
+}: CreateSatelliteOfProps): Body | Planet {
     // Calculate orbit velocity
     const orbitVelocity = Math.sqrt((body.mass + mass) / orbitRadius);
 
@@ -27,7 +36,9 @@ export function createSatelliteOf({
         y: Math.sin(angle) * orbitRadius + body.position.y,
     };
 
-    return new Body({
+    const obj = typeMap[type];
+
+    return new obj({
         position,
         mass,
         radius,

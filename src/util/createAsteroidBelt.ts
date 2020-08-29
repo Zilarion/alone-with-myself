@@ -30,6 +30,7 @@ export function createAsteroidBelt({
             mass: randomNumber(100, 1000),
             color: '#767676',
             id: `A/${idx}`,
+            type: 'asteroid',
         });
     });
 

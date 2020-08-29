@@ -46,6 +46,7 @@ export function createPlanet({
         radius,
         color: randomPlanetColor(),
         id : `P/${id}`,
+        type: 'planet',
     });
 
     const hasMoons = Math.random() > 0.6;
@@ -60,6 +61,7 @@ export function createPlanet({
         radius: randomNumber(planet.radius / 10, planet.radius / 3),
         color: randomMoonColor(),
         id: `S/${id} S${idx}`,
+        type: 'moon',
 
     }));
     return [ planet, ...moons ];

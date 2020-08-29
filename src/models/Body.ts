@@ -1,10 +1,8 @@
-import { observable } from 'mobx';
-
 import { distanceBetween } from '../util/distanceBetween';
 import { Entity } from './Entity';
 import { Vector } from './Vector';
 
-interface BodyProps {
+export interface BodyProps {
     position: Vector;
     radius: number;
     mass: number;
@@ -26,12 +24,12 @@ export interface Orbit {
 }
 
 export class Body extends Entity {
-    @observable private _id: string;
-    @observable private _position: Vector;
-    @observable private _radius: number;
-    @observable private _mass: number;
-    @observable private _orbit?: Orbit;
-    @observable private _color: string;
+    protected _id: string;
+    protected _position: Vector;
+    protected _radius: number;
+    protected _mass: number;
+    protected _orbit?: Orbit;
+    protected _color: string;
 
     constructor({
         position,
@@ -88,7 +86,10 @@ export class Body extends Entity {
         }
         const s = delta / 1000;
         const {
-            angle, velocity, focus, radius,
+            angle,
+            velocity,
+            focus,
+            radius,
         } = this._orbit;
         const newAngle = angle + velocity * s;
         this._orbit.angle = newAngle;
