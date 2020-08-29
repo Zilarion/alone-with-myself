@@ -1,27 +1,37 @@
+import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
 import { useWindowSize } from '../hooks';
 import { Game } from '../models';
+import { BodySummary } from './BodySummary';
+import { FloatingSidebar } from './FloatingSidebar';
 
-export const System = () => {
+export const System = observer(() => {
     const {
         height,
         width,
     } = useWindowSize();
+    const [ game, setGame ] = React.useState<Game>();
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
     React.useEffect(() => {
         const canvas = canvasRef.current;
         if (canvas == null) {
             throw Error('Expected canvas to exist');
         }
-        new Game(canvas);
+        setGame(new Game(canvas));
     }, []);
 
     return (
-        <canvas
-            width={width}
-            height={height}
-            ref={canvasRef}
-        />
+        <div>
+            <canvas
+                width={width}
+                height={height}
+                ref={canvasRef}
+            />
+
+            <FloatingSidebar>
+                {game?.selectedBody && <BodySummary body={game?.selectedBody} />}
+            </FloatingSidebar>
+        </div>
     );
-};
+});

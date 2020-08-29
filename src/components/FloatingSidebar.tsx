@@ -9,6 +9,7 @@ export function FloatingSidebar({ children }: React.Props<{}>) {
                 right: 0,
                 width: '300px',
                 padding: 0,
+                color: 'white',
             }}
         >
             { children }
