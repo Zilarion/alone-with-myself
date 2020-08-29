@@ -34,7 +34,7 @@ export function createPlanet({
     numberOfMoons,
     orbitRadius,
 }: CreatePlanetProps): Body[] {
-    const mass = randomNumber(10, star.mass / 100);
+    const mass = randomNumber(star.mass / 10, star.mass / 5);
     const radius = randomNumber(star.radius / 4, star.radius / 2);
 
     const planet = createSatelliteOf({
@@ -53,7 +53,7 @@ export function createPlanet({
     const moons = emptyArray(numberOfMoons).map(() => createSatelliteOf({
         body: planet,
         orbitRadius: randomNumber(planet.radius * 2, planet.radius * 4),
-        mass: randomNumber(planet.mass / 20, planet.mass / 10),
+        mass: randomNumber(planet.mass / 5, planet.mass / 3),
         radius: randomNumber(planet.radius / 10, planet.radius / 3),
         color: randomMoonColor(),
     }));
