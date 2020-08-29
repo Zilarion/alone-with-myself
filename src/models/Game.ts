@@ -1,3 +1,8 @@
+import {
+    computed,
+    observable,
+} from 'mobx';
+
 import { drawEntity } from '../components';
 import { CanvasCamera } from '../util/CanvasCamera';
 import { clearCanvas } from '../util/clearCanvas';
@@ -7,7 +12,9 @@ import { Entity } from './Entity';
 import { Vector } from './Vector';
 
 export class Game {
-    private _entities: Entity[] = [];
+    @observable private _entities: Entity[] = [];
+    @observable private _selectedEntity: Entity | null = null;
+
     private _animationFrameId: number | null = null;
     private _context: CanvasRenderingContext2D;
     private _lastFrame: number | null = null;
@@ -18,7 +25,6 @@ export class Game {
         y: 0,
     };
     private _isClick: boolean = false;
-    private _selectedEntity: Entity | null = null;
 
     constructor(canvas: HTMLCanvasElement) {
         const ctx = canvas.getContext('2d');
@@ -49,6 +55,14 @@ export class Game {
             maxMoons: 4,
             numberOfAsteroidBelts: 2,
         }));
+    }
+
+    @computed
+    public get selectedBody() {
+        if (this._selectedEntity instanceof Body) {
+            return this._selectedEntity;
+        }
+        return null;
     }
 
     public addEntity = (entity: Entity) => {

@@ -1,3 +1,5 @@
+import { observable } from 'mobx';
+
 import { distanceBetween } from '../util/distanceBetween';
 import { Entity } from './Entity';
 import { Vector } from './Vector';
@@ -23,12 +25,12 @@ export interface Orbit {
 }
 
 export class Body extends Entity {
-    private _id: string;
-    private _position: Vector;
-    private _radius: number;
-    private _mass: number;
-    private _orbit?: Orbit;
-    private _color: string;
+    @observable private _id: string;
+    @observable private _position: Vector;
+    @observable private _radius: number;
+    @observable private _mass: number;
+    @observable private _orbit?: Orbit;
+    @observable private _color: string;
 
     constructor({
         position,
