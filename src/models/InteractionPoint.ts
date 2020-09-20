@@ -5,7 +5,7 @@ import {
 } from './Entity';
 import { Vector } from './Vector';
 
-interface InteractionPointProps {
+export interface InteractionPointProps {
     location: Vector;
 }
 
