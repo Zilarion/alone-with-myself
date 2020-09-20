@@ -2,9 +2,16 @@ import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
 import { useWindowSize } from '../hooks';
-import { Game } from '../models';
+import {
+    AsteroidBelt,
+    Body,
+    Game,
+    ResourcePoint,
+} from '../models';
+import { AsteroidBeltSummary } from './AsteroidBeltSummary';
 import { BodySummary } from './BodySummary';
 import { FloatingSidebar } from './FloatingSidebar';
+import { ResourcePointSummary } from './ResourcePointSummary';
 
 export const System = observer(() => {
     const {
@@ -21,6 +28,8 @@ export const System = observer(() => {
         setGame(new Game(canvas));
     }, []);
 
+    const selected = game?.selectedEntity;
+
     return (
         <div>
             <canvas
@@ -30,7 +39,9 @@ export const System = observer(() => {
             />
 
             <FloatingSidebar>
-                {game?.selectedBody && <BodySummary body={game?.selectedBody} />}
+                {selected instanceof Body && <BodySummary body={selected} />}
+                {selected instanceof ResourcePoint && <ResourcePointSummary point={selected} />}
+                {selected instanceof AsteroidBelt && <AsteroidBeltSummary belt={selected} />}
             </FloatingSidebar>
         </div>
     );

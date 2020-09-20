@@ -1,4 +1,5 @@
 import { FULL_CIRCLE } from '../constants';
+import { randomInt } from '../util';
 import { distanceBetween } from '../util/distanceBetween';
 import { emptyArray } from '../util/emptyArray';
 import { Body } from './Body';
@@ -7,6 +8,7 @@ import {
     EntityType,
 } from './Entity';
 import { InteractionPoint } from './InteractionPoint';
+import { ResourcePoint } from './ResourcePoint';
 import { Vector } from './Vector';
 
 interface AsteroidBeltProps {
@@ -39,12 +41,16 @@ export class AsteroidBelt extends Entity {
         this._interactionPoints = emptyArray(3).map(() => {
             const angle = Math.random() * FULL_CIRCLE;
             const distance = (Math.random() - 0.5) * width + orbitCenter;
-
-            return new InteractionPoint({
+            const maxResourceCount = 1e10;
+            return new ResourcePoint({
                 location: {
                     x: orbitFocus.position.x + distance * Math.cos(angle),
                     y: orbitFocus.position.y + distance * Math.sin(angle),
                 },
+                resources: randomInt({
+                    min: maxResourceCount / 2,
+                    max: maxResourceCount,
+                }),
             });
         });
     }

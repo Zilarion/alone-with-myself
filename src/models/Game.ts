@@ -60,11 +60,8 @@ export class Game {
     }
 
     @computed
-    public get selectedBody() {
-        if (this._selectedEntity instanceof Body) {
-            return this._selectedEntity;
-        }
-        return null;
+    public get selectedEntity() {
+        return this._selectedEntity;
     }
 
     public addEntity = (entity: Entity) => {
