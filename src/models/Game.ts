@@ -66,10 +66,11 @@ export class Game {
 
     public addEntity = (entity: Entity) => {
         this._entities.push(entity);
+        this.addEntities(entity.children);
     }
 
     public addEntities = (entities: Entity[]) => {
-        this._entities.push(...entities);
+        entities.forEach(this.addEntity);
     }
 
     public destroy() {

@@ -84,4 +84,10 @@ export class AsteroidBelt extends Entity {
         const distanceFromOrbitCenter = distanceBetween(this._orbitFocus.position, vector) - this._orbitCenter;
         return Math.abs(distanceFromOrbitCenter) < this._width / 2;
     }
+
+    public get children() {
+        return [
+            ...this.interactionPoints,
+        ];
+    }
 }

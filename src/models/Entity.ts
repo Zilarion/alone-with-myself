@@ -32,6 +32,10 @@ export abstract class Entity {
         this._mouseOver = value;
     }
 
+    public get children(): Entity[] {
+        return [];
+    }
+
     public abstract update(delta: number): void;
     public abstract pointIsInside(point: Vector): boolean;
 }
