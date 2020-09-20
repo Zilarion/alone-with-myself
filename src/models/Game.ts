@@ -7,6 +7,7 @@ import { drawEntity } from '../components';
 import { CanvasCamera } from '../util/CanvasCamera';
 import { clearCanvas } from '../util/clearCanvas';
 import { createSolarSystem } from '../util/createSolarSystem';
+import { findSelectedEntity } from '../util/findSelectedEntity';
 import { AsteroidBelt } from './AsteroidBelt';
 import { Body } from './Body';
 import { Entity } from './Entity';
@@ -87,32 +88,26 @@ export class Game {
     private _update(delta: number) {
         const dialatedDelta = delta * this._gameSpeed;
 
-        let hasMouseOver = false;
-        let foundClick = false;
-
-        this._entities.forEach((entity) => {
+        const entitiesUnderMouse = this._entities.filter((entity) => {
             const mousePosition = this._camera.screenToWorld(this._mousePosition);
-
             const isMouseOver = entity.pointIsInside(mousePosition);
-            hasMouseOver = hasMouseOver || isMouseOver;
             entity.mouseOver = isMouseOver;
-            if (this._isClick) {
-                entity.selected = isMouseOver;
-                if (isMouseOver) {
-                    this._selectedEntity = entity;
-                    foundClick = true;
-                }
-            }
+            return isMouseOver;
         });
 
-        if (!foundClick && this._isClick) {
-            this._selectedEntity = null;
+        const hasMouseOver = entitiesUnderMouse.length > 0;
+
+        if (this._isClick) {
+            const newSelectedEntity = findSelectedEntity(entitiesUnderMouse);
+            this._setSelectedEntity(newSelectedEntity);
         }
+
         this._isClick = false;
 
         this._context.canvas.style.cursor = hasMouseOver ? 'pointer' : 'default';
 
         this._entities.forEach((entity) => entity.update(dialatedDelta));
+
         if (this._selectedEntity) {
             if (this._selectedEntity instanceof Body) {
                 this._camera.moveTo(this._selectedEntity.position);
@@ -120,6 +115,18 @@ export class Game {
                 this._camera.moveTo(this._selectedEntity.orbitFocus.position);
             }
         }
+    }
+
+    private _setSelectedEntity(entity: Entity | null) {
+        if (this._selectedEntity != null) {
+            this._selectedEntity.selected = false;
+        }
+
+        if (entity) {
+            entity.selected = true;
+        }
+
+        this._selectedEntity = entity;
     }
 
     private _draw() {
