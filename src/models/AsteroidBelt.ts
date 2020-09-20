@@ -7,7 +7,6 @@ import {
     Entity,
     EntityType,
 } from './Entity';
-import { InteractionPoint } from './InteractionPoint';
 import { ResourcePoint } from './ResourcePoint';
 import { Vector } from './Vector';
 
@@ -24,7 +23,7 @@ export class AsteroidBelt extends Entity {
     private _width: number;
     private _orbitCenter: number;
     private _orbitFocus: Body;
-    private _interactionPoints: InteractionPoint[];
+    private _interactionPoints: ResourcePoint[];
 
     constructor({
         width,

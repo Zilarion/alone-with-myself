@@ -58,7 +58,7 @@ export function drawAsteroidBelt({
     }
 
     interactionPoints.forEach((point) => {
-        if (!point.selected && !selected) {
+        if (!point.selected && !selected && !point.operational) {
             return;
         }
 
