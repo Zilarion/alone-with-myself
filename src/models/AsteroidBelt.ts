@@ -2,7 +2,10 @@ import { FULL_CIRCLE } from '../constants';
 import { distanceBetween } from '../util/distanceBetween';
 import { emptyArray } from '../util/emptyArray';
 import { Body } from './Body';
-import { Entity } from './Entity';
+import {
+    Entity,
+    EntityType,
+} from './Entity';
 import { InteractionPoint } from './InteractionPoint';
 import { Vector } from './Vector';
 
@@ -14,6 +17,7 @@ interface AsteroidBeltProps {
 }
 
 export class AsteroidBelt extends Entity {
+    protected _type = EntityType.AsteroidBelt;
     private _bodies: Body[];
     private _width: number;
     private _orbitCenter: number;

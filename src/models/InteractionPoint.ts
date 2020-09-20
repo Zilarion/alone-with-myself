@@ -1,5 +1,8 @@
 import { distanceBetween } from '../util/distanceBetween';
-import { Entity } from './Entity';
+import {
+    Entity,
+    EntityType,
+} from './Entity';
 import { Vector } from './Vector';
 
 interface InteractionPointProps {
@@ -7,6 +10,7 @@ interface InteractionPointProps {
 }
 
 export class InteractionPoint extends Entity {
+    protected _type = EntityType.InteractionPoint
     private _location: Vector;
     private _radius: number = 200;
 

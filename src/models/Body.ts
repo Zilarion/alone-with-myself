@@ -1,5 +1,8 @@
 import { distanceBetween } from '../util/distanceBetween';
-import { Entity } from './Entity';
+import {
+    Entity,
+    EntityType,
+} from './Entity';
 import { Vector } from './Vector';
 
 export interface BodyProps {
@@ -30,6 +33,7 @@ export class Body extends Entity {
     protected _mass: number;
     protected _orbit?: Orbit;
     protected _color: string;
+    protected _type = EntityType.PlanetaryBody
 
     constructor({
         position,

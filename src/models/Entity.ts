@@ -1,8 +1,19 @@
 import { Vector } from './Vector';
 
+export enum EntityType {
+    InteractionPoint,
+    AsteroidBelt,
+    PlanetaryBody,
+}
+
 export abstract class Entity {
     private _selected: boolean = false;
     private _mouseOver: boolean = false;
+    protected abstract _type: EntityType;
+
+    public get type(): EntityType {
+        return this._type;
+    }
 
     public get selected(): boolean {
         return this._selected;
