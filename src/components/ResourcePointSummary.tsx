@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
 import { ResourcePoint } from '../models';
+import { ResourceType } from '../models/ResourceStorage';
 import { Button } from './Button';
 import { Header } from './Header';
 import { LabelValue } from './LabelValue';
@@ -17,6 +18,8 @@ export const ResourcePointSummary = observer(({
         printers,
         operational,
         activate,
+        printMiner,
+        storage,
     },
 }: ResourcePointSummaryProps) => {
     const content = operational ? (
@@ -25,7 +28,10 @@ export const ResourcePointSummary = observer(({
                 label="Miners"
                 value={`${ miners } miner(s) operational`}
             />
-            <Button>Print miner</Button>
+            <Button
+                onClick={printMiner}
+                disabled={!storage.has(ResourceType.minerals, 10)}
+            >Print miner</Button>
 
             <LabelValue
                 label="Printers"
@@ -33,6 +39,12 @@ export const ResourcePointSummary = observer(({
             />
 
             <Button>Print printer</Button>
+
+
+            <LabelValue
+                label="Mineral storage"
+                value={`${ storage.numberOf(ResourceType.minerals).toFixed(0) } kg`}
+            />
         </>
     ) : (
         <>

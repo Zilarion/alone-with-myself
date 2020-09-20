@@ -8,6 +8,10 @@ import {
     InteractionPoint,
     InteractionPointProps,
 } from './InteractionPoint';
+import {
+    ResourceStorage,
+    ResourceType,
+} from './ResourceStorage';
 
 type ResourcePointProps = {
     resources: number;
@@ -26,9 +30,17 @@ export class ResourcePoint extends InteractionPoint {
     @observable
     private _operational: boolean = false;
 
+    @observable
+    private _storage: ResourceStorage;
+
     constructor(props: ResourcePointProps) {
         super(props);
         this._resources = props.resources;
+        this._storage = new ResourceStorage();
+    }
+
+    public get storage() {
+        return this._storage;
     }
 
     @computed
@@ -56,5 +68,26 @@ export class ResourcePoint extends InteractionPoint {
         this._operational = true;
         this._miners = 1;
         this._printers = 1;
+    }
+
+    @action.bound
+    public printMiner() {
+        if (this._storage.has(ResourceType.minerals, 10)) {
+            this._miners++;
+            this._storage.decrement(ResourceType.minerals, 10);
+        }
+    }
+
+    public update(delta: number) {
+        const mineCapacity = delta * this._minerSpeed();
+        const minedMinerals = Math.min(mineCapacity, this._resources);
+
+        this._resources -= minedMinerals;
+
+        this._storage.increment(ResourceType.minerals, minedMinerals);
+    }
+
+    private _minerSpeed() {
+        return this._miners;
     }
 }

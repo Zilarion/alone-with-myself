@@ -9,8 +9,8 @@ export interface InteractionPointProps {
     location: Vector;
 }
 
-export class InteractionPoint extends Entity {
-    protected _type = EntityType.InteractionPoint
+export abstract class InteractionPoint extends Entity {
+    protected _type = EntityType.InteractionPoint;
     private _location: Vector;
     private _radius: number = 200;
 
@@ -35,5 +35,5 @@ export class InteractionPoint extends Entity {
         return distanceBetween(vector, this._location) <= this._radius;
     }
 
-    public update() {}
+    public abstract update(delta: number): void;
 }
