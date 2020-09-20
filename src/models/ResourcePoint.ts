@@ -40,6 +40,7 @@ export class ResourcePoint extends InteractionPoint {
         this._storage = new ResourceStorage();
     }
 
+    @computed
     public get storage() {
         return this._storage;
     }
@@ -57,6 +58,11 @@ export class ResourcePoint extends InteractionPoint {
     @computed
     public get resources() {
         return this._resources;
+    }
+
+    @computed
+    public get totalQueueLength() {
+        return this._printers.reduce((total, printer) => total + printer.queueLength, 0);
     }
 
     @computed
@@ -93,5 +99,10 @@ export class ResourcePoint extends InteractionPoint {
 
     private _minerSpeed() {
         return this._miners;
+    }
+
+    @computed
+    public get children() {
+        return this.printers;
     }
 }

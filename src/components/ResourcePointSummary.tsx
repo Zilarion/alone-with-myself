@@ -3,6 +3,8 @@ import * as React from 'react';
 
 import { ResourcePoint } from '../models';
 import { ResourceType } from '../models/ResourceStorage';
+import styled from '../themed-components';
+import { emptyArray } from '../util';
 import { Button } from './Button';
 import { Header } from './Header';
 import { LabelValue } from './LabelValue';
@@ -10,6 +12,14 @@ import { LabelValue } from './LabelValue';
 interface ResourcePointSummaryProps {
     point: ResourcePoint;
 }
+
+const Box = styled.div`
+    border: 1px solid green;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 2px;
+`;
 
 export const ResourcePointSummary = observer(({
     point: {
@@ -19,6 +29,7 @@ export const ResourcePointSummary = observer(({
         operational,
         activate,
         printMiner,
+        totalQueueLength,
         storage,
     },
 }: ResourcePointSummaryProps) => {
@@ -35,11 +46,15 @@ export const ResourcePointSummary = observer(({
 
             <LabelValue
                 label="Printers"
-                value={`${ printers } printer(s) operational`}
+                value={`${ printers.length } printer(s) operational`}
             />
+            <div>
+                {emptyArray(totalQueueLength).map((_, idx) =>
+                    <Box style={{ height: `${ idx === 0 ? 10 - printers[0].taskProgress * 10 : 10}px` }} key={idx} />,
+                )}
+            </div>
 
             <Button>Print printer</Button>
-
 
             <LabelValue
                 label="Mineral storage"
