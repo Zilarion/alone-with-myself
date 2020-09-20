@@ -1,10 +1,12 @@
 import {
+    action,
     computed,
     observable,
 } from 'mobx';
 
 import { drawEntity } from '../components';
 import { CanvasCamera } from '../util/CanvasCamera';
+import { childrenOfEntity } from '../util/childrenOfEntity';
 import { clearCanvas } from '../util/clearCanvas';
 import { createSolarSystem } from '../util/createSolarSystem';
 import { findSelectedEntity } from '../util/findSelectedEntity';
@@ -14,7 +16,7 @@ import { Entity } from './Entity';
 import { Vector } from './Vector';
 
 export class Game {
-    private _entities: Entity[] = [];
+    @observable private _entities: Entity[] = [];
     @observable private _selectedEntity: Entity | null = null;
 
     private _animationFrameId: number | null = null;
@@ -64,11 +66,12 @@ export class Game {
         return this._selectedEntity;
     }
 
+    @action.bound
     public addEntity = (entity: Entity) => {
         this._entities.push(entity);
-        this.addEntities(entity.children);
     }
 
+    @action.bound
     public addEntities = (entities: Entity[]) => {
         entities.forEach(this.addEntity);
     }
@@ -83,10 +86,19 @@ export class Game {
         this._animationFrameId = window.requestAnimationFrame(this._tick);
     }
 
+    @computed
+    public get entities() {
+        return this._entities.reduce<Entity[]>((prev, current) => {
+            return prev.concat(
+                childrenOfEntity(current),
+            );
+        }, []);
+    }
+
     private _update(delta: number) {
         const dialatedDelta = delta * this._gameSpeed;
 
-        const entitiesUnderMouse = this._entities.filter((entity) => {
+        const entitiesUnderMouse = this.entities.filter((entity) => {
             const mousePosition = this._camera.screenToWorld(this._mousePosition);
             const isMouseOver = entity.pointIsInside(mousePosition);
             entity.mouseOver = isMouseOver;
@@ -104,7 +116,7 @@ export class Game {
 
         this._context.canvas.style.cursor = hasMouseOver ? 'pointer' : 'default';
 
-        this._entities.forEach((entity) => entity.update(dialatedDelta));
+        this.entities.forEach((entity) => entity.update(dialatedDelta));
 
         if (this._selectedEntity) {
             if (this._selectedEntity instanceof Body) {
@@ -133,7 +145,7 @@ export class Game {
             ...this._camera.viewport,
         });
 
-        this._entities.forEach((entity) => drawEntity(this._context, entity));
+        this.entities.forEach((entity) => drawEntity(this._context, entity));
     }
 
     private _tick = (time: number) => {
