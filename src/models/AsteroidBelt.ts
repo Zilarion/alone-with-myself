@@ -1,7 +1,9 @@
 import { FULL_CIRCLE } from '../constants';
-import { randomInt } from '../util';
-import { distanceBetween } from '../util/distanceBetween';
-import { emptyArray } from '../util/emptyArray';
+import {
+    distanceBetween,
+    emptyArray,
+    randomInt,
+} from '../util';
 import { Body } from './Body';
 import {
     Entity,
