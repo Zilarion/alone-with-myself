@@ -4,6 +4,7 @@ export enum EntityType {
     InteractionPoint,
     AsteroidBelt,
     PlanetaryBody,
+    Printer,
 }
 
 export abstract class Entity {

@@ -8,6 +8,7 @@ import {
     InteractionPoint,
     InteractionPointProps,
 } from './InteractionPoint';
+import { Printer } from './Printer';
 import {
     ResourceStorage,
     ResourceType,
@@ -22,7 +23,7 @@ export class ResourcePoint extends InteractionPoint {
     private _resources: number;
 
     @observable
-    private _printers: number = 0;
+    private _printers: Printer[] = [];
 
     @observable
     private _miners: number = 0;
@@ -67,13 +68,16 @@ export class ResourcePoint extends InteractionPoint {
     public activate() {
         this._operational = true;
         this._miners = 1;
-        this._printers = 1;
+        this._printers.push(new Printer());
     }
 
     @action.bound
     public printMiner() {
         if (this._storage.has(ResourceType.minerals, 10)) {
-            this._miners++;
+            this._printers[0].enqueue({
+                complete: () => this._miners++,
+                duration: 1000,
+            });
             this._storage.decrement(ResourceType.minerals, 10);
         }
     }
