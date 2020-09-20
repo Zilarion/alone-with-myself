@@ -55,14 +55,21 @@ export function drawAsteroidBelt({
             lineWidth: width,
             strokeColor: 'rgba(0, 100, 100, 0.4)',
         });
-
-        interactionPoints.forEach((point) => {
-            drawMarker({
-                context,
-                point,
-                color: 'cyan',
-            });
-        });
     }
 
+    interactionPoints.forEach((point) => {
+        if (!point.selected && !selected) {
+            return;
+        }
+
+        const color = point.mouseOver || point.selected
+            ? 'rgb(0, 255, 255)'
+            : 'rgb(0, 180, 180)';
+
+        drawMarker({
+            context,
+            point,
+            color,
+        });
+    });
 }
