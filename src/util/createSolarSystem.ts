@@ -60,12 +60,13 @@ export function createSolarSystem({
                 }),
             );
         } else {
-            return entities.concat(createAsteroidBelt({
+            const asteroidBelt = createAsteroidBelt({
                 body: star,
                 numberOfAsteroids: Math.floor(radius / 10),
                 centerRadius: radius,
                 width: radiusIncrements,
-            }));
+            });
+            return entities.concat(asteroidBelt, asteroidBelt.interactionPoints);
         }
     }, []);
 
