@@ -8,6 +8,7 @@ import { Button } from './Button';
 import { Card } from './Card';
 import { LabelValue } from './LabelValue';
 import { PrinterSummary } from './PrinterSummary';
+import { QueueSummary } from './QueueSummary';
 
 interface ResourcePointActionsProps {
     point: ResourcePoint;
@@ -22,6 +23,7 @@ export const ResourcePointActions = observer(({
     point: {
         miners,
         printers,
+        queue,
         operational,
         activate,
         printMiner,
@@ -55,6 +57,9 @@ export const ResourcePointActions = observer(({
                     onClick={printPrinter}
                     disabled={!storage.has(PRINTABLES.printer.resources)}
                 >Print printer</Button>
+            </Card>
+            <Card header="Printer queue">
+                <QueueSummary queue={queue} />
             </Card>
             <Card header="Printer summary">
                 <PrinterSummary printers={printers} />
