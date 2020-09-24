@@ -64,7 +64,6 @@ export class Printer extends Entity {
         this._progress += delta;
 
         if (duration <= this._progress) {
-            console.log('printer completed', this._task);
             complete();
             this._progress -= duration;
             this._task = null;

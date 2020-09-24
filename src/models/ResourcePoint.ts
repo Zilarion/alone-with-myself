@@ -116,11 +116,10 @@ export class ResourcePoint extends InteractionPoint {
         this._resources -= minedMinerals;
 
         this._storage.increment(ResourceType.minerals, minedMinerals);
-        console.log(this._printers.length);
     }
 
     private _minerSpeed() {
-        return this._miners * MINER_DEFAULT_SPEED * 100;
+        return this._miners * MINER_DEFAULT_SPEED;
     }
 
     @computed
