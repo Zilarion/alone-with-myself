@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
+import { FormattedNumber } from 'react-intl';
 
 import { ResourcePoint } from '../models';
 import { ResourceType } from '../models/ResourceStorage';
@@ -58,7 +59,14 @@ export const ResourcePointSummary = observer(({
 
             <LabelValue
                 label="Mineral storage"
-                value={`${ storage.numberOf(ResourceType.minerals).toFixed(0) } kg`}
+                value={
+                    <FormattedNumber
+                        value={storage.numberOf(ResourceType.minerals)}
+                        style="unit"
+                        unit="kilogram"
+                        maximumFractionDigits={0}
+                    />
+                }
             />
         </>
     ) : (
@@ -71,7 +79,14 @@ export const ResourcePointSummary = observer(({
             <Header>Resource point</Header>
             <LabelValue
                 label="Resources"
-                value={`${ resources.toFixed(0) } kg`}
+                value={
+                    <FormattedNumber
+                        value={resources}
+                        style="unit"
+                        unit="kilogram"
+                        maximumFractionDigits={0}
+                    />
+                }
             />
             { content }
         </div>

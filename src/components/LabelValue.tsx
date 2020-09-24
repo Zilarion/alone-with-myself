@@ -4,7 +4,7 @@ import styled from '../themed-components';
 
 interface LabelValueProps {
     label: string;
-    value: string;
+    value: string | JSX.Element;
 }
 
 const StyledWrapper = styled.div`

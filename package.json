@@ -37,6 +37,7 @@
     "mobx-react-lite": "^2.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-intl": "^5.8.2",
     "rxjs": "^6.6.2",
     "styled-components": "^5.1.1"
   }

@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
+import { FormattedNumber } from 'react-intl';
 
 import { Body } from '../models';
 import { Header } from './Header';
@@ -20,11 +21,25 @@ export const BodySummary = observer(({
     const orbitInfo = orbit && (<>
         <LabelValue
             label="Orbital velocity"
-            value={`${orbit.velocity.toFixed(0)} km/s`}
+            value={
+                <FormattedNumber
+                    value={orbit.velocity}
+                    style="unit"
+                    unit="meter-per-second"
+                />
+            }
         />
         <LabelValue
             label="Orbital distance"
-            value={`${orbit.radius.toFixed(0)} km`} />
+            value={
+                <FormattedNumber
+                    value={orbit.radius * 1e3}
+                    style="unit"
+                    notation="scientific"
+                    unit="kilometer"
+                />
+            }
+        />
     </>);
 
     return (
@@ -32,11 +47,25 @@ export const BodySummary = observer(({
             <Header>{ id }</Header>
             <LabelValue
                 label="Mass"
-                value={`${ mass.toFixed(0) } kg`}
+                value={
+                    <FormattedNumber
+                        value={mass * 1e27}
+                        style="unit"
+                        notation="scientific"
+                        unit="kilogram"
+                    />
+                }
             />
             <LabelValue
                 label="Radius"
-                value={`${ radius.toFixed(0) } km`}
+                value={
+                    <FormattedNumber
+                        value={radius * 1e3}
+                        style="unit"
+                        notation="scientific"
+                        unit="kilometer"
+                    />
+                }
             />
             { orbitInfo }
         </div>
