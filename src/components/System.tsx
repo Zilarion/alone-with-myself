@@ -2,17 +2,10 @@ import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
 import { useWindowSize } from '../hooks';
-import {
-    AsteroidBelt,
-    Body,
-    Game,
-    ResourcePoint,
-} from '../models';
-import { AsteroidBeltSummary } from './AsteroidBeltSummary';
-import { BodySummary } from './BodySummary';
+import { Game } from '../models';
+import { ActionPanel } from './ActionPanel';
 import { FloatingSidebar } from './FloatingSidebar';
 import { InformationPanel } from './InformationPanel';
-import { ResourcePointSummary } from './ResourcePointSummary';
 
 export const System = observer(() => {
     const {
@@ -41,6 +34,10 @@ export const System = observer(() => {
 
             {selected && <FloatingSidebar side={'left'}>
                 <InformationPanel entity={selected} />
+            </FloatingSidebar>}
+
+            {selected && <FloatingSidebar side={'right'}>
+                <ActionPanel entity={selected} />
             </FloatingSidebar>}
         </div>
     );
