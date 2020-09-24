@@ -2,8 +2,10 @@ import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import { FormattedNumber } from 'react-intl';
 
-import { ResourcePoint } from '../models';
-import { ResourceType } from '../models/ResourceStorage';
+import {
+    ResourcePoint,
+    ResourceType,
+} from '../models';
 import styled from '../themed-components';
 import { emptyArray } from '../util';
 import { Button } from './Button';

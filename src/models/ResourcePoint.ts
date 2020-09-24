@@ -9,10 +9,8 @@ import {
     InteractionPointProps,
 } from './InteractionPoint';
 import { Printer } from './Printer';
-import {
-    ResourceStorage,
-    ResourceType,
-} from './ResourceStorage';
+import { ResourceStorage } from './ResourceStorage';
+import { ResourceType } from './ResourceType';
 
 type ResourcePointProps = {
     resources: number;

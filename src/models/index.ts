@@ -5,3 +5,6 @@ export * from './Entity';
 export * from './ResourcePoint';
 export * from './AsteroidBelt';
 export * from './Printer';
+export * from './ResourceType';
+export * from './ResourceUnits';
+export * from './ResourceStorage';

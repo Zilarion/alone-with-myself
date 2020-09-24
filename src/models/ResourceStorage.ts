@@ -1,9 +1,6 @@
 import { observable } from 'mobx';
 
-export enum ResourceType {
-    power,
-    minerals,
-}
+import { ResourceType } from './ResourceType';
 
 export class ResourceStorage {
     @observable
@@ -25,5 +22,9 @@ export class ResourceStorage {
 
     public numberOf(type: ResourceType) {
         return this._resources.get(type) ?? 0;
+    }
+
+    public get resources() {
+        return Array.from(this._resources.keys());
     }
 }
