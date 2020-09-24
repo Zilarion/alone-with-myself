@@ -9,6 +9,7 @@ import {
     InteractionPointProps,
 } from './InteractionPoint';
 import { Printer } from './Printer';
+import { PrintQueue } from './PrintQueue';
 import { ResourceStorage } from './ResourceStorage';
 import { ResourceType } from './ResourceType';
 
@@ -23,7 +24,7 @@ export class ResourcePoint extends InteractionPoint {
     private _resources: number;
 
     @observable
-    private _printers: Printer[] = [];
+    private _printers: Array<Printer> = new Array();
 
     @observable
     private _miners: number = 0;
@@ -33,6 +34,9 @@ export class ResourcePoint extends InteractionPoint {
 
     @observable
     private _storage: ResourceStorage;
+
+    @observable
+    private _queue = new PrintQueue();
 
     constructor(props: ResourcePointProps) {
         super(props);
@@ -61,8 +65,8 @@ export class ResourcePoint extends InteractionPoint {
     }
 
     @computed
-    public get totalQueueLength() {
-        return this._printers.reduce((total, printer) => total + printer.queueLength, 0);
+    public get queue() {
+        return this._queue;
     }
 
     @computed
@@ -74,27 +78,45 @@ export class ResourcePoint extends InteractionPoint {
     public activate() {
         this._operational = true;
         this._miners = 1;
-        this._printers.push(new Printer());
+        this._printers.push(new Printer(this._queue));
     }
 
     @action.bound
     public printMiner() {
-        if (this._storage.has(ResourceType.minerals, 10)) {
-            this._printers[0].enqueue({
+        const cost = 10;
+        if (this._storage.has(ResourceType.minerals, cost)) {
+            this._queue.enqueue({
                 complete: () => this._miners++,
                 duration: 1000,
             });
-            this._storage.decrement(ResourceType.minerals, 10);
+            this._storage.decrement(ResourceType.minerals, cost);
+        }
+    }
+
+    @action.bound
+    public printPrinter() {
+        const cost = 50;
+        if (this._storage.has(ResourceType.minerals, cost)) {
+            this._queue.enqueue({
+                complete: () => this._printers.push(new Printer(this._queue)),
+                duration: 2000,
+            });
+            this._storage.decrement(ResourceType.minerals, cost);
         }
     }
 
     public update(delta: number) {
+        if (!this.operational) {
+            return;
+        }
+
         const mineCapacity = delta * this._minerSpeed();
         const minedMinerals = Math.min(mineCapacity, this._resources);
 
         this._resources -= minedMinerals;
 
         this._storage.increment(ResourceType.minerals, minedMinerals);
+        console.log(this._printers.length);
     }
 
     private _minerSpeed() {

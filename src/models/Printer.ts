@@ -1,24 +1,21 @@
 import {
-    action,
     computed,
     observable,
 } from 'mobx';
 
+import { assert } from '../util';
 import {
     Entity,
     EntityType,
 } from './Entity';
-
-interface PrintTask {
-    complete: Function;
-    duration: number;
-}
+import { PrintQueue } from './PrintQueue';
+import { PrintTask } from './PrintTask';
 
 export class Printer extends Entity {
     protected _type = EntityType.Printer;
 
     @observable
-    private _queue: PrintTask[] = [];
+    private _queue: PrintQueue;
 
     @observable
     private _task: PrintTask | null = null;
@@ -26,18 +23,13 @@ export class Printer extends Entity {
     @observable
     private _progress: number = 0;
 
+    constructor(queue: PrintQueue) {
+        super();
+        this._queue = queue;
+    }
+
     public get isPrinting() {
         return this._task != null;
-    }
-
-    @action.bound
-    public enqueue(task: PrintTask) {
-        this._queue.push(task);
-    }
-
-    @computed
-    public get queueLength(): number {
-        return this._queue.length + (this._task == null ? 0 : 1);
     }
 
     @computed
@@ -50,12 +42,14 @@ export class Printer extends Entity {
     }
 
     public update(delta: number) {
-        if (this._task == null && this._queue.length === 0) {
+        if (this._task == null && this._queue.queueLength === 0) {
             this._progress = 0;
         }
 
-        if (this._task == null && this._queue.length > 0) {
-            this._task = this._popTask();
+        if (this._task == null && this._queue.hasTask) {
+            const newTask = this._queue.takeTask();
+            assert(newTask != null, 'A printer tried to take a non existing task from the queue');
+            this._task = newTask;
         }
 
         if (this._task == null) {
@@ -70,6 +64,7 @@ export class Printer extends Entity {
         this._progress += delta;
 
         if (duration <= this._progress) {
+            console.log('printer completed', this._task);
             complete();
             this._progress -= duration;
             this._task = null;
@@ -78,13 +73,5 @@ export class Printer extends Entity {
 
     public pointIsInside() {
         return false;
-    }
-
-    private _popTask(): PrintTask {
-        const task = this._queue.shift();
-        if (task == null) {
-            throw Error('Printer tried to take non existing task.');
-        }
-        return task;
     }
 }

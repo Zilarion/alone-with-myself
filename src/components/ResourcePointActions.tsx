@@ -27,6 +27,7 @@ export const ResourcePointActions = observer(({
         operational,
         activate,
         printMiner,
+        printPrinter,
         storage,
     },
 }: ResourcePointActionsProps) => {
@@ -52,7 +53,10 @@ export const ResourcePointActions = observer(({
                     label="Printers"
                     value={`${ printers.length } printer(s) operational`}
                 />
-                <Button>Print printer</Button>
+                <Button
+                    onClick={printPrinter}
+                    disabled={!storage.has(ResourceType.minerals, 50)}
+                >Print printer</Button>
             </Card>
             <Card header="Printer summary">
                 <PrinterSummary printers={printers} />

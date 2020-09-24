@@ -1,8 +1,8 @@
+import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
 import { Printer } from '../models';
 import styled from '../themed-components';
-import { emptyArray } from '../util';
 
 const PrintWrapper = styled.div`
     display: flex;
@@ -28,7 +28,7 @@ interface PrinterSummaryProps {
     printers: Printer[];
 }
 
-export function PrinterSummary({ printers }: PrinterSummaryProps) {
+export const PrinterSummary = observer(({ printers }: PrinterSummaryProps) => {
     const printBlocks = printers.map(({ isPrinting }, idx) => {
         if (!isPrinting) {
             return <InactivePrinter key={idx} />;
@@ -40,4 +40,4 @@ export function PrinterSummary({ printers }: PrinterSummaryProps) {
     return <PrintWrapper>
         { printBlocks }
     </PrintWrapper>;
-}
+});
