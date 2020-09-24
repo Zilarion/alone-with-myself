@@ -9,7 +9,7 @@ import {
 import styled from '../themed-components';
 import { emptyArray } from '../util';
 import { Button } from './Button';
-import { Header } from './Header';
+import { Card } from './Card';
 import { LabelValue } from './LabelValue';
 import { StorageSummary } from './StorageSummary';
 
@@ -23,6 +23,11 @@ const Box = styled.div`
     width: 10px;
     height: 10px;
     margin: 2px;
+`;
+
+const ResourceWrapper = styled.div`
+    display: grid;
+    grid-gap: ${p => p.theme.margin.medium};
 `;
 
 export const ResourcePointSummary = observer(({
@@ -59,7 +64,6 @@ export const ResourcePointSummary = observer(({
             </div>
 
             <Button>Print printer</Button>
-            <StorageSummary storage={storage} />
         </>
     ) : (
         <>
@@ -67,20 +71,23 @@ export const ResourcePointSummary = observer(({
         </>
     );
     return (
-        <div>
-            <Header>Resource point</Header>
-            <LabelValue
-                label="Resources"
-                value={
-                    <FormattedNumber
-                        value={resources}
-                        style="unit"
-                        unit="kilogram"
-                        maximumFractionDigits={0}
-                    />
-                }
-            />
-            { content }
-        </div>
+        <ResourceWrapper>
+            <Card header="Resource point">
+                <LabelValue
+                    label="Resources"
+                    value={
+                        <FormattedNumber
+                            value={resources}
+                            style="unit"
+                            unit="kilogram"
+                            maximumFractionDigits={0}
+                        />
+                    }
+                />
+                { content }
+            </Card>
+
+            { operational && <StorageSummary storage={storage} />}
+        </ResourceWrapper>
     );
 });

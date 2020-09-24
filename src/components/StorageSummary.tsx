@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { ResourceStorage } from '../models';
+import { Card } from './Card';
 import { FormattedResource } from './FormattedResource';
-import { Header } from './Header';
 import { Table } from './Table';
 
 interface StorageSummaryProps {
@@ -19,11 +19,10 @@ export function StorageSummary({ storage }: StorageSummaryProps) {
         />,
     ]);
 
-    return <div>
-        <Header>Storage</Header>
+    return <Card header="Storage">
         <Table
             headers={[ 'Resource', 'Amount' ]}
             data={data}
         />
-    </div>;
+    </Card>;
 }

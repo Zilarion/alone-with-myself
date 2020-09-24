@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
 import { AsteroidBelt } from '../models';
-import { Header } from './Header';
+import { Card } from './Card';
 import { LabelValue } from './LabelValue';
 
 interface AsteroidBeltSummaryProps {
@@ -11,12 +11,11 @@ interface AsteroidBeltSummaryProps {
 
 export const AsteroidBeltSummary = observer(({ belt: { bodies } }: AsteroidBeltSummaryProps) => {
     return (
-        <div>
-            <Header>Asteroid Belt</Header>
+        <Card header="Asteroid belt">
             <LabelValue
                 label="Number of asteroids"
                 value={`${ bodies.length }`}
             />
-        </div>
+        </Card>
     );
 });

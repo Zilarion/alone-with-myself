@@ -3,7 +3,7 @@ import * as React from 'react';
 import { FormattedNumber } from 'react-intl';
 
 import { Body } from '../models';
-import { Header } from './Header';
+import { Card } from './Card';
 import { LabelValue } from './LabelValue';
 
 interface BodySummaryProps {
@@ -43,8 +43,7 @@ export const BodySummary = observer(({
     </>);
 
     return (
-        <div>
-            <Header>{ id }</Header>
+        <Card header={id}>
             <LabelValue
                 label="Mass"
                 value={
@@ -68,6 +67,6 @@ export const BodySummary = observer(({
                 }
             />
             { orbitInfo }
-        </div>
+        </Card>
     );
 });
