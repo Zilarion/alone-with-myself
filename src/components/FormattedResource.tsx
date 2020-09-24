@@ -22,5 +22,6 @@ export function FormattedResource({
         value={value}
         style="unit"
         unit={unit}
+        maximumFractionDigits={0}
     />;
 }
