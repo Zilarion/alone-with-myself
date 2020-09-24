@@ -84,15 +84,17 @@ export class ResourcePoint extends InteractionPoint {
 
     @action.bound
     public printMiner() {
+        const name = 'miner';
         const {
             resources,
             duration,
-        } = PRINTABLES.miner;
+        } = PRINTABLES[name];
 
         if (this._storage.has(resources)) {
             this._queue.enqueue({
                 complete: () => this._miners++,
                 duration,
+                name,
             });
             this._storage.decrement(resources);
         }
@@ -100,15 +102,17 @@ export class ResourcePoint extends InteractionPoint {
 
     @action.bound
     public printPrinter() {
+        const name = 'printer';
         const {
             resources,
             duration,
-        } = PRINTABLES.printer;
+        } = PRINTABLES[name];
 
         if (this._storage.has(resources)) {
             this._queue.enqueue({
                 complete: () => this._printers.push(new Printer(this._queue)),
                 duration,
+                name,
             });
             this._storage.decrement(resources);
         }

@@ -10,7 +10,7 @@ const StyledCell = styled.div<{ width: number }>`
     list-style: none;
     width: ${p => p.width}%;
     color: ${p => p.theme.color.primary};
-    border-bottom: 1px solid ${p => p.theme.color.primaryLight};
+    border-bottom: 1px solid ${p => p.theme.color.border};
 `;
 
 const StyledTable = styled.div`

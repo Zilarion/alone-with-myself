@@ -20,9 +20,16 @@ export class PrintQueue {
         return this._queue.length;
     }
 
+    @computed
+    public get tasks() {
+        return this._queue;
+    }
+
     public takeTask() {
         return this._queue.shift();
     }
+
+    @computed
     public get hasTask() {
         return this.queueLength > 0;
     }
