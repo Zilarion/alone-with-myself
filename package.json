@@ -35,6 +35,7 @@
     "@formatjs/intl": "^1.3.2",
     "mobx": "^5.15.6",
     "mobx-react-lite": "^2.2.0",
+    "normalize.css": "^8.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-intl": "^5.8.2",
