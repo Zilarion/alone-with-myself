@@ -16,6 +16,8 @@ type ResourcePointProps = {
     resources: number;
 } & InteractionPointProps;
 
+const MINER_DEFAULT_SPEED = 0.01;
+
 export class ResourcePoint extends InteractionPoint {
     @observable
     private _resources: number;
@@ -96,7 +98,7 @@ export class ResourcePoint extends InteractionPoint {
     }
 
     private _minerSpeed() {
-        return this._miners;
+        return this._miners * MINER_DEFAULT_SPEED;
     }
 
     @computed
