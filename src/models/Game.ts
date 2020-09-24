@@ -13,6 +13,7 @@ import { findSelectedEntity } from '../util/findSelectedEntity';
 import { AsteroidBelt } from './AsteroidBelt';
 import { Body } from './Body';
 import { Entity } from './Entity';
+import { InteractionPoint } from './InteractionPoint';
 import { Vector } from './Vector';
 
 export class Game {
@@ -123,6 +124,8 @@ export class Game {
                 this._camera.moveTo(this._selectedEntity.position);
             } else if (this._selectedEntity instanceof AsteroidBelt) {
                 this._camera.moveTo(this._selectedEntity.orbitFocus.position);
+            } else if (this._selectedEntity instanceof InteractionPoint) {
+                this._camera.moveTo(this._selectedEntity.location);
             }
         }
     }
