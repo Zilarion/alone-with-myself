@@ -11,6 +11,7 @@ import {
 import { AsteroidBeltSummary } from './AsteroidBeltSummary';
 import { BodySummary } from './BodySummary';
 import { FloatingSidebar } from './FloatingSidebar';
+import { InformationPanel } from './InformationPanel';
 import { ResourcePointSummary } from './ResourcePointSummary';
 
 export const System = observer(() => {
@@ -38,11 +39,9 @@ export const System = observer(() => {
                 ref={canvasRef}
             />
 
-            <FloatingSidebar>
-                {selected instanceof Body && <BodySummary body={selected} />}
-                {selected instanceof ResourcePoint && <ResourcePointSummary point={selected} />}
-                {selected instanceof AsteroidBelt && <AsteroidBeltSummary belt={selected} />}
-            </FloatingSidebar>
+            {selected && <FloatingSidebar side={'left'}>
+                <InformationPanel entity={selected} />
+            </FloatingSidebar>}
         </div>
     );
 });
