@@ -1,10 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
-import {
-    ResourcePoint,
-    ResourceType,
-} from '../models';
+import { PRINTABLES } from '../data';
+import { ResourcePoint } from '../models';
 import styled from '../themed-components';
 import { Button } from './Button';
 import { Card } from './Card';
@@ -46,7 +44,7 @@ export const ResourcePointActions = observer(({
                 />
                 <Button
                     onClick={printMiner}
-                    disabled={!storage.has(ResourceType.minerals, 10)}
+                    disabled={!storage.has(PRINTABLES.miner.resources)}
                 >Print miner</Button>
 
                 <LabelValue
@@ -55,7 +53,7 @@ export const ResourcePointActions = observer(({
                 />
                 <Button
                     onClick={printPrinter}
-                    disabled={!storage.has(ResourceType.minerals, 50)}
+                    disabled={!storage.has(PRINTABLES.printer.resources)}
                 >Print printer</Button>
             </Card>
             <Card header="Printer summary">

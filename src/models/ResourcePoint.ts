@@ -4,6 +4,7 @@ import {
     observable,
 } from 'mobx';
 
+import { PRINTABLES } from '../data';
 import {
     InteractionPoint,
     InteractionPointProps,
@@ -83,25 +84,33 @@ export class ResourcePoint extends InteractionPoint {
 
     @action.bound
     public printMiner() {
-        const cost = 10;
-        if (this._storage.has(ResourceType.minerals, cost)) {
+        const {
+            resources,
+            duration,
+        } = PRINTABLES.miner;
+
+        if (this._storage.has(resources)) {
             this._queue.enqueue({
                 complete: () => this._miners++,
-                duration: 1000,
+                duration,
             });
-            this._storage.decrement(ResourceType.minerals, cost);
+            this._storage.decrement(resources);
         }
     }
 
     @action.bound
     public printPrinter() {
-        const cost = 50;
-        if (this._storage.has(ResourceType.minerals, cost)) {
+        const {
+            resources,
+            duration,
+        } = PRINTABLES.printer;
+
+        if (this._storage.has(resources)) {
             this._queue.enqueue({
                 complete: () => this._printers.push(new Printer(this._queue)),
-                duration: 2000,
+                duration,
             });
-            this._storage.decrement(ResourceType.minerals, cost);
+            this._storage.decrement(resources);
         }
     }
 
