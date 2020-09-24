@@ -14,6 +14,8 @@ const theme = {
 
         disabled: '#666666',
         disabledLight: '#999999',
+
+        background: 'rgba(3, 26, 31, 0.6)',
     },
     margin: {
         tiny: '4px',
