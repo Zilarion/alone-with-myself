@@ -64,7 +64,7 @@ export const ResourcePointActions = observer(({
     );
 
     return (
-        <Card header="Resource point">
+        <Card header="Available commands">
             { content }
         </Card>
     );
