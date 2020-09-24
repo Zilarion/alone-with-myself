@@ -98,7 +98,7 @@ export class ResourcePoint extends InteractionPoint {
     }
 
     private _minerSpeed() {
-        return this._miners * MINER_DEFAULT_SPEED;
+        return this._miners * MINER_DEFAULT_SPEED * 100;
     }
 
     @computed

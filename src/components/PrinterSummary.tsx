@@ -2,10 +2,12 @@ import * as React from 'react';
 
 import { Printer } from '../models';
 import styled from '../themed-components';
+import { emptyArray } from '../util';
 
 const PrintWrapper = styled.div`
-    display: grid;
-    grid-gap: ${p => p.theme.margin.tiny};
+    display: flex;
+    flex-wrap: wrap;
+    gap: ${p => p.theme.margin.tiny};
 `;
 
 const PrinterBlock = styled.div`
