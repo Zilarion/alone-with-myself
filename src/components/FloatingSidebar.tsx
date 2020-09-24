@@ -4,7 +4,7 @@ import styled from '../themed-components';
 
 const StyledSideBar = styled.div`
     position: absolute;
-    top: 0;
+    top: ${p => p.theme.margin.medium};
     width: 300px;
 `;
 
@@ -17,7 +17,7 @@ export function FloatingSidebar({
     children,
     side,
 }: FloatingSidebarProps) {
-    const style = side === 'left' ? { left: 0 } : { right: 0 };
+    const style = side === 'left' ? { left: 16 } : { right: 16 };
     return (
         <StyledSideBar style={style}>
             { children }
