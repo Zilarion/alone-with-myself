@@ -11,6 +11,7 @@ import { emptyArray } from '../util';
 import { Button } from './Button';
 import { Header } from './Header';
 import { LabelValue } from './LabelValue';
+import { StorageSummary } from './StorageSummary';
 
 interface ResourcePointSummaryProps {
     point: ResourcePoint;
@@ -58,18 +59,7 @@ export const ResourcePointSummary = observer(({
             </div>
 
             <Button>Print printer</Button>
-
-            <LabelValue
-                label="Mineral storage"
-                value={
-                    <FormattedNumber
-                        value={storage.numberOf(ResourceType.minerals)}
-                        style="unit"
-                        unit="kilogram"
-                        maximumFractionDigits={0}
-                    />
-                }
-            />
+            <StorageSummary storage={storage} />
         </>
     ) : (
         <>
