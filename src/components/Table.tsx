@@ -24,6 +24,12 @@ const StyledHeader = styled(StyledCell)`
     color: ${p => p.theme.color.header};
 `;
 
+const NoDataWrapper = styled.div`
+    width: 100%;
+    text-align: center;
+    color: ${p => p.theme.color.primary};
+`;
+
 interface TableProps {
     headers?: string[];
     data: (string | JSX.Element)[][];
@@ -34,7 +40,7 @@ export function Table({
     data,
 }: TableProps) {
     if (data.length === 0) {
-        return 'No data';
+        return <NoDataWrapper>No data</NoDataWrapper>;
     }
 
     const width = Math.floor(100 / data[0].length);
