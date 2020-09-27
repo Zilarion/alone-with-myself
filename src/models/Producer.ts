@@ -35,12 +35,11 @@ export class Producer {
 
     @computed
     public get availableHarvesters(): [PrintableType, Harvester][] {
-        const result = Array.from(HARVESTERS.entries()).filter(([ , { produces } ]) =>
+        return Array.from(HARVESTERS.entries()).filter(([ , { produces } ]) =>
             produces.some(({ type }) =>
                 this._consumables.numberOf(type) > 0,
             ),
         );
-        return result;
     }
 
     @action.bound
