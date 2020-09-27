@@ -25,6 +25,7 @@ export class PrintQueue {
         return this._queue;
     }
 
+    @action.bound
     public takeTask() {
         return this._queue.shift();
     }

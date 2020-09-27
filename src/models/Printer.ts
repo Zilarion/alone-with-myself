@@ -1,4 +1,5 @@
 import {
+    action,
     computed,
     observable,
 } from 'mobx';
@@ -47,9 +48,7 @@ export class Printer extends Entity {
         }
 
         if (this._task == null && this._queue.hasTask) {
-            const newTask = this._queue.takeTask();
-            assert(newTask != null, 'A printer tried to take a non existing task from the queue');
-            this._task = newTask;
+            this._takeNewTask();
         }
 
         if (this._task == null) {
@@ -72,5 +71,12 @@ export class Printer extends Entity {
 
     public pointIsInside() {
         return false;
+    }
+
+    @action.bound
+    private _takeNewTask() {
+        const newTask = this._queue.takeTask();
+        assert(newTask != null, 'A printer tried to take a non existing task from the queue');
+        this._task = newTask;
     }
 }
