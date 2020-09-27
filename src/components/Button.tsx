@@ -47,7 +47,7 @@ export function Button({
 }: ButtonProps) {
     const Btn = disabled ? DisabledButton : StyledButton;
 
-    return <Tippy content={tooltip}>
+    return <Tippy content={tooltip ?? children}>
         <Btn onClick={onClick}>
             {children}
         </Btn>
