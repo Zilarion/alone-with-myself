@@ -5,12 +5,11 @@ import styled from '../themed-components';
 const StyledCell = styled.div<{ width: number }>`
     box-sizing: border-box;
     flex-grow: 1;
-    padding: ${p => p.theme.margin.tiny};
+    padding: ${p => p.theme.margin.tiny} 0;
     overflow: hidden;
     list-style: none;
     width: ${p => p.width}%;
     color: ${p => p.theme.color.primary};
-    border-bottom: 1px solid ${p => p.theme.color.border};
 `;
 
 const StyledTable = styled.div`
@@ -21,6 +20,7 @@ const StyledTable = styled.div`
 
 const StyledHeader = styled(StyledCell)`
     color: ${p => p.theme.color.header};
+    border-bottom: 1px solid ${p => p.theme.color.border};
 `;
 
 const NoDataWrapper = styled.div`
