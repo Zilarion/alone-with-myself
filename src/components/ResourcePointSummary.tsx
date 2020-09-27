@@ -35,7 +35,11 @@ export const ResourcePointSummary = observer(({
                 />
             </Card>
 
-            { operational && <StorageSummary storage={storage} />}
+            { operational &&
+                <Card header="Storage">
+                    <StorageSummary storage={storage} />
+                </Card>
+            }
         </ResourceWrapper>
     );
 });
