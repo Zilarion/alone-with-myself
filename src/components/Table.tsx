@@ -16,7 +16,6 @@ const StyledCell = styled.div<{ width: number }>`
 const StyledTable = styled.div`
     display: flex;
     flex-wrap: wrap;
-    margin: 0 0 3em 0;
     padding: 0;
 `;
 

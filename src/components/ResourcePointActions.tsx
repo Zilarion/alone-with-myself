@@ -1,3 +1,5 @@
+
+
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
@@ -5,6 +7,7 @@ import { ResourcePoint } from '../models';
 import styled from '../themed-components';
 import { Button } from './Button';
 import { Card } from './Card';
+import { CostSummary } from './CostSummary';
 import { PrinterSummary } from './PrinterSummary';
 import { QueueSummary } from './QueueSummary';
 
@@ -15,6 +18,12 @@ interface ResourcePointActionsProps {
 const ResourceActionWrapper = styled.div`
     display: grid;
     grid-gap: ${p => p.theme.margin.medium};
+`;
+
+const ActionButtonWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: ${p => p.theme.margin.medium};
 `;
 
 export const ResourcePointActions = observer(({
@@ -32,19 +41,29 @@ export const ResourcePointActions = observer(({
         </Card>;
     }
 
+    const actionButtons = availableActions.map(({
+        onClick,
+        enabled,
+        label,
+        cost,
+    }) =>
+        <Button
+            key={label}
+            onClick={() => onClick()}
+            disabled={!enabled}
+            tooltip={
+                <div style={{ width: 200 }}>
+                    <span> { label }</span>
+                    <CostSummary cost={cost} />
+                </div>
+            }
+        >{ label }</Button>,
+    );
+
     return (
         <ResourceActionWrapper>
             <Card header="Available commands">
-                { availableActions.map(({
-                    onClick,
-                    enabled,
-                    label,
-                }) =>
-                    <Button key={label}
-                        onClick={() => onClick()}
-                        disabled={!enabled}
-                    >{ label }</Button>,
-                )}
+                <ActionButtonWrapper>{ actionButtons }</ActionButtonWrapper>
             </Card>
             <Card header="Printer queue">
                 <QueueSummary queue={queue} />
