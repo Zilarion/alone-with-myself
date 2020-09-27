@@ -1,6 +1,6 @@
 import { ResourceType } from './ResourceType';
 
-export type ResourceRequirement = {
+export type ResourceSet = {
     type: ResourceType;
     amount: number;
 }[];

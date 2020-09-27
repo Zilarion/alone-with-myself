@@ -4,31 +4,35 @@ import {
     observable,
 } from 'mobx';
 
-import { PRINTABLES } from '../data';
 import {
     InteractionPoint,
     InteractionPointProps,
 } from './InteractionPoint';
+import { findPrintable } from './Printable';
+import { PrintableType } from './PrintableType';
 import { Printer } from './Printer';
 import { PrintQueue } from './PrintQueue';
+import { Producer } from './Producer';
+import { ResourceSet } from './ResourceSet';
 import { ResourceStorage } from './ResourceStorage';
-import { ResourceType } from './ResourceType';
+
+interface Action {
+    onClick: Function;
+    enabled: boolean;
+    label: string;
+    cost: ResourceSet;
+}
 
 type ResourcePointProps = {
-    resources: number;
+    resources: ResourceSet;
 } & InteractionPointProps;
-
-const MINER_DEFAULT_SPEED = 0.01;
 
 export class ResourcePoint extends InteractionPoint {
     @observable
-    private _resources: number;
+    private _producer: Producer;
 
     @observable
     private _printers: Array<Printer> = new Array();
-
-    @observable
-    private _miners: number = 0;
 
     @observable
     private _operational: boolean = false;
@@ -41,7 +45,7 @@ export class ResourcePoint extends InteractionPoint {
 
     constructor(props: ResourcePointProps) {
         super(props);
-        this._resources = props.resources;
+        this._producer = new Producer(props.resources);
         this._storage = new ResourceStorage();
     }
 
@@ -56,13 +60,13 @@ export class ResourcePoint extends InteractionPoint {
     }
 
     @computed
-    public get miners() {
-        return this._miners;
+    public get harvesters() {
+        return this._producer.harvesters;
     }
 
     @computed
     public get resources() {
-        return this._resources;
+        return this._producer.consumables;
     }
 
     @computed
@@ -75,47 +79,31 @@ export class ResourcePoint extends InteractionPoint {
         return this._operational;
     }
 
+    @computed
+    public get availableActions(): Action[] {
+        const harvesterActions: Action[] = this._producer.availableHarvesters.map(([ printableType, harvester ]) => ({
+            onClick: () => this._printHarvester(printableType),
+            enabled: this._canPrint(printableType),
+            label: `Print ${harvester.name}`,
+            cost: harvester.cost,
+        }));
+
+        return [
+            ...harvesterActions,
+            {
+                onClick: this._printPrinter,
+                enabled: this._canPrint(PrintableType.printer),
+                label: 'Print Printer',
+                cost: findPrintable(PrintableType.printer).cost,
+            },
+        ];
+    }
+
     @action.bound
     public activate() {
         this._operational = true;
-        this._miners = 1;
+        this._producer.buildHarvester(PrintableType.miner);
         this._printers.push(new Printer(this._queue));
-    }
-
-    @action.bound
-    public printMiner() {
-        const name = 'miner';
-        const {
-            resources,
-            duration,
-        } = PRINTABLES[name];
-
-        if (this._storage.has(resources)) {
-            this._queue.enqueue({
-                complete: () => this._miners++,
-                duration,
-                name,
-            });
-            this._storage.decrement(resources);
-        }
-    }
-
-    @action.bound
-    public printPrinter() {
-        const name = 'printer';
-        const {
-            resources,
-            duration,
-        } = PRINTABLES[name];
-
-        if (this._storage.has(resources)) {
-            this._queue.enqueue({
-                complete: () => this._printers.push(new Printer(this._queue)),
-                duration,
-                name,
-            });
-            this._storage.decrement(resources);
-        }
     }
 
     public update(delta: number) {
@@ -123,20 +111,54 @@ export class ResourcePoint extends InteractionPoint {
             return;
         }
 
-        const mineCapacity = delta * this._minerSpeed();
-        const minedMinerals = Math.min(mineCapacity, this._resources);
-
-        this._resources -= minedMinerals;
-
-        this._storage.increment(ResourceType.minerals, minedMinerals);
-    }
-
-    private _minerSpeed() {
-        return this._miners * MINER_DEFAULT_SPEED;
+        const production = this._producer.productionOver(delta);
+        this._storage.increment(production);
+        this._producer.consume(production);
     }
 
     @computed
     public get children() {
         return this.printers;
+    }
+
+    private _canPrint(type: PrintableType) {
+        return this._storage.has(
+            findPrintable(type).cost,
+        );
+    }
+
+    @action.bound
+    private _printHarvester(type: PrintableType) {
+        this._print(type, () => {
+            this._producer.buildHarvester(type);
+        });
+    }
+
+    @action.bound
+    private _printPrinter() {
+        this._print(PrintableType.printer, () => {
+            this._printers.push(new Printer(this._queue));
+        });
+    }
+
+    @action.bound
+    private _print(type: PrintableType, complete: () => void) {
+        const printable = findPrintable(type);
+
+        if (this._canPrint(type)) {
+            const {
+                cost,
+                duration,
+                name,
+            } = printable;
+
+            this._queue.enqueue({
+                complete,
+                duration,
+                name,
+            });
+
+            this._storage.decrement(cost);
+        }
     }
 }

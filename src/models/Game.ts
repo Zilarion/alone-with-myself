@@ -130,6 +130,7 @@ export class Game {
         }
     }
 
+    @action.bound
     private _setSelectedEntity(entity: Entity | null) {
         if (this._selectedEntity != null) {
             this._selectedEntity.selected = false;

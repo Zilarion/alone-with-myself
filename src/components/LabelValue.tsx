@@ -13,6 +13,7 @@ const StyledWrapper = styled.div`
 
 const StyledLabel = styled.div`
     color: ${p => p.theme.color.header};
+    margin-bottom: ${p => p.theme.margin.tiny};
     font-size: 16px;
 `;
 

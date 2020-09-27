@@ -1,15 +1,19 @@
+import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 
 import { ResourceStorage } from '../models';
-import { Card } from './Card';
 import { FormattedResource } from './FormattedResource';
 import { Table } from './Table';
 
 interface StorageSummaryProps {
     storage: ResourceStorage;
+    showHeader?: boolean;
 }
 
-export function StorageSummary({ storage }: StorageSummaryProps) {
+export const StorageSummary = observer(({
+    storage,
+    showHeader = false,
+}: StorageSummaryProps) => {
     const data = storage.resources.map((resource) => [
         resource,
         <FormattedResource
@@ -19,10 +23,8 @@ export function StorageSummary({ storage }: StorageSummaryProps) {
         />,
     ]);
 
-    return <Card header="Storage">
-        <Table
-            headers={[ 'Resource', 'Amount' ]}
-            data={data}
-        />
-    </Card>;
-}
+    return <Table
+        headers={showHeader ? [ 'Resource', 'Amount' ] : []}
+        data={data}
+    />;
+});

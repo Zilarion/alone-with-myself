@@ -28,14 +28,9 @@ export const ResourcePointSummary = observer(({
         <ResourceWrapper>
             <Card header="Resource point">
                 <LabelValue
-                    label="Resources"
+                    label="Available Resources"
                     value={
-                        <FormattedNumber
-                            value={resources}
-                            style="unit"
-                            unit="kilogram"
-                            maximumFractionDigits={0}
-                        />
+                        <StorageSummary storage={resources} />
                     }
                 />
             </Card>

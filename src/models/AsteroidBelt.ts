@@ -15,6 +15,7 @@ import {
     EntityType,
 } from './Entity';
 import { ResourcePoint } from './ResourcePoint';
+import { ResourceType } from './ResourceType';
 import { Vector } from './Vector';
 
 interface AsteroidBeltProps {
@@ -63,10 +64,13 @@ export class AsteroidBelt extends Entity {
                     x: orbitFocus.position.x + distance * Math.cos(angle),
                     y: orbitFocus.position.y + distance * Math.sin(angle),
                 },
-                resources: randomInt({
-                    min: maxResourceCount / 2,
-                    max: maxResourceCount,
-                }),
+                resources: [ {
+                    type: ResourceType.minerals,
+                    amount: randomInt({
+                        min: maxResourceCount / 2,
+                        max: maxResourceCount,
+                    }),
+                } ],
             });
         });
     }
