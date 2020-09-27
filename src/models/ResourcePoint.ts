@@ -61,7 +61,11 @@ export class ResourcePoint extends InteractionPoint {
 
     @computed
     public get harvesters() {
-        return this._producer.harvesters;
+        return Array.from(this._producer.harvesters.entries())
+            .map(([ type, number ]) => ({
+                type,
+                amount: number,
+            }));
     }
 
     @computed

@@ -5,6 +5,7 @@ import { FormattedNumber } from 'react-intl';
 import { ResourcePoint } from '../models';
 import styled from '../themed-components';
 import { Card } from './Card';
+import { HarvesterSummary } from './HarvesterSummary';
 import { LabelValue } from './LabelValue';
 import { StorageSummary } from './StorageSummary';
 
@@ -22,6 +23,7 @@ export const ResourcePointSummary = observer(({
         resources,
         operational,
         storage,
+        harvesters,
     },
 }: ResourcePointSummaryProps) => {
     return (
@@ -35,11 +37,14 @@ export const ResourcePointSummary = observer(({
                 />
             </Card>
 
-            { operational &&
+            { operational && <>
                 <Card header="Storage">
                     <StorageSummary storage={storage} />
                 </Card>
-            }
+                <Card header="Harvesters">
+                    <HarvesterSummary harvesters={harvesters} />
+                </Card>
+            </>}
         </ResourceWrapper>
     );
 });
