@@ -48,7 +48,7 @@ export class Producer {
         assert(harvester != null, `Expected harvester of ${type} to exist`);
 
         const numberOfHarvesters = this._harvesters.get(type) ?? 0;
-        this._harvesters.set(type, numberOfHarvesters + 1);
+        this._harvesters.set(type, numberOfHarvesters);
     }
 
     public productionOver(delta: number): ResourceSet {
@@ -63,7 +63,9 @@ export class Producer {
                 amount,
             }) => {
                 const currentOfResource = production.get(resourceType) ?? 0;
-                const additionToResource = amount * amountOfHarvesters * delta;
+                const productionForResource = amount * amountOfHarvesters * delta;
+                const available = this._consumables.numberOf(resourceType);
+                const additionToResource = Math.min(productionForResource, available);
 
                 production.set(resourceType, currentOfResource + additionToResource);
             });
