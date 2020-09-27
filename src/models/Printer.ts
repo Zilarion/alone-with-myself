@@ -55,22 +55,22 @@ export class Printer extends Entity {
             return;
         }
 
-        const {
-            duration,
-            complete,
-        } = this._task;
-
         this._progress += delta;
 
-        if (duration <= this._progress) {
-            complete();
-            this._progress -= duration;
-            this._task = null;
+        if (this._task.duration <= this._progress) {
+            this._completeTask();
         }
     }
 
     public pointIsInside() {
         return false;
+    }
+
+    @action.bound
+    private _completeTask() {
+        this._task?.complete();
+        this._progress -= this._task?.duration ?? 0;
+        this._task = null;
     }
 
     @action.bound
