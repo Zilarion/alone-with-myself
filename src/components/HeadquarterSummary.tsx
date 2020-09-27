@@ -20,7 +20,7 @@ export const HeadquarterSummary = observer(({ point: { storage } }: HeadquarterS
     return (
         <HeadquarterWrapper>
             <Card header="Headquarters">
-                <span>This is the spot where you can build your own headquarters.</span>
+                { 'This is the spot where you can build your own headquarters.' }
             </Card>
             <Card header="Storage">
                 <StorageSummary storage={storage} />
