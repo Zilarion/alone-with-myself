@@ -3,6 +3,7 @@ import {
     Entity,
     EntityType,
 } from './Entity';
+import { InteractionPoint } from './InteractionPoint';
 import { Vector } from './Vector';
 
 export interface BodyProps {
@@ -17,6 +18,7 @@ export interface BodyProps {
     };
     color: string;
     id: string;
+    points?: InteractionPoint[];
 }
 
 export interface Orbit {
@@ -34,6 +36,7 @@ export class Body extends Entity {
     protected _orbit?: Orbit;
     protected _color: string;
     protected _type = EntityType.PlanetaryBody
+    protected _points: InteractionPoint[];
 
     constructor({
         position,
@@ -42,6 +45,7 @@ export class Body extends Entity {
         orbit,
         color,
         id,
+        points = [],
     }: BodyProps) {
         super();
         this._position = position;
@@ -50,6 +54,7 @@ export class Body extends Entity {
         this._orbit = orbit;
         this._color = color;
         this._id = id;
+        this._points = points;
     }
 
     public get id() {
@@ -76,12 +81,20 @@ export class Body extends Entity {
         return this._mass;
     }
 
+    public get points() {
+        return this._points;
+    }
+
     public update = (delta: number) => {
         this._updateOrbit(delta);
     }
 
     public pointIsInside(vector: Vector) {
         return distanceBetween(this._position, vector) <= this._radius;
+    }
+
+    protected get children() {
+        return this._points;
     }
 
     private _updateOrbit = (delta: number) => {

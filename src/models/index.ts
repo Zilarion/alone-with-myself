@@ -9,3 +9,4 @@ export * from './ResourceUnits';
 export * from './ResourceStorage';
 export * from './ResourceSet';
 export * from './ResourceType';
+export * from './HeadquarterPoint';

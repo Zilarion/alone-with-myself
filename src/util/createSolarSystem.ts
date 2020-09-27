@@ -1,5 +1,6 @@
 import { Body } from '../models';
 import { Entity } from '../models/Entity';
+import { HeadquarterPoint } from '../models/HeadquarterPoint';
 import { createAsteroidBelt } from './createAsteroidBelt';
 import { createPlanet } from './createPlanet';
 import { emptyArray } from './emptyArray';
@@ -22,6 +23,11 @@ export function createSolarSystem({
 }: CreateSolarSystemProps): Entity[] {
     const starName = randomStarName();
     const radius = 693; // 639e3
+
+    const hq = new HeadquarterPoint({
+        x: radius * 1.8,
+        y: 0,
+    });
     const star = new Body({
         position: {
             x: 0,
@@ -31,6 +37,7 @@ export function createSolarSystem({
         mass: 1989, // 10e30
         color: '#FEB813',
         id: starName,
+        points: [ hq ],
     });
 
     const radiusIncrements = randomInt({

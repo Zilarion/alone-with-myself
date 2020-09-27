@@ -5,6 +5,7 @@ import styled from '../themed-components';
 const StyledSideBar = styled.div`
     position: absolute;
     top: ${p => p.theme.margin.medium};
+    color: ${p => p.theme.color.primary};
     width: 300px;
 `;
 

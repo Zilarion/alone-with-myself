@@ -3,8 +3,8 @@ import { TinyColor } from '@ctrl/tinycolor';
 
 import { Body } from '../models';
 import { drawCircle } from './drawCircle';
+import { drawMarker } from './drawMarker';
 import { drawOrbit } from './drawOrbit';
-import { drawSelectionCircle } from './drawSelectionCircle';
 
 interface DrawBodyProps {
     context: CanvasRenderingContext2D;
@@ -21,6 +21,7 @@ export function drawBody({
         radius,
         mouseOver,
         selected,
+        points,
     },
     showOrbit = true,
 }: DrawBodyProps) {
@@ -31,13 +32,21 @@ export function drawBody({
         });
     }
 
-    if (selected) {
-        drawSelectionCircle({
+    points.forEach((point) => {
+        if (!point.selected && !selected) {
+            return;
+        }
+
+        const color = point.mouseOver || point.selected
+            ? 'rgb(0, 255, 255)'
+            : 'rgb(0, 180, 180)';
+
+        drawMarker({
             context,
-            radius,
-            center: position,
+            point,
+            color,
         });
-    }
+    });
 
     const fillColor = mouseOver ?
         new TinyColor(color).lighten(20).toHexString() :
