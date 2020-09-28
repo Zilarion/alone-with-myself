@@ -93,7 +93,7 @@ export class Body extends Entity {
         return distanceBetween(this._position, vector) <= this._radius;
     }
 
-    protected get children() {
+    public get children() {
         return this._points;
     }
 
