@@ -1,6 +1,7 @@
 import { FULL_CIRCLE } from '../constants';
 import { AsteroidBelt } from '../models/AsteroidBelt';
 import { drawCircle } from './drawCircle';
+import { drawInteractionPoint } from './drawInteractionPoint';
 import { drawMarker } from './drawMarker';
 
 interface DrawAsteroidBeltProps {
@@ -58,18 +59,13 @@ export function drawAsteroidBelt({
     }
 
     interactionPoints.forEach((point) => {
-        if (!point.selected && !selected && !point.operational) {
+        if (!selected && !point.operational) {
             return;
         }
 
-        const color = point.mouseOver || point.selected
-            ? 'rgb(0, 255, 255)'
-            : 'rgb(0, 180, 180)';
-
-        drawMarker({
+        drawInteractionPoint({
             context,
             point,
-            color,
         });
     });
 }

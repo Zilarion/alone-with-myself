@@ -4,6 +4,7 @@ import {
     observable,
 } from 'mobx';
 
+import { Entity } from './Entity';
 import {
     InteractionPoint,
     InteractionPointProps,
@@ -110,8 +111,12 @@ export class ResourcePoint extends InteractionPoint {
     }
 
     @computed
-    public get children() {
-        return this.printers;
+    public get children(): Entity[] {
+
+        return [
+            ... super.children,
+            ... this.printers,
+        ];
     }
 
     private _canPrint(type: PrintableType) {

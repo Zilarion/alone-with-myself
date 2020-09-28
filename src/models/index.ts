@@ -10,3 +10,5 @@ export * from './ResourceStorage';
 export * from './ResourceSet';
 export * from './ResourceType';
 export * from './HeadquarterPoint';
+export * from './InteractionPoint';
+export * from './Transporter';

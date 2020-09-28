@@ -3,7 +3,7 @@ import { TinyColor } from '@ctrl/tinycolor';
 
 import { Body } from '../models';
 import { drawCircle } from './drawCircle';
-import { drawMarker } from './drawMarker';
+import { drawInteractionPoint } from './drawInteractionPoint';
 import { drawOrbit } from './drawOrbit';
 
 interface DrawBodyProps {
@@ -20,7 +20,6 @@ export function drawBody({
         orbit,
         radius,
         mouseOver,
-        selected,
         points,
     },
     showOrbit = true,
@@ -33,18 +32,9 @@ export function drawBody({
     }
 
     points.forEach((point) => {
-        if (!point.selected && !selected) {
-            return;
-        }
-
-        const color = point.mouseOver || point.selected
-            ? 'rgb(0, 255, 255)'
-            : 'rgb(0, 180, 180)';
-
-        drawMarker({
+        drawInteractionPoint({
             context,
             point,
-            color,
         });
     });
 

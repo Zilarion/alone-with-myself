@@ -9,6 +9,7 @@ import {
     EntityType,
 } from './Entity';
 import { ResourceStorage } from './ResourceStorage';
+import { Transporter } from './Transporter';
 import { Vector } from './Vector';
 
 export interface InteractionPointProps {
@@ -19,6 +20,7 @@ export abstract class InteractionPoint extends Entity {
     protected _type = EntityType.InteractionPoint;
     private _location: Vector;
     private _radius: number = 200;
+    private _outgoing: Transporter[] = [];
 
     @observable
     private _storage: ResourceStorage = new ResourceStorage();
@@ -31,6 +33,11 @@ export abstract class InteractionPoint extends Entity {
     @computed
     public get storage() {
         return this._storage;
+    }
+
+    @computed
+    public get outgoing() {
+        return this._outgoing;
     }
 
     public set location(value: Vector) {
@@ -47,6 +54,14 @@ export abstract class InteractionPoint extends Entity {
 
     public pointIsInside(vector: Vector) {
         return distanceBetween(vector, this._location) <= this._radius;
+    }
+
+    public get children(): Entity[] {
+        return this._outgoing;
+    }
+
+    public connectTo(target: InteractionPoint): void {
+        this._outgoing.push(new Transporter(this, target));
     }
 
     public abstract update(delta: number): void;
