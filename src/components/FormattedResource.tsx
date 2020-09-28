@@ -10,11 +10,13 @@ import { assert } from '../util';
 interface FormattedResourceProps {
     value: number;
     type: ResourceType;
+    compact?: boolean;
 }
 
 export function FormattedResource({
     value,
     type,
+    compact = false,
 }: FormattedResourceProps) {
     const unit = RESOURCE_TO_UNIT.get(type);
     assert(unit != null, `Expected ${type} to have a unit.`);
@@ -22,6 +24,7 @@ export function FormattedResource({
         value={value}
         style="unit"
         unit={unit}
+        notation={compact ? 'compact' : 'standard'}
         maximumFractionDigits={0}
     />;
 }

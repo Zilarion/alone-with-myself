@@ -110,6 +110,10 @@ export class ResourcePoint extends InteractionPoint {
         this._producer.consume(production);
     }
 
+    public get productionPerSecond() {
+        return this._producer.productionOver(1000);
+    }
+
     @computed
     public get children(): Entity[] {
 
