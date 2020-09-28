@@ -14,7 +14,6 @@ import { Printer } from './Printer';
 import { PrintQueue } from './PrintQueue';
 import { Producer } from './Producer';
 import { ResourceSet } from './ResourceSet';
-import { ResourceStorage } from './ResourceStorage';
 
 interface Action {
     onClick: Function;
@@ -38,22 +37,12 @@ export class ResourcePoint extends InteractionPoint {
     private _operational: boolean = false;
 
     @observable
-    private _storage: ResourceStorage;
-
-    @observable
     private _queue = new PrintQueue();
 
     constructor(props: ResourcePointProps) {
         super(props);
         this._producer = new Producer(props.resources);
-        this._storage = new ResourceStorage();
     }
-
-    @computed
-    public get storage() {
-        return this._storage;
-    }
-
     @computed
     public get printers() {
         return this._printers;
@@ -116,7 +105,7 @@ export class ResourcePoint extends InteractionPoint {
         }
 
         const production = this._producer.productionOver(delta);
-        this._storage.increment(production);
+        this.storage.increment(production);
         this._producer.consume(production);
     }
 
@@ -126,7 +115,7 @@ export class ResourcePoint extends InteractionPoint {
     }
 
     private _canPrint(type: PrintableType) {
-        return this._storage.has(
+        return this.storage.has(
             findPrintable(type).cost,
         );
     }
@@ -162,7 +151,7 @@ export class ResourcePoint extends InteractionPoint {
                 name,
             });
 
-            this._storage.decrement(cost);
+            this.storage.decrement(cost);
         }
     }
 }

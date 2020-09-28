@@ -1,8 +1,14 @@
+import {
+    computed,
+    observable,
+} from 'mobx';
+
 import { distanceBetween } from '../util/distanceBetween';
 import {
     Entity,
     EntityType,
 } from './Entity';
+import { ResourceStorage } from './ResourceStorage';
 import { Vector } from './Vector';
 
 export interface InteractionPointProps {
@@ -14,9 +20,17 @@ export abstract class InteractionPoint extends Entity {
     private _location: Vector;
     private _radius: number = 200;
 
+    @observable
+    private _storage: ResourceStorage = new ResourceStorage();
+
     constructor({ location }: InteractionPointProps) {
         super();
         this._location = location;
+    }
+
+    @computed
+    public get storage() {
+        return this._storage;
     }
 
     public set location(value: Vector) {
