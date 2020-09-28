@@ -17,8 +17,11 @@ import { InteractionPoint } from './InteractionPoint';
 import { Vector } from './Vector';
 
 export class Game {
-    @observable private _entities: Entity[] = [];
-    @observable private _selectedEntity: Entity | null = null;
+    @observable
+    private _entities: Entity[] = [];
+
+    @observable
+    private _selectedEntity: Entity | null = null;
 
     private _animationFrameId: number | null = null;
     private _context: CanvasRenderingContext2D;
@@ -29,7 +32,11 @@ export class Game {
         x: 0,
         y: 0,
     };
-    private _isClick: boolean = false;
+
+    private _isClick = false;
+
+    @observable
+    private _mouseDownEntity: null | Entity = null;
 
     constructor(canvas: HTMLCanvasElement) {
         const ctx = canvas.getContext('2d');
@@ -42,11 +49,35 @@ export class Game {
             this._mousePosition = {
                 x, y,
             };
+            this._isClick = false;
         });
 
-
-        canvas.addEventListener('click', () => {
+        canvas.addEventListener('mousedown', () => {
             this._isClick = true;
+            this._mouseDownEntity = findSelectedEntity(
+                this._entitiesUnderMouse(),
+            );
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            if (this._isClick) {
+                this._setSelectedEntity(this._mouseDownEntity);
+                return;
+            }
+            const targetEntity = findSelectedEntity(
+                this._entitiesUnderMouse(),
+            );
+
+            if (
+                this._mouseDownEntity instanceof InteractionPoint &&
+                targetEntity instanceof InteractionPoint
+            ) {
+                this._mouseDownEntity.connectTo(
+                    targetEntity,
+                );
+            }
+
+            this._mouseDownEntity = null;
         });
 
         this._camera = new CanvasCamera({
@@ -96,24 +127,20 @@ export class Game {
         }, []);
     }
 
-    private _update(delta: number) {
-        const dialatedDelta = delta * this._gameSpeed;
-
-        const entitiesUnderMouse = this.entities.filter((entity) => {
-            const mousePosition = this._camera.screenToWorld(this._mousePosition);
+    private _entitiesUnderMouse() {
+        const mousePosition = this._camera.screenToWorld(this._mousePosition);
+        return this.entities.filter((entity) => {
             const isMouseOver = entity.pointIsInside(mousePosition);
             entity.mouseOver = isMouseOver;
             return isMouseOver;
         });
+    }
 
+    private _update(delta: number) {
+        const dialatedDelta = delta * this._gameSpeed;
+
+        const entitiesUnderMouse = this._entitiesUnderMouse();
         const hasMouseOver = entitiesUnderMouse.length > 0;
-
-        if (this._isClick) {
-            const newSelectedEntity = findSelectedEntity(entitiesUnderMouse);
-            this._setSelectedEntity(newSelectedEntity);
-        }
-
-        this._isClick = false;
 
         this._context.canvas.style.cursor = hasMouseOver ? 'pointer' : 'default';
 
