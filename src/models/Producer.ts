@@ -43,12 +43,12 @@ export class Producer {
     }
 
     @action.bound
-    public buildHarvester(type: PrintableType) {
+    public buildHarvesters(type: PrintableType, amount: number) {
         const harvester = HARVESTERS.get(type);
         assert(harvester != null, `Expected harvester of ${type} to exist`);
 
         const numberOfHarvesters = this._harvesters.get(type) ?? 0;
-        this._harvesters.set(type, numberOfHarvesters + 1);
+        this._harvesters.set(type, numberOfHarvesters + amount);
     }
 
     public productionOver(delta: number): ResourceSet {

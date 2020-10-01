@@ -11,17 +11,10 @@ import {
 } from './InteractionPoint';
 import { findPrintable } from './Printable';
 import { PrintableType } from './PrintableType';
-import { Printer } from './Printer';
-import { PrintQueue } from './PrintQueue';
+import { Printers } from './Printers';
+import { PrintTask } from './PrintTask';
 import { Producer } from './Producer';
 import { ResourceSet } from './ResourceSet';
-
-interface Action {
-    onClick: Function;
-    enabled: boolean;
-    label: string;
-    cost: ResourceSet;
-}
 
 type ResourcePointProps = {
     resources: ResourceSet;
@@ -32,18 +25,17 @@ export class ResourcePoint extends InteractionPoint {
     private _producer: Producer;
 
     @observable
-    private _printers: Array<Printer> = new Array();
+    private _printers: Printers;
 
     @observable
     private _operational: boolean = false;
 
-    @observable
-    private _queue = new PrintQueue();
-
     constructor(props: ResourcePointProps) {
         super(props);
         this._producer = new Producer(props.resources);
+        this._printers = new Printers();
     }
+
     @computed
     public get printers() {
         return this._printers;
@@ -64,40 +56,29 @@ export class ResourcePoint extends InteractionPoint {
     }
 
     @computed
-    public get queue() {
-        return this._queue;
-    }
-
-    @computed
     public get operational() {
         return this._operational;
-    }
-
-    @computed
-    public get availableActions(): Action[] {
-        const harvesterActions: Action[] = this._producer.availableHarvesters.map(([ printableType, harvester ]) => ({
-            onClick: () => this._printHarvester(printableType),
-            enabled: this._canPrint(printableType),
-            label: `Print ${harvester.name}`,
-            cost: harvester.cost,
-        }));
-
-        return [
-            ...harvesterActions,
-            {
-                onClick: this._printPrinter,
-                enabled: this._canPrint(PrintableType.printer),
-                label: 'Print Printer',
-                cost: findPrintable(PrintableType.printer).cost,
-            },
-        ];
     }
 
     @action.bound
     public activate() {
         this._operational = true;
-        this._producer.buildHarvester(PrintableType.miner);
-        this._printers.push(new Printer(this._queue));
+        this._producer.buildHarvesters(PrintableType.miner, 1);
+        this._printers.addPrinters(1);
+
+        this.printers.addPrintOption(PrintableType.printer, new PrintTask({
+            complete: (amount: number) => this._printers.addPrinters(amount),
+            durationPerItem: findPrintable(PrintableType.printer).duration,
+            name: findPrintable(PrintableType.printer).name,
+        }));
+
+        this.harvesters.forEach(({ type }) => {
+            this.printers.addPrintOption(type, new PrintTask({
+                complete: (amount: number) => this._producer.buildHarvesters(type, amount),
+                durationPerItem: findPrintable(type).duration,
+                name: findPrintable(type).name,
+            }));
+        });
     }
 
     public update(delta: number) {
@@ -119,7 +100,7 @@ export class ResourcePoint extends InteractionPoint {
 
         return [
             ... super.children,
-            ... this.printers,
+            this.printers,
         ];
     }
 
@@ -129,38 +110,8 @@ export class ResourcePoint extends InteractionPoint {
         );
     }
 
-    @action.bound
-    private _printHarvester(type: PrintableType) {
-        this._print(type, () => {
-            this._producer.buildHarvester(type);
-        });
-    }
-
-    @action.bound
-    private _printPrinter() {
-        this._print(PrintableType.printer, () => {
-            this._printers.push(new Printer(this._queue));
-        });
-    }
-
-    @action.bound
-    private _print(type: PrintableType, complete: () => void) {
-        const printable = findPrintable(type);
-
-        if (this._canPrint(type)) {
-            const {
-                cost,
-                duration,
-                name,
-            } = printable;
-
-            this._queue.enqueue({
-                complete,
-                duration,
-                name,
-            });
-
-            this.storage.decrement(cost);
-        }
+    @computed
+    public get availableTasks(): PrintTask[] {
+        return this._printers.tasks;
     }
 }

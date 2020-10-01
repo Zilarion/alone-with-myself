@@ -4,7 +4,7 @@ export * from './Vector';
 export * from './Entity';
 export * from './ResourcePoint';
 export * from './AsteroidBelt';
-export * from './Printer';
+export * from './Printers';
 export * from './ResourceUnits';
 export * from './ResourceStorage';
 export * from './ResourceSet';

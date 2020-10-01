@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import styled from '../themed-components';
 
-const StyledCell = styled.div<{ width: number }>`
+const StyledCell = styled.div<{ width: number; align?: 'left' | 'right' }>`
     box-sizing: border-box;
     flex-grow: 1;
     padding: ${p => p.theme.margin.tiny} 0;
@@ -10,6 +10,7 @@ const StyledCell = styled.div<{ width: number }>`
     list-style: none;
     width: ${p => p.width}%;
     color: ${p => p.theme.color.primary};
+    text-align: ${p => p.align ?? 'left'};
 `;
 
 const StyledTable = styled.div`
@@ -29,14 +30,18 @@ const NoDataWrapper = styled.div`
     color: ${p => p.theme.color.primary};
 `;
 
+type Alignment = 'left' | 'right';
+
 interface TableProps {
     headers?: string[];
+    align?: Alignment[];
     data: (string | JSX.Element)[][];
 }
 
 export function Table({
     headers,
     data,
+    align,
 }: TableProps) {
     if (data.length === 0) {
         return <NoDataWrapper>No data</NoDataWrapper>;
@@ -49,6 +54,7 @@ export function Table({
                 <StyledHeader
                     width={width}
                     key={idx}
+                    align={align?.[idx]}
                 >
                     {value}
                 </StyledHeader>
@@ -59,6 +65,7 @@ export function Table({
             <StyledCell
                 width={width}
                 key={cellIdx}
+                align={align?.[cellIdx]}
             >
                 {cell}
             </StyledCell>,

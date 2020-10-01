@@ -7,9 +7,8 @@ import { ResourcePoint } from '../models';
 import styled from '../themed-components';
 import { Button } from './Button';
 import { Card } from './Card';
-import { CostSummary } from './CostSummary';
-import { PrinterSummary } from './PrinterSummary';
-import { QueueSummary } from './QueueSummary';
+import { LabelValue } from './LabelValue';
+import { TaskSummary } from './TaskSummary';
 
 interface ResourcePointActionsProps {
     point: ResourcePoint;
@@ -20,18 +19,11 @@ const ResourceActionWrapper = styled.div`
     grid-gap: ${p => p.theme.margin.medium};
 `;
 
-const ActionButtonWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: ${p => p.theme.margin.medium};
-`;
-
 export const ResourcePointActions = observer(({
     point: {
-        availableActions,
-        printers,
-        queue,
+        availableTasks,
         operational,
+        printers,
         activate,
     },
 }: ResourcePointActionsProps) => {
@@ -41,35 +33,16 @@ export const ResourcePointActions = observer(({
         </Card>;
     }
 
-    const actionButtons = availableActions.map(({
-        onClick,
-        enabled,
-        label,
-        cost,
-    }) =>
-        <Button
-            key={label}
-            onClick={() => onClick()}
-            disabled={!enabled}
-            tooltip={
-                <div style={{ width: 200 }}>
-                    <span> { label }</span>
-                    <CostSummary cost={cost} />
-                </div>
-            }
-        >{ label }</Button>,
-    );
-
     return (
         <ResourceActionWrapper>
-            <Card header="Available commands">
-                <ActionButtonWrapper>{ actionButtons }</ActionButtonWrapper>
+            <Card header="Printer information">
+                <LabelValue
+                    label={'Printers'}
+                    value={printers.amount.toFixed(0)}
+                />
             </Card>
-            <Card header="Printer queue">
-                <QueueSummary queue={queue} />
-            </Card>
-            <Card header="Printer summary">
-                <PrinterSummary printers={printers} />
+            <Card header="Printer management">
+                <TaskSummary tasks={availableTasks} />
             </Card>
         </ResourceActionWrapper>
     );

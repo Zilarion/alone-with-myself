@@ -27,7 +27,7 @@ export class Game {
     private _context: CanvasRenderingContext2D;
     private _lastFrame: number | null = null;
     private _camera: CanvasCamera;
-    private _gameSpeed: number = 1;
+    private _gameSpeed: number = .1;
     private _mousePosition: Vector = {
         x: 0,
         y: 0,
