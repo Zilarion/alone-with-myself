@@ -10,10 +10,8 @@ import {
     randomInt,
 } from '../util';
 import { Body } from './Body';
-import {
-    Entity,
-    EntityType,
-} from './Entity';
+import { DrawableEntity } from './DrawableEntity';
+import { EntityType } from './Entity';
 import { ResourcePoint } from './ResourcePoint';
 import { ResourceType } from './ResourceType';
 import { Vector } from './Vector';
@@ -25,7 +23,7 @@ interface AsteroidBeltProps {
     bodies: Body[];
 }
 
-export class AsteroidBelt extends Entity {
+export class AsteroidBelt extends DrawableEntity {
     protected _type = EntityType.AsteroidBelt;
 
     @observable

@@ -4,6 +4,7 @@ import {
 } from 'mobx';
 
 import { distanceBetween } from '../util/distanceBetween';
+import { DrawableEntity } from './DrawableEntity';
 import {
     Entity,
     EntityType,
@@ -16,7 +17,7 @@ export interface InteractionPointProps {
     location: Vector;
 }
 
-export abstract class InteractionPoint extends Entity {
+export abstract class InteractionPoint extends DrawableEntity {
     protected _type = EntityType.InteractionPoint;
     private _location: Vector;
     private _radius: number = 200;

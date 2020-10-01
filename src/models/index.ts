@@ -12,3 +12,4 @@ export * from './ResourceType';
 export * from './HeadquarterPoint';
 export * from './InteractionPoint';
 export * from './Transporter';
+export * from './DrawableEntity';

@@ -41,8 +41,8 @@ export class Printers extends Entity {
     }
 
     @action.bound
-    public addPrinters(amount: number) {
-        this._amount = amount;
+    public addPrinters(increment: number) {
+        this._amount += increment;
     }
 
     @computed
@@ -78,9 +78,5 @@ export class Printers extends Entity {
             const progressLeft = newProgress - numberCompleted * durationPerItem;
             task.progress = progressLeft;
         });
-    }
-
-    public pointIsInside() {
-        return false;
     }
 }

@@ -1,10 +1,10 @@
 import {
-    Entity,
+    DrawableEntity,
     EntityType,
 } from '../models';
 
-export function findSelectedEntity(entities: Entity[]): Entity | null {
-    return entities.reduce<Entity | null>((prev, current) => {
+export function findSelectedEntity(entities: DrawableEntity[]): DrawableEntity | null {
+    return entities.reduce<DrawableEntity | null>((prev, current) => {
         if (prev == null) {
             return current;
         }

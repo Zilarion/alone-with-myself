@@ -1,4 +1,5 @@
 import { distanceBetween } from '../util/distanceBetween';
+import { DrawableEntity } from './DrawableEntity';
 import {
     Entity,
     EntityType,
@@ -28,7 +29,7 @@ export interface Orbit {
     angle: number;
 }
 
-export class Body extends Entity {
+export class Body extends DrawableEntity {
     protected _id: string;
     protected _position: Vector;
     protected _radius: number;
