@@ -1,28 +1,12 @@
+import MaterialTable from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+
 import * as React from 'react';
 
 import styled from '../themed-components';
-
-const StyledCell = styled.div<{ width: number; align?: 'left' | 'right' }>`
-    box-sizing: border-box;
-    flex-grow: 1;
-    padding: ${p => p.theme.margin.tiny} 0;
-    overflow: hidden;
-    list-style: none;
-    width: ${p => p.width}%;
-    color: ${p => p.theme.color.primary};
-    text-align: ${p => p.align ?? 'left'};
-`;
-
-const StyledTable = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0;
-`;
-
-const StyledHeader = styled(StyledCell)`
-    color: ${p => p.theme.color.header};
-    border-bottom: 1px solid ${p => p.theme.color.border};
-`;
 
 const NoDataWrapper = styled.div`
     width: 100%;
@@ -51,29 +35,31 @@ export function Table({
 
     const header = headers ?
             headers?.map((value, idx) =>
-                <StyledHeader
+                <TableCell
                     width={width}
                     key={idx}
                     align={align?.[idx]}
                 >
                     {value}
-                </StyledHeader>
+                </TableCell>
             ) : undefined;
 
-    const content = data.map((row) =>
-        row.map((cell, cellIdx) =>
-            <StyledCell
-                width={width}
-                key={cellIdx}
-                align={align?.[cellIdx]}
-            >
-                {cell}
-            </StyledCell>,
-        ),
+    const content = data.map((row, idx) =>
+        <TableRow key={idx}>{
+            row.map((cell, cellIdx) =>
+                <TableCell
+                    width={width}
+                    key={cellIdx}
+                    align={align?.[cellIdx]}
+                >
+                    {cell}
+                </TableCell>,
+            )}
+        </TableRow>,
     );
 
-    return <StyledTable>
-        {header}
-        {content}
-    </StyledTable>;
+    return <MaterialTable size="small">
+        <TableHead><TableRow>{header}</TableRow></TableHead>
+        <TableBody>{content}</TableBody>
+    </MaterialTable>;
 }

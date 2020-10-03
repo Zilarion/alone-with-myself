@@ -1,31 +1,33 @@
+import Slider from '@material-ui/core/Slider';
+
 import { observer } from 'mobx-react-lite';
 import * as React from 'react';
 import { FormattedNumber } from 'react-intl';
 
 import { PrintTask } from '../models/PrintTask';
-import styled from '../themed-components';
+import { assert } from '../util';
 import { Table } from './Table';
 
 interface TaskSummaryProps {
     tasks: PrintTask[];
 }
 
-const StyledInput = styled.input`
-    width: 100%;
-`;
-
 export const TaskSummary = observer(({ tasks }: TaskSummaryProps) => {
+    const totalPercentage = tasks.reduce((current, { percentageOfTotal }) => current + percentageOfTotal, 0);
+    const percentageLeft = 100 - totalPercentage;
+
     const data = tasks.map((task) => [
         <label key={0} htmlFor={task.name}> { task.name }</label>,
-        <StyledInput
+        <Slider
             key={1}
-            type="range"
             id={task.name}
-            name={task.name}
-            min="0"
-            max="100"
-            onChange={(event) => {
-                task.percentageOfTotal = Number.parseFloat(event.target.value);
+            step={5}
+            min={0}
+            max={100}
+            valueLabelDisplay="auto"
+            onChange={(_, newValue) => {
+                assert(!Array.isArray(newValue), 'Expected slider to provide a single value');
+                task.percentageOfTotal = Math.min(newValue, percentageLeft + task.percentageOfTotal);
             }}
             value={task.percentageOfTotal}
         />,
