@@ -70,7 +70,7 @@ export function createSolarSystem({
             return entities.concat(
                 createAsteroidBelt({
                     body: star,
-                    numberOfAsteroids: Math.floor(radius / 30),
+                    numberOfAsteroids: Math.floor(radius / 100),
                     centerRadius: radius,
                     width: radiusIncrements,
                 }),
