@@ -1,7 +1,9 @@
-import { Body } from '../models';
-import { AsteroidBelt } from '../models/AsteroidBelt';
+import {
+    AsteroidBelt,
+    Body,
+} from '../../models';
+import { emptyArray } from '../emptyArray';
 import { createSatelliteOf } from './createSatelliteOf';
-import { emptyArray } from './emptyArray';
 import {
     randomNormalDistribution,
     randomNumber,

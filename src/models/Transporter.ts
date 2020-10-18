@@ -1,6 +1,6 @@
 import { computed } from 'mobx';
 
-import { distanceToSegment } from '../util/geometry/distanceToSegment';
+import { distanceToSegment } from '../util/geometry';
 import { DrawableEntity } from './DrawableEntity';
 import { EntityType } from './Entity';
 import { InteractionPoint } from './InteractionPoint';

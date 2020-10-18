@@ -1,6 +1,6 @@
-import { Body } from '../models';
+import { Body } from '../../models';
+import { emptyArray } from '../emptyArray';
 import { createSatelliteOf } from './createSatelliteOf';
-import { emptyArray } from './emptyArray';
 import {
     randomInt,
     randomNumber,

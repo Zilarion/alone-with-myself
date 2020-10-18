@@ -1,9 +1,11 @@
-import { Body } from '../models';
-import { Entity } from '../models/Entity';
-import { HeadquarterPoint } from '../models/HeadquarterPoint';
+import {
+    Body,
+    Entity,
+    HeadquarterPoint,
+} from '../../models';
+import { emptyArray } from '../emptyArray';
 import { createAsteroidBelt } from './createAsteroidBelt';
 import { createPlanet } from './createPlanet';
-import { emptyArray } from './emptyArray';
 import {
     randomInt,
     randomNormalDistribution,

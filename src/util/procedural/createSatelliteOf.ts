@@ -1,5 +1,5 @@
-import { Body } from '../models';
-import { Planet } from '../models/Planet';
+import { Body } from '../../models';
+import { Planet } from '../../models/Planet';
 
 interface CreateSatelliteOfProps {
     body: Body;
@@ -37,7 +37,6 @@ export function createSatelliteOf({
     };
 
     const obj = typeMap[type];
-
     return new obj({
         position,
         mass,

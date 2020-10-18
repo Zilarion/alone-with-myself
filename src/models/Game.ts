@@ -4,12 +4,14 @@ import {
     observable,
 } from 'mobx';
 
-import { drawEntity } from '../components';
-import { CanvasCamera } from '../util/CanvasCamera';
-import { childrenOfEntity } from '../util/childrenOfEntity';
-import { clearCanvas } from '../util/clearCanvas';
-import { createSolarSystem } from '../util/createSolarSystem';
-import { findSelectedEntity } from '../util/findSelectedEntity';
+import { drawEntity } from '../drawables';
+import {
+    CanvasCamera,
+    childrenOfEntity,
+    clearCanvas,
+    createSolarSystem,
+    findSelectedEntity,
+} from '../util';
 import { AsteroidBelt } from './AsteroidBelt';
 import { Body } from './Body';
 import { DrawableEntity } from './DrawableEntity';

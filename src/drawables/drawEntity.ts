@@ -1,6 +1,8 @@
-import { Body } from '../models';
-import { AsteroidBelt } from '../models/AsteroidBelt';
-import { Entity } from '../models/Entity';
+import {
+    AsteroidBelt,
+    Body,
+    Entity,
+} from '../models';
 import { drawAsteroidBelt } from './drawAsteroidBelt';
 import { drawBody } from './drawBody';
 
