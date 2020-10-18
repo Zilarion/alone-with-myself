@@ -63,7 +63,6 @@ export class Printers extends Entity {
                 maxPrintAmount,
             } = task;
 
-            console.log(task.name, maxPrintAmount);
             if (maxPrintAmount === 0) {
                 return;
             }
