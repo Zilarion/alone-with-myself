@@ -45,7 +45,7 @@ export class ResourceStorage {
         });
     }
 
-    public numberOf(type: ResourceType) {
+    public numberOf = (type: ResourceType) => {
         return this._resources.get(type) ?? 0;
     }
 

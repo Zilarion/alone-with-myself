@@ -12,7 +12,7 @@ const harvesterProperties = new Map<PrintableType, HarvesterProperties>([
     [ PrintableType.miner , {
         produces: [ {
             type: ResourceType.minerals,
-            amount: 0.1,
+            amount: 0.01,
         } ],
     } ],
 ]);

@@ -60,7 +60,13 @@ export class Printers extends Entity {
                 progress = 0,
                 durationPerItem,
                 complete,
+                maxPrintAmount,
             } = task;
+
+            console.log(task.name, maxPrintAmount);
+            if (maxPrintAmount === 0) {
+                return;
+            }
 
             if (percentageOfTotal === 0) {
                 return;
@@ -69,7 +75,8 @@ export class Printers extends Entity {
             const progressIncrease = capacity * percentageOfTotal;
             const newProgress = progress + progressIncrease;
 
-            const numberCompleted = Math.floor(newProgress / durationPerItem);
+            const numberCanBePrinted = Math.floor(newProgress / durationPerItem);
+            const numberCompleted = Math.min(numberCanBePrinted, maxPrintAmount);
 
             if (numberCompleted > 0) {
                 complete(numberCompleted);

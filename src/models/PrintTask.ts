@@ -8,6 +8,7 @@ interface PrintTaskProps {
     durationPerItem: number;
     name: string;
     complete: (amount: number) => void;
+    maxPrintAmount: () => number;
 }
 
 export class PrintTask {
@@ -26,19 +27,29 @@ export class PrintTask {
     @observable
     private _progress: number = 0;
 
+    @observable
+    private _maxPrintAmount: () => number;
+
     constructor({
         durationPerItem,
         name,
         complete,
+        maxPrintAmount,
     }: PrintTaskProps) {
         this._durationPerItem = durationPerItem,
         this._name = name;
         this._complete = complete;
+        this._maxPrintAmount = maxPrintAmount;
     }
 
     @computed
     public get durationPerItem() {
         return this._durationPerItem;
+    }
+
+    @computed
+    public get maxPrintAmount() {
+        return Math.floor(this._maxPrintAmount());
     }
 
     @computed

@@ -7,3 +7,4 @@ export * from './clearCanvas';
 export * from './childrenOfEntity';
 export * from './procedural';
 export * from './findSelectedEntity';
+export * from './resourcesForPrintable';
