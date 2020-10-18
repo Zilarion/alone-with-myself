@@ -21,22 +21,22 @@ export function drawAsteroidBelt({
         interactionPoints,
     },
 }: DrawAsteroidBeltProps) {
-    context.beginPath();
-    context.fillStyle = 'grey';
+    // context.beginPath();
+    // context.fillStyle = 'grey';
 
-    bodies.forEach(({
-        position: {
-            x, y,
-        }, radius,
-    }) => {
-        context.moveTo(x, y);
-        context.arc(
-            x, y,
-            radius,
-            0, FULL_CIRCLE,
-        );
-    });
-    context.fill();
+    // bodies.forEach(({
+    //     position: {
+    //         x, y,
+    //     }, radius,
+    // }) => {
+    //     context.moveTo(x, y);
+    //     context.arc(
+    //         x, y,
+    //         radius,
+    //         0, FULL_CIRCLE,
+    //     );
+    // });
+    // context.fill();
 
     if (mouseOver) {
         drawCircle({
