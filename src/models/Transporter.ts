@@ -1,14 +1,16 @@
 import { computed } from 'mobx';
 
-import {
-    Entity,
-    EntityType,
-} from './Entity';
+import { distanceToSegment } from '../util/geometry/distanceToSegment';
+import { DrawableEntity } from './DrawableEntity';
+import { EntityType } from './Entity';
 import { InteractionPoint } from './InteractionPoint';
 import { ResourceSet } from './ResourceSet';
 import { ResourceType } from './ResourceType';
+import { Vector } from './Vector';
 
-export class Transporter extends Entity {
+const TRANSPORTER_WIDTH = 200;
+
+export class Transporter extends DrawableEntity {
     protected _type = EntityType.Transporter;
     private _from: InteractionPoint;
     private _to: InteractionPoint;
@@ -41,8 +43,10 @@ export class Transporter extends Entity {
         this._to.storage.increment(transportedResources);
     }
 
-    public pointIsInside(vector: Vector) {
-        // TODO
-        return false;
+    public pointIsInside(p: Vector) {
+        const v = this._from.location;
+        const w = this._to.location;
+
+        return distanceToSegment(p, v, w) < TRANSPORTER_WIDTH;
     }
 }

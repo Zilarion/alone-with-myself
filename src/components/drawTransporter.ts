@@ -10,6 +10,7 @@ export function drawTransporter({
     transporter: {
         from,
         to,
+        mouseOver,
     },
 }: DrawTransporterProps) {
     context.save();
@@ -26,4 +27,16 @@ export function drawTransporter({
     context.stroke();
 
     context.restore();
+
+    context.save();
+    if (mouseOver) {
+        context.lineWidth = 200;
+        context.beginPath();
+        context.moveTo(from.location.x, from.location.y);
+        context.lineTo(to.location.x, to.location.y);
+        context.strokeStyle = 'rgba(100, 100, 100, 0.2)';
+        context.stroke();
+    }
+    context.restore();
+
 }
