@@ -1,8 +1,6 @@
-import { FULL_CIRCLE } from '../constants';
 import { AsteroidBelt } from '../models/AsteroidBelt';
 import { drawCircle } from './drawCircle';
 import { drawInteractionPoint } from './drawInteractionPoint';
-import { drawMarker } from './drawMarker';
 
 interface DrawAsteroidBeltProps {
     context: CanvasRenderingContext2D;
@@ -12,7 +10,6 @@ interface DrawAsteroidBeltProps {
 export function drawAsteroidBelt({
     context,
     model: {
-        bodies,
         mouseOver,
         orbitCenter,
         width,

@@ -6,7 +6,7 @@ export class HeadquarterPoint extends InteractionPoint {
         super({ location });
     }
 
-    public update(delta: number) {
+    public update() {
 
     }
 }

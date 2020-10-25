@@ -1,9 +1,6 @@
 import { distanceBetween } from '../util/distanceBetween';
 import { DrawableEntity } from './DrawableEntity';
-import {
-    Entity,
-    EntityType,
-} from './Entity';
+import { EntityType } from './Entity';
 import { InteractionPoint } from './InteractionPoint';
 import { Vector } from './Vector';
 
