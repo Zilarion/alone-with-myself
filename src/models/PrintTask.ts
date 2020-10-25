@@ -1,5 +1,4 @@
 import {
-    action,
     computed,
     observable,
 } from 'mobx';
@@ -85,12 +84,10 @@ export class PrintTask {
         return this._percentageOfTotal;
     }
 
-    @action.bound
     public set percentageOfTotal(newValue: number) {
         this._percentageOfTotal = newValue;
     }
 
-    @action.bound
     public set progress(newValue: number) {
         this._progress = newValue;
     }

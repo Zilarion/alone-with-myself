@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "karma start --browsers ChromeHeadless --single-run",
+    "test:debug": "karma start",
+    "postinstall": "rm -rf node_modules/@types/react-native",
     "start": "parcel ./index.html",
     "lint": "eslint ./src/**/*.ts",
     "lint:fix": "eslint --fix ./src/**/*.ts",
@@ -21,14 +23,24 @@
   },
   "homepage": "https://github.com/Zilarion/alone-with-myself#readme",
   "devDependencies": {
+    "@types/jasmine": "^3.6.0",
+    "@types/jasmine_dom_matchers": "^1.4.4",
+    "@types/karma": "^5.0.0",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.6",
-    "@types/styled-components": "^5.1.2",
+    "@types/styled-components": "^5.1.4",
     "@typescript-eslint/eslint-plugin": "^3.10.0",
     "@typescript-eslint/parser": "^3.10.0",
     "eslint": "^7.7.0",
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-react-hooks": "^4.1.0",
+    "jasmine-core": "^3.6.0",
+    "jasmine_dom_matchers": "^1.4.0",
+    "karma": "^5.2.3",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-jasmine": "^4.0.1",
+    "karma-jasmine-dom-matchers": "^0.1.2",
+    "karma-typescript": "^5.2.0",
     "parcel": "^1.12.4",
     "typescript": "^3.9.7"
   },
@@ -47,6 +59,6 @@
     "react-router-dom": "^5.2.0",
     "react-spring": "^8.0.27",
     "rxjs": "^6.6.2",
-    "styled-components": "^5.1.1"
+    "styled-components": "^5.2.0"
   }
 }

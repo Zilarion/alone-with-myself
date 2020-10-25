@@ -33,6 +33,11 @@ export class Transporter extends DrawableEntity {
         return this._to;
     }
 
+    @computed
+    public get speed() {
+        return this._speed;
+    }
+
     public update(delta: number) {
         const transportedResources = [ {
             type: ResourceType.minerals,
