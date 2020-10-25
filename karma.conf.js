@@ -15,12 +15,13 @@ module.exports = function (config) {
             'karma-jasmine',
             'karma-jasmine-dom-matchers',
             'karma-typescript',
+            'karma-jasmine-html-reporter',
             'karma-chrome-launcher',
         ],
         preprocessors: {
             'src/**/*.ts': 'karma-typescript',
         },
-        reporters: [ 'spec', 'karma-typescript' ],
+        reporters: [ 'spec', 'kjhtml', 'karma-typescript' ],
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
@@ -29,7 +30,13 @@ module.exports = function (config) {
         singleRun: false,
         concurrency: Infinity,
         karmaTypescriptConfig: {
-            tsconfig: './tsconfig.json',
+            tsconfig: './tsconfig.test.json',
+            bundlerOptions: {
+                sourceMap: true,
+                transforms: [
+                    require('karma-typescript-es6-transform')(),
+                ],
+            },
             coverageOptions: {
                 exclude: [
                     /\.(d|spec|test)\.ts$/i,
