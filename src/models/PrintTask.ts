@@ -57,7 +57,6 @@ export class PrintTask {
     }
 
     public beforePrint = (amount: number) => {
-        console.log('Before print', amount, this.name);
         this._storage.decrement(
             multiplyResources(
                 this._printable.cost,
