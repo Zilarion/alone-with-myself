@@ -11,6 +11,7 @@ module.exports = function (config) {
         ],
         client: { clearContext: false },
         plugins: [
+            'karma-spec-reporter',
             'karma-jasmine',
             'karma-jasmine-dom-matchers',
             'karma-typescript',
@@ -19,7 +20,7 @@ module.exports = function (config) {
         preprocessors: {
             'src/**/*.ts': 'karma-typescript',
         },
-        reporters: [ 'karma-typescript' ],
+        reporters: [ 'spec', 'karma-typescript' ],
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
@@ -29,12 +30,6 @@ module.exports = function (config) {
         concurrency: Infinity,
         karmaTypescriptConfig: {
             tsconfig: './tsconfig.json',
-            // bundlerOptions: {
-            //     sourceMap: true,
-            //     transforms: [
-            //         require('karma-typescript-es6-transform')(),
-            //     ],
-            // },
             coverageOptions: {
                 exclude: [
                     /\.(d|spec|test)\.ts$/i,
