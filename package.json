@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "parcel ./index.html",
     "lint": "eslint ./src/**/*.ts",
-    "lint:fix": "eslint --fix ./src/**/*.ts"
+    "lint:fix": "eslint --fix ./src/**/*.ts",
+    "build": "parcel build ./index.html"
   },
   "repository": {
     "type": "git",
