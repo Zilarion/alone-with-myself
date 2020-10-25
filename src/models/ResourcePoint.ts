@@ -4,8 +4,6 @@ import {
     observable,
 } from 'mobx';
 
-import { resourcesForPrintable } from '../util';
-import { multiplyResources } from '../util/multiplyResources';
 import { Entity } from './Entity';
 import {
     InteractionPoint,
@@ -68,37 +66,21 @@ export class ResourcePoint extends InteractionPoint {
         this._producer.buildHarvesters(PrintableType.miner, 1);
         this._printers.addPrinters(1);
 
-        const printer = findPrintable(PrintableType.printer);
-        this.printers.addPrintOption(PrintableType.printer, new PrintTask({
+        this.printers.addPrintOption(new PrintTask({
+            printable: findPrintable(PrintableType.printer),
+            storage: this.storage,
             complete: (amount: number) => {
-                this.storage.decrement(
-                    multiplyResources(
-                        printer.cost,
-                        amount,
-                    ),
-                );
                 this._printers.addPrinters(amount);
             },
-            maxPrintAmount: () => resourcesForPrintable(this.storage, printer),
-            durationPerItem: printer.duration,
-            name: printer.name,
         }));
 
         this.harvesters.forEach(({ type }) => {
-            const harvester = findPrintable(type);
-            this.printers.addPrintOption(type, new PrintTask({
+            this.printers.addPrintOption(new PrintTask({
+                printable: findPrintable(type),
+                storage: this.storage,
                 complete: (amount: number) => {
-                    this.storage.decrement(
-                        multiplyResources(
-                            harvester.cost,
-                            amount,
-                        ),
-                    );
                     this._producer.buildHarvesters(type, amount);
                 },
-                maxPrintAmount: () => resourcesForPrintable(this.storage, harvester),
-                durationPerItem: harvester.duration,
-                name: harvester.name,
             }));
         });
     }

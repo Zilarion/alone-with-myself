@@ -4,20 +4,18 @@ import {
     observable,
 } from 'mobx';
 
+import { resourcesForPrintable } from '../util';
+import { multiplyResources } from '../util/multiplyResources';
+import { Printable } from './Printable';
+import { ResourceStorage } from './ResourceStorage';
+
 interface PrintTaskProps {
-    durationPerItem: number;
-    name: string;
+    printable: Printable;
+    storage: ResourceStorage;
     complete: (amount: number) => void;
-    maxPrintAmount: () => number;
 }
 
 export class PrintTask {
-    @observable
-    private _durationPerItem: number;
-
-    @observable
-    private _name: string;
-
     @observable
     private _percentageOfTotal: number = 0;
 
@@ -28,33 +26,49 @@ export class PrintTask {
     private _progress: number = 0;
 
     @observable
-    private _maxPrintAmount: () => number;
+    private _storage: ResourceStorage;
+
+    @observable
+    private _printable: Printable;
 
     constructor({
-        durationPerItem,
-        name,
+        printable,
+        storage,
         complete,
-        maxPrintAmount,
     }: PrintTaskProps) {
-        this._durationPerItem = durationPerItem,
-        this._name = name;
+        this._storage = storage;
+        this._printable = printable;
         this._complete = complete;
-        this._maxPrintAmount = maxPrintAmount;
     }
 
     @computed
     public get durationPerItem() {
-        return this._durationPerItem;
+        return this._printable.duration;
     }
 
     @computed
     public get maxPrintAmount() {
-        return Math.floor(this._maxPrintAmount());
+        return Math.floor(
+            resourcesForPrintable(
+                this._storage,
+                this._printable,
+            ),
+        );
+    }
+
+    public beforePrint = (amount: number) => {
+        console.log('Before print', amount, this.name);
+        this._storage.decrement(
+            multiplyResources(
+                this._printable.cost,
+                amount,
+            ),
+        );
     }
 
     @computed
     public get name() {
-        return this._name;
+        return this._printable.name;
     }
 
     @computed

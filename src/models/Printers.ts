@@ -8,22 +8,16 @@ import {
     Entity,
     EntityType,
 } from './Entity';
-import { PrintableType } from './PrintableType';
 import { PrintTask } from './PrintTask';
 
 export class Printers extends Entity {
     protected _type = EntityType.Printer;
 
     @observable
-    private _tasks = new Map<PrintableType, PrintTask>();
+    private _tasks = new Set<PrintTask>();
 
     @observable
-    private _amount: number;
-
-    constructor() {
-        super();
-        this._amount = 0;
-    }
+    private _amount: number = 0;
 
     @computed
     public get amount() {
@@ -36,8 +30,8 @@ export class Printers extends Entity {
     }
 
     @action.bound
-    public addPrintOption(type: PrintableType, task: PrintTask) {
-        this._tasks.set(type, task);
+    public addPrintOption(task: PrintTask) {
+        this._tasks.add(task);
     }
 
     @action.bound
@@ -60,6 +54,7 @@ export class Printers extends Entity {
                 progress = 0,
                 durationPerItem,
                 complete,
+                beforePrint,
                 maxPrintAmount,
             } = task;
 
@@ -73,9 +68,15 @@ export class Printers extends Entity {
 
             const progressIncrease = capacity * percentageOfTotal;
             const newProgress = progress + progressIncrease;
+            const progressWasZero = progress === 0;
 
             const numberCanBePrinted = Math.floor(newProgress / durationPerItem);
             const numberCompleted = Math.min(numberCanBePrinted, maxPrintAmount);
+
+            const beforePrintCount = progressWasZero ? numberCompleted + 1 : numberCompleted;
+            if (beforePrintCount > 0) {
+                beforePrint(progressWasZero ? numberCompleted + 1 : numberCompleted);
+            }
 
             if (numberCompleted > 0) {
                 complete(numberCompleted);
