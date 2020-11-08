@@ -1,6 +1,3 @@
-
-import { TinyColor } from '@ctrl/tinycolor';
-
 import { Body } from '../models';
 import { drawCircle } from './drawCircle';
 import { drawInteractionPoint } from './drawInteractionPoint';
@@ -21,6 +18,7 @@ export function drawBody({
         radius,
         mouseOver,
         points,
+        selected,
     },
     showOrbit = true,
 }: DrawBodyProps) {
@@ -38,14 +36,16 @@ export function drawBody({
         });
     });
 
-    const fillColor = mouseOver ?
-        new TinyColor(color).lighten(20).toHexString() :
+    const strokeColor = mouseOver || selected ?
+        'rgb(0, 255, 255)' :
         color;
 
     drawCircle({
         context,
         position,
-        fillColor,
+        fillColor: '#111',
+        strokeColor: strokeColor,
         radius,
+        lineWidth: radius * 0.1,
     });
 }

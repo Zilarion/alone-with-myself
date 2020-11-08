@@ -37,14 +37,13 @@ export function createSolarSystem({
         },
         radius,
         mass: 1989, // 10e30
-        color: '#FEB813',
         id: starName,
         points: [ hq ],
     });
 
     const radiusIncrements = randomInt({
         min: star.radius * 2,
-        max: star.radius * 4,
+        max: star.radius * 2.5,
     });
 
     const generationOrder: ('planet' | 'asteroid')[] = emptyArray(numberOfPlanets)
@@ -56,7 +55,7 @@ export function createSolarSystem({
     generationOrder.sort(() => Math.random() - 0.5);
 
     const entities = generationOrder.reduce<Entity[]>((entities, type, idx) => {
-        const radius = (1 + idx) * radiusIncrements;
+        const radius = radiusIncrements * Math.pow(1.8, idx + 1);
         if (type === 'planet') {
             const numberOfMoons = Math.floor(randomNormalDistribution(maxMoons));
 

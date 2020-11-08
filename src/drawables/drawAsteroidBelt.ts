@@ -35,28 +35,18 @@ export function drawAsteroidBelt({
     // });
     // context.fill();
 
-    if (mouseOver) {
-        drawCircle({
-            context,
-            position: orbitFocus.position,
-            radius: orbitCenter,
-            lineWidth: width,
-            strokeColor: 'rgba(100, 100, 100, 0.2)',
-        });
-    }
+    const color = selected ? 'rgba(0, 100, 100, 0.4)' : mouseOver ? 'rgba(100, 100, 100, 0.2)' : 'rgba(100, 100, 100, 0.1)';
 
-    if (selected) {
-        drawCircle({
-            context,
-            position: orbitFocus.position,
-            radius: orbitCenter,
-            lineWidth: width,
-            strokeColor: 'rgba(0, 100, 100, 0.4)',
-        });
-    }
+    drawCircle({
+        context,
+        position: orbitFocus.position,
+        radius: orbitCenter,
+        lineWidth: width,
+        strokeColor: color,
+    });
 
     interactionPoints.forEach((point) => {
-        if (!selected && !point.operational) {
+        if (!selected && !point.selected && !point.operational) {
             return;
         }
 

@@ -14,7 +14,6 @@ export interface BodyProps {
         velocity: number;
         angle: number;
     };
-    color: string;
     id: string;
     points?: InteractionPoint[];
 }
@@ -41,7 +40,6 @@ export class Body extends DrawableEntity {
         radius,
         mass,
         orbit,
-        color,
         id,
         points = [],
     }: BodyProps) {
@@ -50,7 +48,7 @@ export class Body extends DrawableEntity {
         this._radius = radius;
         this._mass = mass;
         this._orbit = orbit;
-        this._color = color;
+        this._color = '#aaa';
         this._id = id;
         this._points = points;
     }
