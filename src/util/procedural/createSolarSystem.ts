@@ -55,7 +55,7 @@ export function createSolarSystem({
     generationOrder.sort(() => Math.random() - 0.5);
 
     const entities = generationOrder.reduce<Entity[]>((entities, type, idx) => {
-        const radius = radiusIncrements * Math.pow(1.8, idx + 1);
+        const radius = radiusIncrements * Math.pow(1.5, idx + 1);
         if (type === 'planet') {
             const numberOfMoons = Math.floor(randomNormalDistribution(maxMoons));
 

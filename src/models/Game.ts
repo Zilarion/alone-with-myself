@@ -6,6 +6,7 @@ import {
 
 import { drawEntity } from '../drawables';
 import {
+    assert,
     CanvasCamera,
     childrenOfEntity,
     clearCanvas,
@@ -29,10 +30,10 @@ export class Game {
     private _selectedEntity: DrawableEntity | null = null;
 
     private _animationFrameId: number | null = null;
-    private _context: CanvasRenderingContext2D;
+    private _context: CanvasRenderingContext2D | null = null;
     private _lastFrame: number | null = null;
-    private _camera: CanvasCamera;
-    private _gameSpeed: number = .1;
+    private _camera: CanvasCamera | null = null;
+    private _gameSpeed: number = 1;
     private _mousePosition: Vector = {
         x: 0,
         y: 0,
@@ -45,16 +46,34 @@ export class Game {
 
     private _gameDelta: number = 0;
 
-    constructor(canvas: HTMLCanvasElement) {
+    constructor() {
+        this.start();
+
+        this.addEntities(createSolarSystem({
+            numberOfPlanets: 8,
+            maxMoons: 4,
+            numberOfAsteroidBelts: 2,
+        }));
+    }
+
+    public setCanvas(canvas: HTMLCanvasElement) {
         const ctx = canvas.getContext('2d');
         if (ctx == null) {
             throw Error('Expected context to exist');
         }
+
+        this._camera = new CanvasCamera({
+            context: ctx, zoomBound: { min: 1000 },
+        });
+        this._context = ctx;
+
         canvas.addEventListener('mousemove', ({
-            x, y,
+            offsetX,
+            offsetY,
         }) => {
             this._mousePosition = {
-                x, y,
+                x: offsetX,
+                y: offsetY,
             };
             this._isClick = false;
         });
@@ -86,18 +105,6 @@ export class Game {
 
             this._mouseDownEntity = null;
         });
-
-        this._camera = new CanvasCamera({
-            context: ctx, zoomBound: { min: 1000 },
-        });
-        this._context = ctx;
-        this.start();
-
-        this.addEntities(createSolarSystem({
-            numberOfPlanets: 8,
-            maxMoons: 4,
-            numberOfAsteroidBelts: 2,
-        }));
     }
 
     @computed
@@ -125,6 +132,16 @@ export class Game {
         this._animationFrameId = window.requestAnimationFrame(this._tick);
     }
 
+    private get camera() {
+        assert(this._camera != null, 'Expected camera to be defined before usage');
+        return this._camera;
+    }
+
+    private get context() {
+        assert(this._context != null, 'Expected context to be defined before usage');
+        return this._context;
+    }
+
     @computed
     public get entities() {
         return this._entities.reduce<Entity[]>((prev, current) => {
@@ -135,7 +152,7 @@ export class Game {
     }
 
     private _entitiesUnderMouse() {
-        const mousePosition = this._camera.screenToWorld(this._mousePosition);
+        const mousePosition = this.camera.screenToWorld(this._mousePosition);
         return this.drawableEntities.filter((entity) => {
             const isMouseOver = entity.pointIsInside(mousePosition);
             entity.mouseOver = isMouseOver;
@@ -164,15 +181,15 @@ export class Game {
         const entitiesUnderMouse = this._entitiesUnderMouse();
         const hasMouseOver = entitiesUnderMouse.length > 0;
 
-        this._context.canvas.style.cursor = hasMouseOver ? 'pointer' : 'default';
+        this.context.canvas.style.cursor = hasMouseOver ? 'pointer' : 'default';
 
         if (this._selectedEntity) {
             if (this._selectedEntity instanceof Body) {
-                this._camera.moveTo(this._selectedEntity.position);
+                this.camera.moveTo(this._selectedEntity.position);
             } else if (this._selectedEntity instanceof AsteroidBelt) {
-                this._camera.moveTo(this._selectedEntity.orbitFocus.position);
+                this.camera.moveTo(this._selectedEntity.orbitFocus.position);
             } else if (this._selectedEntity instanceof InteractionPoint) {
-                this._camera.moveTo(this._selectedEntity.location);
+                this.camera.moveTo(this._selectedEntity.location);
             }
         }
     }
@@ -201,14 +218,20 @@ export class Game {
     }
 
     private _draw() {
+        if (this._context == null) {
+            return;
+        }
 
+        this.camera.apply();
         clearCanvas({
-            context: this._context,
-            ...this._camera.viewport,
+            context: this.context,
+            ...this.camera.viewport,
         });
 
         this._updateMouse();
-        this.entities.forEach((entity) => drawEntity(this._context, entity));
+        this.entities.forEach((entity) => drawEntity(this.context, entity));
+
+        this.camera.restore();
     }
 
     private _tick = (time: number) => {
@@ -216,9 +239,7 @@ export class Game {
 
         this._update(delta);
 
-        this._camera.apply();
         this._draw();
-        this._camera.restore();
 
         this._lastFrame = time;
         this._animationFrameId = window.requestAnimationFrame(this._tick);
