@@ -1,4 +1,5 @@
 import { distanceBetween } from '../util/distanceBetween';
+import { AsteroidBelt } from './AsteroidBelt';
 import { DrawableEntity } from './DrawableEntity';
 import { EntityType } from './Entity';
 import { InteractionPoint } from './InteractionPoint';
@@ -34,7 +35,7 @@ export class Body extends DrawableEntity {
     protected _color: string;
     protected _type = EntityType.PlanetaryBody
     protected _points: InteractionPoint[];
-    private _satellites: (DrawableEntity)[] = [];
+    private _satellites: (Body | AsteroidBelt)[] = [];
 
     constructor({
         position,
@@ -86,7 +87,7 @@ export class Body extends DrawableEntity {
         return this._satellites;
     }
 
-    public addSatellite(... satellites: DrawableEntity[]) {
+    public addSatellite(... satellites: (Body | AsteroidBelt)[]) {
         this._satellites = this._satellites.concat(satellites);
     }
 

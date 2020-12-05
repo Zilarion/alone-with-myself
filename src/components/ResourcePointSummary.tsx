@@ -4,7 +4,6 @@ import * as React from 'react';
 import { ResourcePoint } from '../models';
 import styled from '../themed-components';
 import { Card } from './Card';
-import { HarvesterSummary } from './HarvesterSummary';
 import { LabelValue } from './LabelValue';
 import { StorageSummary } from './StorageSummary';
 

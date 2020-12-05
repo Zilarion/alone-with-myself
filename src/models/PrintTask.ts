@@ -1,5 +1,4 @@
 import {
-    action,
     computed,
     observable,
 } from 'mobx';
