@@ -21,9 +21,6 @@ export const ResourcePointSummary = observer(({
     point: {
         resources,
         operational,
-        storage,
-        harvesters,
-        productionPerSecond,
     },
 }: ResourcePointSummaryProps) => {
     const description = operational
@@ -40,20 +37,6 @@ export const ResourcePointSummary = observer(({
                     }
                 />
             </Card>
-
-            { operational && <>
-                <Card header="Storage">
-                    <StorageSummary
-                        showHeader={true}
-                        compact={true}
-                        storage={storage}
-                        delta={productionPerSecond}
-                    />
-                </Card>
-                <Card header="Harvesters">
-                    <HarvesterSummary harvesters={harvesters} />
-                </Card>
-            </>}
         </ResourceWrapper>
     );
 });

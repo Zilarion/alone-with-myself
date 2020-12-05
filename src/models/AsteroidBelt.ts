@@ -17,6 +17,7 @@ import { ResourceType } from './ResourceType';
 import { Vector } from './Vector';
 
 interface AsteroidBeltProps {
+    id: string;
     width: number;
     orbitCenter: number;
     orbitFocus: Body;
@@ -25,6 +26,9 @@ interface AsteroidBeltProps {
 
 export class AsteroidBelt extends DrawableEntity {
     protected _type = EntityType.AsteroidBelt;
+
+    @observable
+    private _id: string;
 
     @observable
     private _bodies: Body[];
@@ -46,13 +50,14 @@ export class AsteroidBelt extends DrawableEntity {
         orbitCenter,
         bodies,
         orbitFocus,
+        id,
     }: AsteroidBeltProps) {
         super();
         this._bodies = bodies;
         this._width = width;
         this._orbitCenter = orbitCenter;
         this._orbitFocus = orbitFocus;
-
+        this._id = id;
         this._interactionPoints = emptyArray(3).map(() => {
             const angle = Math.random() * FULL_CIRCLE;
             const distance = (Math.random() - 0.5) * width + orbitCenter;
@@ -86,6 +91,11 @@ export class AsteroidBelt extends DrawableEntity {
     @computed
     public get orbitCenter() {
         return this._orbitCenter;
+    }
+
+    @computed
+    public get id() {
+        return this._id;
     }
 
     @computed

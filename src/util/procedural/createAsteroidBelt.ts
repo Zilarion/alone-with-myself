@@ -14,6 +14,7 @@ interface CreateAsteroidBeltProps {
     width: number;
     numberOfAsteroids: number;
     centerRadius: number;
+    id: string;
 }
 
 export function createAsteroidBelt({
@@ -21,6 +22,7 @@ export function createAsteroidBelt({
     width,
     numberOfAsteroids,
     centerRadius,
+    id,
 }: CreateAsteroidBeltProps): AsteroidBelt {
     const bodies = emptyArray(numberOfAsteroids).map((_, idx) => {
         const orbitRadius = centerRadius + (randomNormalDistribution() - 0.5) * width;
@@ -35,11 +37,13 @@ export function createAsteroidBelt({
             type: 'asteroid',
         });
     });
-
-    return new AsteroidBelt({
+    const belt = new AsteroidBelt({
         bodies,
         orbitCenter: centerRadius,
         orbitFocus: body,
         width,
+        id: `P/${id}`,
     });
+    body.addSatellite(belt);
+    return belt;
 }

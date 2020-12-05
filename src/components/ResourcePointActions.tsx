@@ -7,7 +7,9 @@ import { ResourcePoint } from '../models';
 import styled from '../themed-components';
 import { Button } from './Button';
 import { Card } from './Card';
+import { HarvesterSummary } from './HarvesterSummary';
 import { LabelValue } from './LabelValue';
+import { StorageSummary } from './StorageSummary';
 import { TaskSummary } from './TaskSummary';
 
 interface ResourcePointActionsProps {
@@ -25,6 +27,9 @@ export const ResourcePointActions = observer(({
         operational,
         printers,
         activate,
+        harvesters,
+        storage,
+        productionPerSecond,
     },
 }: ResourcePointActionsProps) => {
     if (!operational) {
@@ -35,14 +40,23 @@ export const ResourcePointActions = observer(({
 
     return (
         <ResourceActionWrapper>
-            <Card header="Printer information">
+            <Card header="Printer management">
                 <LabelValue
                     label={'Printers'}
                     value={printers.amount.toFixed(0)}
                 />
-            </Card>
-            <Card header="Printer management">
                 <TaskSummary tasks={availableTasks} />
+            </Card>
+            <Card header="Storage">
+                <StorageSummary
+                    compact={true}
+                    showHeader={true}
+                    storage={storage}
+                    delta={productionPerSecond}
+                />
+            </Card>
+            <Card header="Harvesters">
+                <HarvesterSummary harvesters={harvesters} />
             </Card>
         </ResourceActionWrapper>
     );

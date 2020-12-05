@@ -1,4 +1,5 @@
 import {
+    action,
     computed,
     observable,
 } from 'mobx';
@@ -62,6 +63,11 @@ export class PrintTask {
                 amount,
             ),
         );
+    }
+
+    @computed
+    public get active() {
+        return this.percentageOfTotal > 0 && this.progress > 0;
     }
 
     @computed

@@ -5,6 +5,7 @@ import { FormattedNumber } from 'react-intl';
 import { Body } from '../models';
 import { Card } from './Card';
 import { LabelValue } from './LabelValue';
+import { SatelliteSummary } from './SatelliteSummary';
 
 interface BodySummaryProps {
     body: Body;
@@ -16,6 +17,7 @@ export const BodySummary = observer(({
         radius,
         id,
         orbit,
+        satellites,
     },
 }: BodySummaryProps) => {
     const orbitInfo = orbit && (<>
@@ -43,30 +45,39 @@ export const BodySummary = observer(({
     </>);
 
     return (
-        <Card header={id}>
-            <LabelValue
-                label="Mass"
-                value={
-                    <FormattedNumber
-                        value={mass * 1e27}
-                        style="unit"
-                        notation="scientific"
-                        unit="kilogram"
-                    />
-                }
-            />
-            <LabelValue
-                label="Radius"
-                value={
-                    <FormattedNumber
-                        value={radius * 1e3}
-                        style="unit"
-                        notation="scientific"
-                        unit="kilometer"
-                    />
-                }
-            />
-            { orbitInfo }
-        </Card>
+        <>
+            <Card header={id}>
+                <LabelValue
+                    label="Mass"
+                    value={
+                        <FormattedNumber
+                            value={mass * 1e27}
+                            style="unit"
+                            notation="scientific"
+                            unit="kilogram"
+                        />
+                    }
+                />
+                <LabelValue
+                    label="Radius"
+                    value={
+                        <FormattedNumber
+                            value={radius * 1e3}
+                            style="unit"
+                            notation="scientific"
+                            unit="kilometer"
+                        />
+                    }
+                />
+                { orbitInfo }
+
+                <LabelValue
+                    label="Satellites"
+                    value={
+                        <SatelliteSummary satellites={satellites} />
+                    }
+                />
+            </Card>
+        </>
     );
 });

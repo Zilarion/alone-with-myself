@@ -1,4 +1,7 @@
-import { Body } from '../../models';
+import {
+    Body,
+    Planet,
+} from '../../models';
 import { emptyArray } from '../emptyArray';
 import { createSatelliteOf } from './createSatelliteOf';
 import {
@@ -48,6 +51,7 @@ export function createPlanet({
         id : `P/${id}`,
         type: 'planet',
     });
+    star.addSatellite(planet);
 
     const hasMoons = Math.random() > 0.6;
     if (!hasMoons) {
@@ -62,7 +66,7 @@ export function createPlanet({
         color: randomMoonColor(),
         id: `S/${id} S${idx}`,
         type: 'moon',
-
-    }));
+    })) as Planet[];
+    planet.addSatellite(... moons);
     return [ planet, ...moons ];
 }

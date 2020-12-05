@@ -21,7 +21,7 @@ export const System = observer(({ game }: SystemProps) => {
             throw Error('Expected canvas to exist');
         }
         game.setCanvas(canvas);
-    }, []);
+    }, [ game ]);
 
     return (
         <canvas

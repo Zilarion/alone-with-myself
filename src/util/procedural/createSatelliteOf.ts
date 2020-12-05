@@ -20,7 +20,6 @@ const typeMap = {
 export function createSatelliteOf({
     body,
     orbitRadius,
-    color,
     mass,
     radius,
     id,
@@ -36,6 +35,7 @@ export function createSatelliteOf({
         y: Math.sin(angle) * orbitRadius + body.position.y,
     };
 
+
     const obj = typeMap[type];
     return new obj({
         position,
@@ -47,7 +47,6 @@ export function createSatelliteOf({
             radius: orbitRadius,
             velocity: orbitVelocity,
         },
-        color,
         id,
     });
 }

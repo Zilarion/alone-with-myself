@@ -56,6 +56,7 @@ export function createSolarSystem({
 
     const entities = generationOrder.reduce<Entity[]>((entities, type, idx) => {
         const radius = radiusIncrements * Math.pow(1.5, idx + 1);
+
         if (type === 'planet') {
             const numberOfMoons = Math.floor(randomNormalDistribution(maxMoons));
 
@@ -71,9 +72,10 @@ export function createSolarSystem({
             return entities.concat(
                 createAsteroidBelt({
                     body: star,
-                    numberOfAsteroids: Math.floor(radius / 200),
+                    numberOfAsteroids: Math.floor(radius / 500),
                     centerRadius: radius,
                     width: radiusIncrements,
+                    id: `${idx}`,
                 }),
             );
         }

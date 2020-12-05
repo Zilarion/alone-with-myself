@@ -34,6 +34,7 @@ export class Body extends DrawableEntity {
     protected _color: string;
     protected _type = EntityType.PlanetaryBody
     protected _points: InteractionPoint[];
+    private _satellites: (DrawableEntity)[] = [];
 
     constructor({
         position,
@@ -81,6 +82,14 @@ export class Body extends DrawableEntity {
         return this._points;
     }
 
+    public get satellites() {
+        return this._satellites;
+    }
+
+    public addSatellite(... satellites: DrawableEntity[]) {
+        this._satellites = this._satellites.concat(satellites);
+    }
+
     public update = (delta: number) => {
         this._updateOrbit(delta);
     }
@@ -97,7 +106,8 @@ export class Body extends DrawableEntity {
         if (this._orbit == null) {
             return;
         }
-        const s = delta / 1000;
+        const dialate = 10;
+        const s = delta / 1000 / dialate;
         const {
             angle,
             velocity,
