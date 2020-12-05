@@ -33,3 +33,13 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: unittests
+          name: codecov
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional (default = false)
+
