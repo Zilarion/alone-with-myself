@@ -1,8 +1,14 @@
 const path = require('path');
+const TSLoader = require('./ts-loader.config');
 
 const debug = {
     mode: 'development',
     devtool: 'inline-source-map',
+    module: {
+        rules: [
+            TSLoader('tsconfig.dev.json'),
+        ],
+    },
     output: {
         filename: '[name].js',
         libraryTarget: 'umd',

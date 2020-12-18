@@ -1,7 +1,6 @@
 const path = require('path');
 const merge = require('webpack-merge').merge;
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const TSLoader = require('./.webpack/ts-loader.config');
 const CSSLoader = require('./.webpack/css-loader.config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -22,7 +21,6 @@ const base = {
     target: 'web',
     module: {
         rules: [
-            TSLoader,
             CSSLoader,
             // FIXME: Temporarily required until webpack updates their dependencies.
             {
