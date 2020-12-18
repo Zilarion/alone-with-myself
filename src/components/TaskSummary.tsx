@@ -3,7 +3,6 @@ import Slider from '@material-ui/core/Slider';
 import { FiberManualRecord } from '@material-ui/icons';
 
 import { observer } from 'mobx-react-lite';
-import * as React from 'react';
 import { FormattedNumber } from 'react-intl';
 
 import { PrintTask } from '../models/PrintTask';

@@ -1,4 +1,4 @@
-import * as React from 'react';
+
 
 import { ResourceSet } from '../models';
 import { Table } from './Table';

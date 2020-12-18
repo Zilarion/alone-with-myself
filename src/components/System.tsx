@@ -1,5 +1,8 @@
 import { observer } from 'mobx-react-lite';
-import * as React from 'react';
+import {
+    useEffect,
+    useRef,
+} from 'react';
 
 import { useWindowSize } from '../hooks';
 import { Game } from '../models';
@@ -14,8 +17,8 @@ export const System = observer(({ game }: SystemProps) => {
         width,
     } = useWindowSize();
 
-    const canvasRef = React.useRef<HTMLCanvasElement>(null);
-    React.useEffect(() => {
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    useEffect(() => {
         const canvas = canvasRef.current;
         if (canvas == null) {
             throw Error('Expected canvas to exist');

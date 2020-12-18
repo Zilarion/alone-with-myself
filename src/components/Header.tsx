@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { FC } from 'react';
 
 import styled from '../themed-components';
 
@@ -7,7 +7,7 @@ const StyledHeader =styled.h2`
     margin-top: ${p => p.theme.margin.small};
 `;
 
-export function Header({ children }: React.Props<{}>) {
+export const Header: FC = ({ children }) => {
     return <StyledHeader>
         {children}
     </StyledHeader>;

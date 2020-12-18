@@ -10,7 +10,6 @@ import {
     Explore,
 } from '@material-ui/icons';
 
-import React from 'react';
 import {
     useHistory,
     useLocation,

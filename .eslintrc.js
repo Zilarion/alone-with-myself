@@ -34,6 +34,8 @@ module.exports = {
         'react',
     ],
     'rules': {
+        'react/react-in-jsx-scope': 'off',
+        'react/prop-types': 'off',
         'brace-style': [
             'error',
             '1tbs',

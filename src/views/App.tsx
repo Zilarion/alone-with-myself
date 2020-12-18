@@ -1,6 +1,5 @@
 import { ThemeProvider } from '@material-ui/core/styles';
 
-import * as React from 'react';
 import { IntlProvider } from 'react-intl';
 import { HashRouter } from 'react-router-dom';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';

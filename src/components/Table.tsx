@@ -4,8 +4,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import * as React from 'react';
-
 import styled from '../themed-components';
 
 const NoDataWrapper = styled.div`
