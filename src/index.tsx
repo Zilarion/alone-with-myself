@@ -1,5 +1,6 @@
 import 'tippy.js/dist/tippy.css';
 import './styles.css';
+import 'normalize.css';
 
 import { configure } from 'mobx';
 import { render } from 'react-dom';
