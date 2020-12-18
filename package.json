@@ -21,6 +21,7 @@
   "bugs": {
     "url": "https://github.com/Zilarion/alone-with-myself/issues"
   },
+  "sideEffects": false,
   "homepage": "https://github.com/Zilarion/alone-with-myself#readme",
   "devDependencies": {
     "@types/jasmine": "^3.6.2",
