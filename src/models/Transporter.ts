@@ -1,4 +1,8 @@
-import { computed } from 'mobx';
+import {
+    computed,
+    makeObservable,
+    observable,
+} from 'mobx';
 
 import { distanceToSegment } from '../util/geometry';
 import { DrawableEntity } from './DrawableEntity';
@@ -12,7 +16,11 @@ const TRANSPORTER_WIDTH = 200;
 
 export class Transporter extends DrawableEntity {
     protected _type = EntityType.Transporter;
+
+    @observable
     private _from: InteractionPoint;
+
+    @observable
     private _to: InteractionPoint;
 
     private _speed: ResourceSet = [];
@@ -21,6 +29,7 @@ export class Transporter extends DrawableEntity {
         super();
         this._from = from;
         this._to = to;
+        makeObservable(this);
     }
 
     @computed

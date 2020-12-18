@@ -1,5 +1,6 @@
 import {
     computed,
+    makeObservable,
     observable,
 } from 'mobx';
 
@@ -76,6 +77,7 @@ export class AsteroidBelt extends DrawableEntity {
                 } ],
             });
         });
+        makeObservable(this);
     }
 
     @computed

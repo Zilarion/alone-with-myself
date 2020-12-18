@@ -1,8 +1,4 @@
-import {
-    action,
-    computed,
-    observable,
-} from 'mobx';
+import { makeAutoObservable } from 'mobx';
 
 import { drawEntity } from '../drawables';
 import {
@@ -23,12 +19,8 @@ import { Vector } from './Vector';
 const WORLD_DELTA_MINIMUM = 1000;
 
 export class Game {
-    @observable
     private _entities: Entity[] = [];
-
-    @observable
     private _selectedEntity: DrawableEntity | null = null;
-
     private _animationFrameId: number | null = null;
     private _context: CanvasRenderingContext2D | null = null;
     private _lastFrame: number | null = null;
@@ -40,8 +32,6 @@ export class Game {
     };
 
     private _isClick = false;
-
-    @observable
     private _mouseDownEntity: DrawableEntity | null = null;
 
     private _gameDelta: number = 0;
@@ -54,6 +44,7 @@ export class Game {
             maxMoons: 4,
             numberOfAsteroidBelts: 2,
         }));
+        makeAutoObservable(this);
     }
 
     public setCanvas(canvas: HTMLCanvasElement) {
@@ -107,17 +98,14 @@ export class Game {
         });
     }
 
-    @computed
     public get selectedEntity() {
         return this._selectedEntity;
     }
 
-    @action.bound
     public addEntity = (entity: Entity) => {
         this._entities.push(entity);
     }
 
-    @action.bound
     public addEntities = (entities: Entity[]) => {
         entities.forEach(this.addEntity);
     }
@@ -142,7 +130,6 @@ export class Game {
         return this._context;
     }
 
-    @computed
     public get entities() {
         return this._entities.reduce<Entity[]>((prev, current) => {
             return prev.concat(
@@ -194,7 +181,6 @@ export class Game {
         }
     }
 
-    @action.bound
     private _setSelectedEntity(entity: DrawableEntity | null) {
         if (this._selectedEntity != null) {
             this._selectedEntity.selected = false;
@@ -207,12 +193,10 @@ export class Game {
         this._selectedEntity = entity;
     }
 
-    @computed
     private get drawableEntities(): DrawableEntity[] {
         return this.entities.filter((entity) => entity instanceof DrawableEntity) as DrawableEntity[];
     }
 
-    @computed
     private get normalEntities() {
         return this.entities.filter((entity) => !(entity instanceof DrawableEntity));
     }

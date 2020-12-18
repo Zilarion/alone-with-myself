@@ -1,6 +1,7 @@
 import {
     action,
     computed,
+    makeObservable,
     observable,
 } from 'mobx';
 
@@ -21,6 +22,7 @@ export class Producer {
 
     constructor(consumables: ResourceSet) {
         this._consumables = new ResourceStorage(consumables);
+        makeObservable(this);
     }
 
     @computed

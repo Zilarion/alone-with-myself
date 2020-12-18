@@ -1,17 +1,17 @@
 import {
     action,
-    observable,
+    makeAutoObservable,
 } from 'mobx';
 
 import { ResourceSet } from './ResourceSet';
 import { ResourceType } from './ResourceType';
 
 export class ResourceStorage {
-    @observable
     private _resources = new Map<ResourceType, number>();
 
     constructor(initialResources: ResourceSet = []) {
         this.increment(initialResources);
+        makeAutoObservable(this);
     }
 
     public has(resources: ResourceSet) {
