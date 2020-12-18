@@ -19,7 +19,7 @@
         "allowJs": true,
         "allowSyntheticDefaultImports": true,
         "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
+        "emitDecoratorMetadata": false,
         "skipLibCheck": true
     },
     "include": [
