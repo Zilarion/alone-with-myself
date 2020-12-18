@@ -1,6 +1,7 @@
 import {
     action,
     computed,
+    makeObservable,
     observable,
 } from 'mobx';
 
@@ -18,6 +19,11 @@ export class Printers extends Entity {
 
     @observable
     private _amount: number = 0;
+
+    constructor() {
+        super();
+        makeObservable(this);
+    }
 
     @computed
     public get amount() {

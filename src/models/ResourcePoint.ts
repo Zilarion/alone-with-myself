@@ -1,6 +1,7 @@
 import {
     action,
     computed,
+    makeObservable,
     observable,
 } from 'mobx';
 
@@ -34,6 +35,7 @@ export class ResourcePoint extends InteractionPoint {
         super(props);
         this._producer = new Producer(props.resources);
         this._printers = new Printers();
+        makeObservable(this);
     }
 
     @computed

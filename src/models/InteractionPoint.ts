@@ -1,5 +1,6 @@
 import {
     computed,
+    makeObservable,
     observable,
 } from 'mobx';
 
@@ -29,6 +30,7 @@ export abstract class InteractionPoint extends DrawableEntity {
     constructor({ location }: InteractionPointProps) {
         super();
         this._location = location;
+        makeObservable(this);
     }
 
     @computed
