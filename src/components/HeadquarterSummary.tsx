@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react-lite';
-import * as React from 'react';
 
 import { HeadquarterPoint } from '../models';
 import styled from '../themed-components';

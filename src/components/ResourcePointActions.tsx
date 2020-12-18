@@ -1,7 +1,4 @@
-
-
 import { observer } from 'mobx-react-lite';
-import * as React from 'react';
 
 import { ResourcePoint } from '../models';
 import styled from '../themed-components';

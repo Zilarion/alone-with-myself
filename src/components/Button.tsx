@@ -1,10 +1,9 @@
-
 import MuiButton from '@material-ui/core/Button';
 import Tippy from '@tippyjs/react';
 
-import * as React from 'react';
+import { PropsWithChildren } from 'react';
 
-type ButtonProps = React.PropsWithChildren<{
+type ButtonProps = PropsWithChildren<{
     onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     disabled?: boolean;
     tooltip?: string | JSX.Element;
