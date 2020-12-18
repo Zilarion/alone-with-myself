@@ -30,7 +30,12 @@ module.exports = function (config) {
         singleRun: false,
         concurrency: Infinity,
         karmaTypescriptConfig: {
-            tsconfig: './tsconfig.test.json',
+            tsconfig: './tsconfig.json',
+            compilerOptions: {
+                module: "commonjs",
+                sourceMap: true,
+                noEmitOnError: true
+            },
             bundlerOptions: {
                 sourceMap: true,
                 transforms: [
