@@ -6,7 +6,6 @@
   "scripts": {
     "test": "karma start --browsers ChromeHeadless --single-run",
     "test:debug": "karma start",
-    "postinstall": "rm -rf node_modules/@types/react-native",
     "start": "webpack serve --mode development",
     "lint": "eslint ./src/**/*.ts",
     "lint:fix": "eslint --fix ./src/**/*.ts",

@@ -4,7 +4,7 @@
         "strict": true,
         "sourceMap": true,
         "module": "commonjs",
-        "target": "es2019",
+        "target": "esnext",
         "jsx": "react-jsxdev",
         "forceConsistentCasingInFileNames": true,
         "noUnusedParameters": true,
@@ -18,7 +18,8 @@
         "allowJs": true,
         "allowSyntheticDefaultImports": true,
         "experimentalDecorators": true,
-        "emitDecoratorMetadata": true
+        "emitDecoratorMetadata": true,
+        "skipLibCheck": true
     },
     "include": [
         "src/**/*",
