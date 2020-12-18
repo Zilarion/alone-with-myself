@@ -15,13 +15,16 @@
         "suppressImplicitAnyIndexErrors": true,
         "noUnusedLocals": true,
         "declaration": true,
+        "allowJs": true,
         "allowSyntheticDefaultImports": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true
     },
     "include": [
         "src/**/*",
-        "eslintrc.js"
+        ".eslintrc.js",
+        ".webpack/**/*",
+        "webpack.config.js",
     ],
     "exclude": [
         "node_modules"
