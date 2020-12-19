@@ -8,26 +8,20 @@ module.exports = {
         'eslint:recommended',
         'plugin:@typescript-eslint/eslint-recommended',
         'plugin:react/recommended',
-        "plugin:react-hooks/recommended",
+        'plugin:react-hooks/recommended',
     ],
     'globals': {
         'Atomics': 'readonly',
         'SharedArrayBuffer': 'readonly',
     },
-    "settings": {
-        "react": {
-            "version": "detect",
-        }
-    },
+    'settings': { 'react': { 'version': 'detect' } },
     'parser': '@typescript-eslint/parser',
     'parserOptions': {
         'ecmaVersion': 2018,
         'sourceType': 'module',
         'project': './tsconfig.json',
-        'extraFileExtensions': ['.d.ts'],
-        "ecmaFeatures": {
-          "jsx": true
-        },
+        'extraFileExtensions': [ '.d.ts' ],
+        'ecmaFeatures': { 'jsx': true },
     },
     'plugins': [
         '@typescript-eslint',
@@ -39,9 +33,7 @@ module.exports = {
         'brace-style': [
             'error',
             '1tbs',
-            {
-                'allowSingleLine': false
-            }
+            { 'allowSingleLine': false },
         ],
         'curly': [
             'error',
@@ -77,12 +69,12 @@ module.exports = {
             'error',
             {
                 'name': 'fdescribe',
-                'message': 'Avoid commiting fdescribe, use describe instead.'
+                'message': 'Avoid commiting fdescribe, use describe instead.',
             },
             {
                 'name': 'fit',
-                'message': 'Avoid commiting fit, use it instead.'
-            }
+                'message': 'Avoid commiting fit, use it instead.',
+            },
         ],
         'space-in-parens': [
             'error',
@@ -96,7 +88,7 @@ module.exports = {
             'error',
             'always',
         ],
-        'object-curly-newline': ['error', {
+        'object-curly-newline': [ 'error', {
             'ObjectExpression': {
                 'multiline': true,
                 'minProperties': 2,
@@ -113,9 +105,10 @@ module.exports = {
                 'multiline': true,
                 'minProperties': 2,
             },
-        }],
-        'eqeqeq': ['error', 'always', { 'null': 'never' }],
-        '@typescript-eslint/no-unused-vars': 'error',
+        } ],
+        'eqeqeq': [ 'error', 'always', { 'null': 'never' } ],
+        'no-unused-vars': 'off',
+        '@typescript-eslint/no-unused-vars': ['error', { "argsIgnorePattern": "^_" }],
         '@typescript-eslint/prefer-nullish-coalescing': 'error',
         '@typescript-eslint/prefer-string-starts-ends-with': 'error',
         '@typescript-eslint/member-ordering': [
@@ -136,10 +129,10 @@ module.exports = {
                     'private-constructor',
                     'public-instance-method',
                     'protected-instance-method',
-                    'private-instance-method'
-                ]
-            }
+                    'private-instance-method',
+                ],
+            },
         ],
         '@typescript-eslint/member-delimiter-style': 'error',
-    }
+    },
 };
