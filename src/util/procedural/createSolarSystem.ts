@@ -1,8 +1,8 @@
 import {
     Body,
-    Entity,
     HeadquarterPoint,
 } from '../../models';
+import { Entity } from '../../models/core';
 import { emptyArray } from '../emptyArray';
 import { createAsteroidBelt } from './createAsteroidBelt';
 import { createPlanet } from './createPlanet';

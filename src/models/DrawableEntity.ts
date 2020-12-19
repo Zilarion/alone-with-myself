@@ -1,4 +1,4 @@
-import { Entity } from './Entity';
+import { Entity } from './core';
 import { Vector } from './Vector';
 
 export abstract class DrawableEntity extends Entity {

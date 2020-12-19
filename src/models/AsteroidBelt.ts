@@ -11,8 +11,8 @@ import {
     randomInt,
 } from '../util';
 import { Body } from './Body';
+import { EntityType } from './core';
 import { DrawableEntity } from './DrawableEntity';
-import { EntityType } from './Entity';
 import { ResourcePoint } from './ResourcePoint';
 import { ResourceType } from './ResourceType';
 import { Vector } from './Vector';

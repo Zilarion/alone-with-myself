@@ -1,7 +1,5 @@
-import {
-    DrawableEntity,
-    EntityType,
-} from '../models';
+import { DrawableEntity } from '../models';
+import { EntityType } from '../models/core';
 
 export function findSelectedEntity(entities: DrawableEntity[]): DrawableEntity | null {
     return entities.reduce<DrawableEntity | null>((prev, current) => {

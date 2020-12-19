@@ -5,8 +5,8 @@ import {
 } from 'mobx';
 
 import { distanceToSegment } from '../util/geometry';
+import { EntityType } from './core';
 import { DrawableEntity } from './DrawableEntity';
-import { EntityType } from './Entity';
 import { InteractionPoint } from './InteractionPoint';
 import { ResourceSet } from './ResourceSet';
 import { ResourceType } from './ResourceType';

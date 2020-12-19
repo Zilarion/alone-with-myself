@@ -1,4 +1,7 @@
-import { makeAutoObservable } from 'mobx';
+import {
+    computed,
+    makeAutoObservable,
+} from 'mobx';
 
 import { drawEntity } from '../drawables';
 import {
@@ -11,8 +14,8 @@ import {
 } from '../util';
 import { AsteroidBelt } from './AsteroidBelt';
 import { Body } from './Body';
+import { Entity } from './core';
 import { DrawableEntity } from './DrawableEntity';
-import { Entity } from './Entity';
 import { InteractionPoint } from './InteractionPoint';
 import { Vector } from './Vector';
 
@@ -98,6 +101,7 @@ export class Game {
         });
     }
 
+    @computed
     public get selectedEntity() {
         return this._selectedEntity;
     }
@@ -194,7 +198,7 @@ export class Game {
     }
 
     private get drawableEntities(): DrawableEntity[] {
-        return this.entities.filter((entity) => entity instanceof DrawableEntity) as DrawableEntity[];
+        return this.entities.filter((entity): entity is DrawableEntity => entity instanceof DrawableEntity);
     }
 
     private get normalEntities() {
@@ -213,7 +217,7 @@ export class Game {
         });
 
         this._updateMouse();
-        this.entities.forEach((entity) => drawEntity(this.context, entity));
+        this.drawableEntities.forEach((entity) => drawEntity(this.context, entity));
 
         this.camera.restore();
     }
