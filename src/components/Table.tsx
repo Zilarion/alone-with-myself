@@ -1,8 +1,10 @@
-import MaterialTable from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import {
+    Table as MaterialTable,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+} from '@material-ui/core';
 
 import styled from '../themed-components';
 

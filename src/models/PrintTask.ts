@@ -12,7 +12,7 @@ interface PrintTaskProps {
 }
 
 export class PrintTask {
-    private _percentageOfTotal: number = 0;
+    private _count: number = 0;
     private _complete: (amount: number) => void;
     private _progress: number = 0;
     private _storage: ResourceStorage;
@@ -25,15 +25,24 @@ export class PrintTask {
     }: PrintTaskProps) {
         this._storage = storage;
         this._printable = printable;
-        this._complete = complete;
+
+        this._complete = (amount) => {
+            this._count -= amount;
+            complete(amount);
+        };
+
         makeAutoObservable(this);
+    }
+
+    public get printable() {
+        return this._printable;
     }
 
     public get durationPerItem() {
         return this._printable.duration;
     }
 
-    public get maxPrintAmount() {
+    public get maxAffordable() {
         return Math.floor(
             resourcesForPrintable(
                 this._storage,
@@ -52,7 +61,7 @@ export class PrintTask {
     }
 
     public get active() {
-        return this.percentageOfTotal > 0 && this.progress > 0;
+        return this.count > 0 && this.progress > 0;
     }
 
     public get name() {
@@ -63,16 +72,25 @@ export class PrintTask {
         return this._complete;
     }
 
+    public get count() {
+        return this._count;
+    }
+
+    public set count(newValue: number) {
+        this._count = newValue;
+    }
+
+    public get progressPercentage() {
+        if (this.count === 0) {
+            return 0;
+        }
+
+        const totalCost = this.durationPerItem * this.count;
+        return this._progress / totalCost;
+    }
+
     public get progress() {
         return this._progress;
-    }
-
-    public get percentageOfTotal() {
-        return this._percentageOfTotal;
-    }
-
-    public set percentageOfTotal(newValue: number) {
-        this._percentageOfTotal = newValue;
     }
 
     public set progress(newValue: number) {

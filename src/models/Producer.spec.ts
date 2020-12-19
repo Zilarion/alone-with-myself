@@ -1,3 +1,5 @@
+import { findHarvesterSchema } from '../data/Harvesters';
+import { Harvester } from './Harvester';
 import { PrintableType } from './PrintableType';
 import { Producer } from './Producer';
 import { ResourceType } from './ResourceType';
@@ -6,11 +8,16 @@ describe('model: Producer', () => {
     const MAX_RESOURCES = 100;
 
     let producer: Producer;
+    let miner: Harvester;
     beforeEach(() => {
         producer = new Producer([ {
             amount: MAX_RESOURCES,
             type: ResourceType.minerals,
         } ]);
+
+        miner = new Harvester(
+            findHarvesterSchema(PrintableType.miner),
+        );
     });
 
     it('should have set the consumables', () => {
@@ -20,40 +27,8 @@ describe('model: Producer', () => {
         expect(minerals).toEqual(100);
     });
 
-    it('should initialize without harvesters', () => {
-        expect(producer.harvesters.size).toEqual(0);
-    });
-
-    it('should have mineral harvesters available', () => {
-        expect(
-            producer.availableHarvesters.find(([ type ]) => type === PrintableType.miner),
-        ).toExist();
-    });
-
-    it('should build harvesters', () => {
-        producer.buildHarvesters(PrintableType.miner, 5);
-        expect(producer.harvesters.size).toEqual(1);
-        expect(producer.harvesters.get(PrintableType.miner)).toEqual(5);
-    });
-
-    it('should not build harvesters that are not available', () => {
-        expect(
-            producer.availableHarvesters.find(([ type ]) => type === PrintableType.printer),
-        ).toBeUndefined();
-
-        expect(() => {
-            producer.buildHarvesters(PrintableType.printer, 5);
-        }).toThrow();
-    });
-
-    it('should produce using the harvesters', () => {
-        producer.buildHarvesters(PrintableType.miner, 5);
-        expect(producer.harvesters.size).toEqual(1);
-        expect(producer.harvesters.get(PrintableType.miner)).toEqual(5);
-    });
-
     it('should produce nothing without harvesters', () => {
-        const production = producer.productionOver(100);
+        const production = producer.productionOver(100, []);
         expect(production.length).toEqual(0);
     });
 
@@ -62,9 +37,11 @@ describe('model: Producer', () => {
         const NUMER_OF_MINERS = 5;
         const DELTA = 50;
 
-        producer.buildHarvesters(PrintableType.miner, NUMER_OF_MINERS);
-
-        const production = producer.productionOver(DELTA);
+        miner.add(NUMER_OF_MINERS);
+        const production = producer.productionOver(
+            DELTA,
+            [ miner ],
+        );
         expect(production.length).toEqual(1);
         expect(production[0]).toEqual({
             type: ResourceType.minerals,
@@ -76,9 +53,9 @@ describe('model: Producer', () => {
         const NUMER_OF_MINERS = 100;
         const DELTA = 1000;
 
-        producer.buildHarvesters(PrintableType.miner, NUMER_OF_MINERS);
+        miner.add(NUMER_OF_MINERS);
 
-        const production = producer.productionOver(DELTA);
+        const production = producer.productionOver(DELTA, [ miner ]);
         expect(production.length).toEqual(1);
         expect(production[0]).toEqual({
             type: ResourceType.minerals,
