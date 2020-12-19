@@ -1,4 +1,5 @@
 import {
+    action,
     computed,
     makeObservable,
     observable,
@@ -10,6 +11,8 @@ import {
     Entity,
     EntityType,
 } from './Entity';
+import { Printable } from './Printable';
+import { PrintableType } from './PrintableType';
 import { ResourceStorage } from './ResourceStorage';
 import { Transporter } from './Transporter';
 import { Vector } from './Vector';
@@ -20,9 +23,16 @@ export interface InteractionPointProps {
 
 export abstract class InteractionPoint extends DrawableEntity {
     protected _type = EntityType.InteractionPoint;
+
     private _location: Vector;
+
     private _radius: number = 200;
+
+    @observable
     private _outgoing: Transporter[] = [];
+
+    @observable
+    private _printables = new Map<PrintableType, Printable>();
 
     @observable
     private _storage: ResourceStorage = new ResourceStorage();
@@ -31,6 +41,11 @@ export abstract class InteractionPoint extends DrawableEntity {
         super();
         this._location = location;
         makeObservable(this);
+    }
+
+    @action.bound
+    public addPrintableOption(printable: Printable) {
+        this._printables.set(printable.printableType, printable);
     }
 
     @computed
@@ -55,12 +70,22 @@ export abstract class InteractionPoint extends DrawableEntity {
         return this._location;
     }
 
+    @computed
+    public get printables() {
+        return this._printables;
+    }
+
     public pointIsInside(vector: Vector) {
         return distanceBetween(vector, this._location) <= this._radius;
     }
-
+    @computed
     public get children(): Entity[] {
-        return this._outgoing;
+
+        return [
+            ... super.children,
+            ... this.outgoing,
+            ... Array.from(this.printables.values()),
+        ];
     }
 
     public connectTo(target: InteractionPoint): void {

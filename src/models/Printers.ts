@@ -5,44 +5,27 @@ import {
     observable,
 } from 'mobx';
 
-import {
-    Entity,
-    EntityType,
-} from './Entity';
+import { Printable } from './Printable';
+import { PrintableType } from './PrintableType';
 import { PrintTask } from './PrintTask';
 
-export class Printers extends Entity {
-    protected _type = EntityType.Printer;
-
+export class Printers extends Printable {
     @observable
     private _tasks = new Set<PrintTask>();
 
-    @observable
-    private _amount: number = 0;
-
     constructor() {
-        super();
+        super({ type: PrintableType.printer });
         makeObservable(this);
     }
 
     @computed
-    public get amount() {
-        return this._amount;
-    }
-
-    @computed
     public get capacityPerSecond() {
-        return this._amount;
+        return this.amount;
     }
 
     @action.bound
     public addPrintOption(task: PrintTask) {
         this._tasks.add(task);
-    }
-
-    @action.bound
-    public addPrinters(increment: number) {
-        this._amount += increment;
     }
 
     @computed
@@ -53,43 +36,45 @@ export class Printers extends Entity {
     @action.bound
     public update(delta: number) {
         const capacity = this.capacityPerSecond * delta / 1000;
+        let remainingCapacity = capacity;
 
         this.tasks.forEach((task) => {
             const {
-                percentageOfTotal,
+                count,
                 progress = 0,
                 durationPerItem,
                 complete,
                 beforePrint,
-                maxPrintAmount,
+                maxAffordable,
             } = task;
 
-            if (maxPrintAmount === 0) {
+            if (maxAffordable === 0 || count === 0) {
                 return;
             }
 
-            if (percentageOfTotal === 0) {
-                return;
-            }
-
-            const progressIncrease = capacity * percentageOfTotal;
-            const newProgress = progress + progressIncrease;
             const progressWasZero = progress === 0;
+            const progressPlusCapacity = remainingCapacity + progress;
+            const maxPrinted = Math.floor(progressPlusCapacity / durationPerItem);
+            const numberPrinted = Math.min(maxPrinted, maxAffordable);
+            const completedAll = count === numberPrinted;
 
-            const numberCanBePrinted = Math.floor(newProgress / durationPerItem);
-            const numberCompleted = Math.min(numberCanBePrinted, maxPrintAmount);
-
-            const beforePrintCount = progressWasZero ? numberCompleted + 1 : numberCompleted;
+            const beforePrintCount = progressWasZero ? numberPrinted + 1 : numberPrinted;
             if (beforePrintCount > 0) {
-                beforePrint(progressWasZero ? numberCompleted + 1 : numberCompleted);
+                beforePrint(progressWasZero ? numberPrinted + 1 : numberPrinted);
             }
 
-            if (numberCompleted > 0) {
-                complete(numberCompleted);
+            if (numberPrinted > 0) {
+                complete(numberPrinted);
             }
 
-            const progressLeft = newProgress - numberCompleted * durationPerItem;
-            task.progress = progressLeft;
+            const capacityUsed = numberPrinted * durationPerItem;
+            const progressLeft = remainingCapacity - capacityUsed;
+            if (!completedAll) {
+                task.progress += progressLeft;
+                remainingCapacity = 0;
+            } else {
+                remainingCapacity = progressLeft;
+            }
         });
     }
 }
