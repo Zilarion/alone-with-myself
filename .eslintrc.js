@@ -108,7 +108,7 @@ module.exports = {
         } ],
         'eqeqeq': [ 'error', 'always', { 'null': 'never' } ],
         'no-unused-vars': 'off',
-        '@typescript-eslint/no-unused-vars': ['error', { "argsIgnorePattern": "^_" }],
+        '@typescript-eslint/no-unused-vars': [ 'error', { 'argsIgnorePattern': '^_' } ],
         '@typescript-eslint/prefer-nullish-coalescing': 'error',
         '@typescript-eslint/prefer-string-starts-ends-with': 'error',
         '@typescript-eslint/member-ordering': [
