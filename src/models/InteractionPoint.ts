@@ -6,11 +6,11 @@ import {
 } from 'mobx';
 
 import { distanceBetween } from '../util/distanceBetween';
-import { DrawableEntity } from './DrawableEntity';
 import {
     Entity,
     EntityType,
-} from './Entity';
+} from './core';
+import { DrawableEntity } from './DrawableEntity';
 import { Printable } from './Printable';
 import { PrintableType } from './PrintableType';
 import { ResourceStorage } from './ResourceStorage';

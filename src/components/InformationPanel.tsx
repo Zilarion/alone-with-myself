@@ -3,10 +3,10 @@
 import {
     AsteroidBelt,
     Body,
-    Entity,
     HeadquarterPoint,
     ResourcePoint,
 } from '../models';
+import { Entity } from '../models/core';
 import { AsteroidBeltSummary } from './AsteroidBeltSummary';
 import { BodySummary } from './BodySummary';
 import { HeadquarterSummary } from './HeadquarterSummary';

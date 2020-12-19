@@ -9,7 +9,7 @@ import { findPrintableSchema } from '../data';
 import {
     Entity,
     EntityType,
-} from './Entity';
+} from './core';
 import { PrintableType } from './PrintableType';
 import { ResourceSet } from './ResourceSet';
 
