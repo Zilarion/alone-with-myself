@@ -16,8 +16,10 @@ import {
     EntityType,
 } from './core';
 import { ResourcePoint } from './ResourcePoint';
-import { ResourceType } from './types/ResourceType';
-import { Vector } from './Vector';
+import {
+    ResourceType,
+    Vector,
+} from './types';
 
 interface AsteroidBeltProps {
     id: string;

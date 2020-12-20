@@ -1,11 +1,11 @@
-import { distanceBetween } from '../util/distanceBetween';
+import { distanceBetween } from '../util';
 import { AsteroidBelt } from './AsteroidBelt';
 import {
     DrawableEntity,
     EntityType,
 } from './core';
 import { InteractionPoint } from './InteractionPoint';
-import { Vector } from './Vector';
+import { Vector } from './types';
 
 export interface BodyProps {
     position: Vector;

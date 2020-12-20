@@ -1,4 +1,4 @@
-import { Vector } from '../models';
+import { Vector } from '../models/types';
 
 interface Viewport {
     left: number;

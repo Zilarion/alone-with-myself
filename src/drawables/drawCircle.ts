@@ -1,5 +1,5 @@
 import { FULL_CIRCLE } from '../constants';
-import { Vector } from '../models';
+import { Vector } from '../models/types';
 
 interface DrawArcProps {
     position: Vector;
