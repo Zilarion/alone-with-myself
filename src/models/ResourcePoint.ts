@@ -6,12 +6,12 @@ import {
 } from 'mobx';
 
 import { findHarvesterSchema } from '../data/Harvesters';
-import { assert } from '../util';
-import { Harvester } from './Harvester';
 import {
     InteractionPoint,
     InteractionPointProps,
-} from './InteractionPoint';
+} from '../drawables/InteractionPoint';
+import { assert } from '../util';
+import { Harvester } from './Harvester';
 import { Printers } from './Printers';
 import { PrintTask } from './PrintTask';
 import { Producer } from './Producer';

@@ -5,19 +5,21 @@ import {
     observable,
 } from 'mobx';
 
-import { distanceBetween } from '../util';
+import {
+    ResourceStorage,
+    Transporter,
+} from '../../models';
 import {
     DrawableEntity,
     Entity,
     EntityType,
-} from './core';
-import { Printable } from './Printable';
-import { ResourceStorage } from './ResourceStorage';
-import { Transporter } from './Transporter';
+} from '../../models/core';
+import { Printable } from '../../models/Printable';
 import {
     PrintableType,
     Vector,
-} from './types';
+} from '../../models/types';
+import { distanceBetween } from '../../util';
 
 export interface InteractionPointProps {
     location: Vector;

@@ -1,6 +1,6 @@
 import { FULL_CIRCLE } from '../../constants';
 import { drawCircle } from '../drawCircle';
-import { drawInteractionPoint } from '../drawInteractionPoint';
+import { drawInteractionPoint } from '../InteractionPoint';
 import { AsteroidBelt } from './AsteroidBelt';
 
 interface DrawAsteroidBeltProps {

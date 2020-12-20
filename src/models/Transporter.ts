@@ -4,12 +4,12 @@ import {
     observable,
 } from 'mobx';
 
+import { InteractionPoint } from '../drawables/InteractionPoint';
 import { distanceToSegment } from '../util/geometry';
 import {
     DrawableEntity,
     EntityType,
 } from './core';
-import { InteractionPoint } from './InteractionPoint';
 import {
     ResourceSet,
     ResourceType,
