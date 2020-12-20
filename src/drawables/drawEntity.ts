@@ -1,8 +1,8 @@
 import {
     AsteroidBelt,
     Body,
-    DrawableEntity,
 } from '../models';
+import { DrawableEntity } from '../models/core';
 import { drawAsteroidBelt } from './drawAsteroidBelt';
 import { drawBody } from './drawBody';
 

@@ -7,10 +7,10 @@ import {
 
 import { distanceBetween } from '../util/distanceBetween';
 import {
+    DrawableEntity,
     Entity,
     EntityType,
 } from './core';
-import { DrawableEntity } from './DrawableEntity';
 import { Printable } from './Printable';
 import { ResourceStorage } from './ResourceStorage';
 import { Transporter } from './Transporter';

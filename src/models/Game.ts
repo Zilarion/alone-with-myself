@@ -14,8 +14,10 @@ import {
 } from '../util';
 import { AsteroidBelt } from './AsteroidBelt';
 import { Body } from './Body';
-import { Entity } from './core';
-import { DrawableEntity } from './DrawableEntity';
+import {
+    DrawableEntity,
+    Entity,
+} from './core';
 import { InteractionPoint } from './InteractionPoint';
 import { Vector } from './Vector';
 
