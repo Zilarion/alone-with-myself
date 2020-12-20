@@ -1,7 +1,7 @@
-import { FULL_CIRCLE } from '../constants';
-import { AsteroidBelt } from '../models/AsteroidBelt';
-import { drawCircle } from './drawCircle';
-import { drawInteractionPoint } from './drawInteractionPoint';
+import { FULL_CIRCLE } from '../../constants';
+import { drawCircle } from '../drawCircle';
+import { drawInteractionPoint } from '../drawInteractionPoint';
+import { AsteroidBelt } from './AsteroidBelt';
 
 interface DrawAsteroidBeltProps {
     context: CanvasRenderingContext2D;

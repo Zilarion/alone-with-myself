@@ -1,7 +1,5 @@
-import {
-    AsteroidBelt,
-    Body,
-} from '../../models';
+import { AsteroidBelt } from '../../drawables/AsteroidBelt';
+import { Body } from '../../models';
 import { emptyArray } from '../emptyArray';
 import { createSatelliteOf } from './createSatelliteOf';
 import {

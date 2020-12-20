@@ -1,9 +1,7 @@
 import { observer } from 'mobx-react-lite';
 
-import {
-    AsteroidBelt,
-    Body,
-} from '../models';
+import { AsteroidBelt } from '../drawables/AsteroidBelt';
+import { Body } from '../models';
 import { Table } from './Table';
 
 interface SatelliteSummaryProps {

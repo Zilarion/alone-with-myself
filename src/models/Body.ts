@@ -1,5 +1,5 @@
+import { AsteroidBelt } from '../drawables/AsteroidBelt';
 import { distanceBetween } from '../util';
-import { AsteroidBelt } from './AsteroidBelt';
 import {
     DrawableEntity,
     EntityType,
