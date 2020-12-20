@@ -4,6 +4,5 @@ export * from './Printers';
 export * from './ResourceUnits';
 export * from './ResourceStorage';
 export * from './HeadquarterPoint';
-export * from './InteractionPoint';
 export * from './Transporter';
 export * from './Planet';

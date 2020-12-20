@@ -6,6 +6,7 @@ import {
 import { drawEntity } from '../drawables';
 import { AsteroidBelt } from '../drawables/AsteroidBelt';
 import { Body } from '../drawables/Body';
+import { InteractionPoint } from '../drawables/InteractionPoint';
 import {
     assert,
     CanvasCamera,
@@ -18,7 +19,6 @@ import {
     DrawableEntity,
     Entity,
 } from './core';
-import { InteractionPoint } from './InteractionPoint';
 import { Vector } from './types';
 
 const WORLD_DELTA_MINIMUM = 1000;

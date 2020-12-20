@@ -1,6 +1,6 @@
-import { InteractionPoint } from '../models/InteractionPoint';
-import { drawMarker } from './drawMarker';
-import { drawTransporter } from './drawTransporter';
+import { drawMarker } from '../drawMarker';
+import { drawTransporter } from '../drawTransporter';
+import { InteractionPoint } from './InteractionPoint';
 
 interface DrawInteractionPoint {
     context: CanvasRenderingContext2D;

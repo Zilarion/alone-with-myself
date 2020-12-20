@@ -2,10 +2,10 @@ import {
     DrawableEntity,
     EntityType,
 } from '../../models/core';
-import { InteractionPoint } from '../../models/InteractionPoint';
 import { Vector } from '../../models/types';
 import { distanceBetween } from '../../util';
 import { AsteroidBelt } from '../AsteroidBelt';
+import { InteractionPoint } from '../InteractionPoint';
 import { Orbit } from '../Orbit';
 
 export interface BodyProps {

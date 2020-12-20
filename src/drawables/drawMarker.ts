@@ -1,4 +1,4 @@
-import { InteractionPoint } from '../models/InteractionPoint';
+import { InteractionPoint } from './InteractionPoint';
 
 interface DrawMarkerProps {
     context: CanvasRenderingContext2D;
