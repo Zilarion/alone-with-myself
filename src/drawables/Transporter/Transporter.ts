@@ -4,17 +4,17 @@ import {
     observable,
 } from 'mobx';
 
-import { InteractionPoint } from '../drawables/InteractionPoint';
-import { distanceToSegment } from '../util/geometry';
 import {
     DrawableEntity,
     EntityType,
-} from './core';
+} from '../../models/core';
 import {
     ResourceSet,
     ResourceType,
     Vector,
-} from './types';
+} from '../../models/types';
+import { distanceToSegment } from '../../util/geometry';
+import { InteractionPoint } from '../InteractionPoint';
 
 const TRANSPORTER_WIDTH = 200;
 

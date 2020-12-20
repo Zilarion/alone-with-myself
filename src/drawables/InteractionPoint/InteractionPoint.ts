@@ -5,10 +5,7 @@ import {
     observable,
 } from 'mobx';
 
-import {
-    ResourceStorage,
-    Transporter,
-} from '../../models';
+import { ResourceStorage } from '../../models';
 import {
     DrawableEntity,
     Entity,
@@ -20,6 +17,7 @@ import {
     Vector,
 } from '../../models/types';
 import { distanceBetween } from '../../util';
+import { Transporter } from '../Transporter';
 
 export interface InteractionPointProps {
     location: Vector;
