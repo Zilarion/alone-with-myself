@@ -1,7 +1,9 @@
 import { distanceBetween } from '../util/distanceBetween';
 import { AsteroidBelt } from './AsteroidBelt';
-import { EntityType } from './core';
-import { DrawableEntity } from './DrawableEntity';
+import {
+    DrawableEntity,
+    EntityType,
+} from './core';
 import { InteractionPoint } from './InteractionPoint';
 import { Vector } from './Vector';
 

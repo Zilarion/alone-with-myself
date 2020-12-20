@@ -9,5 +9,4 @@ export * from './ResourceStorage';
 export * from './HeadquarterPoint';
 export * from './InteractionPoint';
 export * from './Transporter';
-export * from './DrawableEntity';
 export * from './Planet';
