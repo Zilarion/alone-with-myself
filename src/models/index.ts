@@ -1,7 +1,6 @@
 export * from './Body';
 export * from './Game';
 export * from './ResourcePoint';
-export * from './AsteroidBelt';
 export * from './Printers';
 export * from './ResourceUnits';
 export * from './ResourceStorage';

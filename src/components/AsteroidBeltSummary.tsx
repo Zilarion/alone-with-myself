@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 
-import { AsteroidBelt } from '../models';
+import { AsteroidBelt } from '../drawables/AsteroidBelt';
 import { Card } from './Card';
 import { LabelValue } from './LabelValue';
 

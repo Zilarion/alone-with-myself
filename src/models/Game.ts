@@ -4,6 +4,7 @@ import {
 } from 'mobx';
 
 import { drawEntity } from '../drawables';
+import { AsteroidBelt } from '../drawables/AsteroidBelt';
 import {
     assert,
     CanvasCamera,
@@ -12,7 +13,6 @@ import {
     createSolarSystem,
     findSelectedEntity,
 } from '../util';
-import { AsteroidBelt } from './AsteroidBelt';
 import { Body } from './Body';
 import {
     DrawableEntity,

@@ -1,9 +1,9 @@
+import { Body } from '../models';
+import { DrawableEntity } from '../models/core';
 import {
     AsteroidBelt,
-    Body,
-} from '../models';
-import { DrawableEntity } from '../models/core';
-import { drawAsteroidBelt } from './drawAsteroidBelt';
+    drawAsteroidBelt,
+} from './AsteroidBelt';
 import { drawBody } from './drawBody';
 
 export function drawEntity(context: CanvasRenderingContext2D, entity: DrawableEntity) {

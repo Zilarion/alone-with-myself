@@ -4,22 +4,24 @@ import {
     observable,
 } from 'mobx';
 
-import { FULL_CIRCLE } from '../constants';
+import { FULL_CIRCLE } from '../../constants';
+import {
+    Body,
+    ResourcePoint,
+} from '../../models';
+import {
+    DrawableEntity,
+    EntityType,
+} from '../../models/core';
+import {
+    ResourceType,
+    Vector,
+} from '../../models/types';
 import {
     distanceBetween,
     emptyArray,
     randomInt,
-} from '../util';
-import { Body } from './Body';
-import {
-    DrawableEntity,
-    EntityType,
-} from './core';
-import { ResourcePoint } from './ResourcePoint';
-import {
-    ResourceType,
-    Vector,
-} from './types';
+} from '../../util';
 
 interface AsteroidBeltProps {
     id: string;
