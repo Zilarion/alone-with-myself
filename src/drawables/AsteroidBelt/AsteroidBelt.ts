@@ -17,8 +17,8 @@ import {
 import {
     distanceBetween,
     emptyArray,
-    randomInt,
 } from '../../util';
+import { randomInt } from '../../util/procedural/random';
 import { Body } from '../Body';
 
 interface AsteroidBeltProps {

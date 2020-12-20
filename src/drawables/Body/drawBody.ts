@@ -1,5 +1,5 @@
 import { drawCircle } from '../drawCircle';
-import { drawInteractionPoint } from '../InteractionPoint';
+import { drawInteractionPoint } from '../InteractionPoint/drawInteractionPoint';
 import { drawOrbit } from '../Orbit';
 import { Body } from './Body';
 

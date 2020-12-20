@@ -1,4 +1,3 @@
-export * from './procedural/random';
 export * from './distanceBetween';
 export * from './emptyArray';
 export * from './assert';

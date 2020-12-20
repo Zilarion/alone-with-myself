@@ -6,6 +6,7 @@ import {
 } from 'mobx';
 
 import { findPrintableSchema } from '../data';
+import { assert } from '../util';
 import {
     Entity,
     EntityType,
@@ -62,6 +63,7 @@ export class Printable extends Entity {
 
     @action.bound
     public add(increment: number) {
+        assert(this._amount + increment >= 0, 'An attempt was made to decrease a printable below zero.');
         this._amount += increment;
     }
 
