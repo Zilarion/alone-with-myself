@@ -19,7 +19,7 @@ import {
     Entity,
 } from './core';
 import { InteractionPoint } from './InteractionPoint';
-import { Vector } from './Vector';
+import { Vector } from './types';
 
 const WORLD_DELTA_MINIMUM = 1000;
 

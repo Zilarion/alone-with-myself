@@ -13,8 +13,8 @@ import { InteractionPoint } from './InteractionPoint';
 import {
     ResourceSet,
     ResourceType,
+    Vector,
 } from './types';
-import { Vector } from './Vector';
 
 const TRANSPORTER_WIDTH = 200;
 

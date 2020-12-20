@@ -1,5 +1,5 @@
 import { InteractionPoint } from './InteractionPoint';
-import { Vector } from './Vector';
+import { Vector } from './types';
 
 export class HeadquarterPoint extends InteractionPoint {
     constructor(location: Vector) {
