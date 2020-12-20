@@ -1,7 +1,7 @@
-import { Body } from '../models';
-import { drawCircle } from './drawCircle';
-import { drawInteractionPoint } from './drawInteractionPoint';
-import { drawOrbit } from './drawOrbit';
+import { drawCircle } from '../drawCircle';
+import { drawInteractionPoint } from '../drawInteractionPoint';
+import { drawOrbit } from '../Orbit';
+import { Body } from './Body';
 
 interface DrawBodyProps {
     context: CanvasRenderingContext2D;

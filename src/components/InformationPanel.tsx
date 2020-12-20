@@ -1,8 +1,8 @@
 
 
 import { AsteroidBelt } from '../drawables/AsteroidBelt';
+import { Body } from '../drawables/Body';
 import {
-    Body,
     HeadquarterPoint,
     ResourcePoint,
 } from '../models';
