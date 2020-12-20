@@ -6,8 +6,6 @@ export * from './AsteroidBelt';
 export * from './Printers';
 export * from './ResourceUnits';
 export * from './ResourceStorage';
-export * from './ResourceSet';
-export * from './ResourceType';
 export * from './HeadquarterPoint';
 export * from './InteractionPoint';
 export * from './Transporter';

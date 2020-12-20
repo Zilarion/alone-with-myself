@@ -8,8 +8,10 @@ import { distanceToSegment } from '../util/geometry';
 import { EntityType } from './core';
 import { DrawableEntity } from './DrawableEntity';
 import { InteractionPoint } from './InteractionPoint';
-import { ResourceSet } from './ResourceSet';
-import { ResourceType } from './ResourceType';
+import {
+    ResourceSet,
+    ResourceType,
+} from './types';
 import { Vector } from './Vector';
 
 const TRANSPORTER_WIDTH = 200;

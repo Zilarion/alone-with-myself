@@ -10,8 +10,10 @@ import {
     Entity,
     EntityType,
 } from './core';
-import { PrintableType } from './PrintableType';
-import { ResourceSet } from './ResourceSet';
+import {
+    PrintableType,
+    ResourceSet,
+} from './types';
 
 export interface PrintableSchema {
     cost: ResourceSet;

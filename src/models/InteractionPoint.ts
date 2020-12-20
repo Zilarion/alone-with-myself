@@ -12,9 +12,9 @@ import {
 } from './core';
 import { DrawableEntity } from './DrawableEntity';
 import { Printable } from './Printable';
-import { PrintableType } from './PrintableType';
 import { ResourceStorage } from './ResourceStorage';
 import { Transporter } from './Transporter';
+import { PrintableType } from './types';
 import { Vector } from './Vector';
 
 export interface InteractionPointProps {

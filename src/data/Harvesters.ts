@@ -3,8 +3,10 @@ import {
     HarvesterProps,
     HarvesterSchema,
 } from '../models/Harvester';
-import { PrintableType } from '../models/PrintableType';
-import { ResourceType } from '../models/ResourceType';
+import {
+    PrintableType,
+    ResourceType,
+} from '../models/types';
 import { assert } from '../util';
 
 const HARVESTER_SCHEMAS = new Map<PrintableType, HarvesterSchema>([

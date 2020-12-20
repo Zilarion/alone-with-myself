@@ -14,7 +14,7 @@ import { Body } from './Body';
 import { EntityType } from './core';
 import { DrawableEntity } from './DrawableEntity';
 import { ResourcePoint } from './ResourcePoint';
-import { ResourceType } from './ResourceType';
+import { ResourceType } from './types/ResourceType';
 import { Vector } from './Vector';
 
 interface AsteroidBeltProps {

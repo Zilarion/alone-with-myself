@@ -1,8 +1,10 @@
 import { findHarvesterSchema } from '../data/Harvesters';
 import { Harvester } from './Harvester';
-import { PrintableType } from './PrintableType';
 import { Producer } from './Producer';
-import { ResourceType } from './ResourceType';
+import {
+    PrintableType,
+    ResourceType,
+} from './types';
 
 describe('model: Producer', () => {
     const MAX_RESOURCES = 100;
