@@ -1,7 +1,5 @@
-import {
-    Body,
-    HeadquarterPoint,
-} from '../../models';
+import { Body } from '../../drawables/Body';
+import { HeadquarterPoint } from '../../models';
 import { Entity } from '../../models/core';
 import { emptyArray } from '../emptyArray';
 import { createAsteroidBelt } from './createAsteroidBelt';

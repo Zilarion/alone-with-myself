@@ -1,4 +1,4 @@
-import { Body } from '../../models';
+import { Body } from '../../drawables/Body';
 import { Planet } from '../../models/Planet';
 
 interface CreateSatelliteOfProps {

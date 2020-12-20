@@ -5,6 +5,7 @@ import {
 
 import { drawEntity } from '../drawables';
 import { AsteroidBelt } from '../drawables/AsteroidBelt';
+import { Body } from '../drawables/Body';
 import {
     assert,
     CanvasCamera,
@@ -13,7 +14,6 @@ import {
     createSolarSystem,
     findSelectedEntity,
 } from '../util';
-import { Body } from './Body';
 import {
     DrawableEntity,
     Entity,

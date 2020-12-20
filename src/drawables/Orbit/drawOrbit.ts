@@ -1,5 +1,5 @@
-import { Orbit } from '../models';
-import { drawCircle } from './drawCircle';
+import { Orbit } from '../../drawables/Orbit';
+import { drawCircle } from '../drawCircle';
 
 interface DrawOrbitProps {
     context: CanvasRenderingContext2D;

@@ -1,10 +1,10 @@
-import { Body } from '../models';
+import { Body } from '../drawables/Body';
 import { DrawableEntity } from '../models/core';
 import {
     AsteroidBelt,
     drawAsteroidBelt,
 } from './AsteroidBelt';
-import { drawBody } from './drawBody';
+import { drawBody } from './Body/drawBody';
 
 export function drawEntity(context: CanvasRenderingContext2D, entity: DrawableEntity) {
     if (entity instanceof AsteroidBelt) {

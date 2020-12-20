@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { FormattedNumber } from 'react-intl';
 
-import { Body } from '../models';
+import { Body } from '../drawables/Body';
 import { Card } from './Card';
 import { LabelValue } from './LabelValue';
 import { SatelliteSummary } from './SatelliteSummary';

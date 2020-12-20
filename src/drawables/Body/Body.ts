@@ -1,11 +1,12 @@
-import { AsteroidBelt } from '../drawables/AsteroidBelt';
-import { distanceBetween } from '../util';
 import {
     DrawableEntity,
     EntityType,
-} from './core';
-import { InteractionPoint } from './InteractionPoint';
-import { Vector } from './types';
+} from '../../models/core';
+import { InteractionPoint } from '../../models/InteractionPoint';
+import { Vector } from '../../models/types';
+import { distanceBetween } from '../../util';
+import { AsteroidBelt } from '../AsteroidBelt';
+import { Orbit } from '../Orbit';
 
 export interface BodyProps {
     position: Vector;
@@ -19,13 +20,6 @@ export interface BodyProps {
     };
     id: string;
     points?: InteractionPoint[];
-}
-
-export interface Orbit {
-    radius: number;
-    focus: Body;
-    velocity: number;
-    angle: number;
 }
 
 export class Body extends DrawableEntity {
