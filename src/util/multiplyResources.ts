@@ -1,4 +1,4 @@
-import { ResourceSet } from '../models';
+import { ResourceSet } from '../models/types';
 
 export function multiplyResources(resources: ResourceSet, increment: number) {
     return resources.map((resource) => ({

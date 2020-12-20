@@ -12,11 +12,13 @@ import {
     InteractionPoint,
     InteractionPointProps,
 } from './InteractionPoint';
-import { PrintableType } from './PrintableType';
 import { Printers } from './Printers';
 import { PrintTask } from './PrintTask';
 import { Producer } from './Producer';
-import { ResourceSet } from './ResourceSet';
+import {
+    PrintableType,
+    ResourceSet,
+} from './types';
 
 type ResourcePointProps = {
     resources: ResourceSet;

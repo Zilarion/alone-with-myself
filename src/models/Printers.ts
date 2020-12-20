@@ -6,8 +6,8 @@ import {
 } from 'mobx';
 
 import { Printable } from './Printable';
-import { PrintableType } from './PrintableType';
 import { PrintTask } from './PrintTask';
+import { PrintableType } from './types';
 
 export class Printers extends Printable {
     @observable

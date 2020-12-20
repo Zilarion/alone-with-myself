@@ -6,9 +6,11 @@ import {
 } from 'mobx';
 
 import { Harvester } from './Harvester';
-import { ResourceSet } from './ResourceSet';
 import { ResourceStorage } from './ResourceStorage';
-import { ResourceType } from './ResourceType';
+import {
+    ResourceSet,
+    ResourceType,
+} from './types';
 
 export class Producer {
     @observable

@@ -3,8 +3,10 @@ import {
     makeAutoObservable,
 } from 'mobx';
 
-import { ResourceSet } from './ResourceSet';
-import { ResourceType } from './ResourceType';
+import {
+    ResourceSet,
+    ResourceType,
+} from './types';
 
 export class ResourceStorage {
     private _resources = new Map<ResourceType, number>();

@@ -1,6 +1,8 @@
 import { PrintableSchema } from '../models/Printable';
-import { PrintableType } from '../models/PrintableType';
-import { ResourceType } from '../models/ResourceType';
+import {
+    PrintableType,
+    ResourceType,
+} from '../models/types';
 import { assert } from '../util';
 
 export const PRINTABLES = new Map<PrintableType, PrintableSchema>([
