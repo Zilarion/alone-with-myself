@@ -1,7 +1,7 @@
 import {
     Body,
     BodyProps,
-} from '../drawables/Body';
+} from './Body';
 
 export class Planet extends Body {
     constructor(props: BodyProps) {

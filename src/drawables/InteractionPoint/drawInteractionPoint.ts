@@ -1,5 +1,5 @@
 import { drawMarker } from '../drawMarker';
-import { drawTransporter } from '../drawTransporter';
+import { drawTransporter } from '../Transporter/drawTransporter';
 import { InteractionPoint } from './InteractionPoint';
 
 interface DrawInteractionPoint {

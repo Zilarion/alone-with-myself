@@ -1,5 +1,5 @@
+import { Planet } from '../../drawables';
 import { Body } from '../../drawables/Body';
-import { Planet } from '../../models';
 import { emptyArray } from '../emptyArray';
 import { createSatelliteOf } from './createSatelliteOf';
 import {
