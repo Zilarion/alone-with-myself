@@ -64,4 +64,22 @@ describe('model: Producer', () => {
             amount: MAX_RESOURCES,
         });
     });
+
+    it('should consume resources correctly', () => {
+        producer.consume([ {
+            amount: MAX_RESOURCES / 2,
+            type: ResourceType.minerals,
+        } ]);
+
+        expect(producer.consumables.numberOf(ResourceType.minerals)).toEqual(MAX_RESOURCES / 2);
+    });
+
+    it('should throw if to many resources are consumed', () => {
+        expect(() => {
+            producer.consume([ {
+                amount: MAX_RESOURCES + 1,
+                type: ResourceType.minerals,
+            } ]);
+        }).toThrow();
+    });
 });
