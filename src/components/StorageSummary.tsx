@@ -19,11 +19,11 @@ export const StorageSummary = observer(({
     compact = false,
     showHeader = false,
 }: StorageSummaryProps) => {
-    const data = storage.resources.map((resource, idx) => [
+    const data = storage.resources.map(([ resource, amount ], idx) => [
         resource,
         <FormattedResource
             key={resource}
-            value={storage.numberOf(resource)}
+            value={amount}
             type={resource}
             compact={compact}
         />,

@@ -3,6 +3,7 @@ import {
     makeAutoObservable,
 } from 'mobx';
 
+import { assert } from '../util';
 import {
     ResourceSet,
     ResourceType,
@@ -53,10 +54,12 @@ export class ResourceStorage {
 
     private _incrementType(type: ResourceType, amount: number) {
         const currentValue = this._resources.get(type) ?? 0;
-        this._resources.set(type, amount + currentValue);
+        const newValue = amount + currentValue;
+        assert(newValue >= 0, `Attempted to decrease ${type} below zero.`);
+        this._resources.set(type, newValue);
     }
 
     public get resources() {
-        return Array.from(this._resources.keys());
+        return Array.from(this._resources.entries());
     }
 }
