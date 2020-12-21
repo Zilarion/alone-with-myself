@@ -74,14 +74,12 @@ export class ResourcePoint extends InteractionPoint {
         this.printers.addPrintOption(new PrintTask({
             printable: this.printers,
             storage: this.storage,
-            complete: (amount: number) => this.printers.add(amount),
         }));
 
         this.harvesters.forEach((harvester) => {
             this.printers.addPrintOption(new PrintTask({
                 printable: harvester,
                 storage: this.storage,
-                complete: (amount: number) => harvester.add(amount),
             }));
         });
     }

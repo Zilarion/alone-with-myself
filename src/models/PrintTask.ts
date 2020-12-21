@@ -1,6 +1,9 @@
 import { makeAutoObservable } from 'mobx';
 
-import { resourcesForPrintable } from '../util';
+import {
+    assert,
+    resourcesForPrintable,
+} from '../util';
 import { multiplyResources } from '../util/multiplyResources';
 import { Printable } from './Printable';
 import { ResourceStorage } from './ResourceStorage';
@@ -8,12 +11,10 @@ import { ResourceStorage } from './ResourceStorage';
 interface PrintTaskProps {
     printable: Printable;
     storage: ResourceStorage;
-    complete: (amount: number) => void;
 }
 
 export class PrintTask {
     private _count: number = 0;
-    private _complete: (amount: number) => void;
     private _progress: number = 0;
     private _storage: ResourceStorage;
     private _printable: Printable;
@@ -21,15 +22,9 @@ export class PrintTask {
     constructor({
         printable,
         storage,
-        complete,
     }: PrintTaskProps) {
         this._storage = storage;
         this._printable = printable;
-
-        this._complete = (amount) => {
-            this._count -= amount;
-            complete(amount);
-        };
 
         makeAutoObservable(this);
     }
@@ -51,7 +46,8 @@ export class PrintTask {
         );
     }
 
-    public beforePrint = (amount: number) => {
+    public startPrint = (amount: number) => {
+        assert(this.maxAffordable >= amount, 'Attempting to print more than affordable.');
         this._storage.decrement(
             multiplyResources(
                 this._printable.cost,
@@ -66,10 +62,6 @@ export class PrintTask {
 
     public get name() {
         return this._printable.name;
-    }
-
-    public get complete() {
-        return this._complete;
     }
 
     public get count() {

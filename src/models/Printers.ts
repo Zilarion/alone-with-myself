@@ -43,8 +43,8 @@ export class Printers extends Printable {
                 count,
                 progress = 0,
                 durationPerItem,
-                complete,
-                beforePrint,
+                printable,
+                startPrint,
                 maxAffordable,
             } = task;
 
@@ -60,11 +60,12 @@ export class Printers extends Printable {
 
             const beforePrintCount = progressWasZero ? numberPrinted + 1 : numberPrinted;
             if (beforePrintCount > 0) {
-                beforePrint(progressWasZero ? numberPrinted + 1 : numberPrinted);
+                startPrint(progressWasZero ? numberPrinted + 1 : numberPrinted);
             }
 
             if (numberPrinted > 0) {
-                complete(numberPrinted);
+                task.count -= numberPrinted;
+                printable.add(numberPrinted);
             }
 
             const capacityUsed = numberPrinted * durationPerItem;
