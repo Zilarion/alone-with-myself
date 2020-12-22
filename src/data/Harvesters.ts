@@ -7,7 +7,7 @@ import {
     PrintableType,
     ResourceType,
 } from '../models/types';
-import { assert } from '../util';
+import { assert } from '../util/assert';
 
 const HARVESTER_SCHEMAS = new Map<PrintableType, HarvesterSchema>([
     [

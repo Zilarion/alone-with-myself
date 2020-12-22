@@ -5,13 +5,13 @@ import {
     observable,
 } from 'mobx';
 
-import { ResourceStorage } from '../../models';
 import {
     DrawableEntity,
     Entity,
     EntityType,
 } from '../../models/core';
 import { Printable } from '../../models/Printable';
+import { ResourceStorage } from '../../models/ResourceStorage';
 import {
     PrintableType,
     Vector,

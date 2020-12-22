@@ -3,7 +3,7 @@ import {
     makeAutoObservable,
 } from 'mobx';
 
-import { assert } from '../util';
+import { assert } from '../util/assert';
 import {
     ResourceSet,
     ResourceType,

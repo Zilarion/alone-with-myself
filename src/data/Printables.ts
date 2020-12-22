@@ -3,7 +3,7 @@ import {
     PrintableType,
     ResourceType,
 } from '../models/types';
-import { assert } from '../util';
+import { assert } from '../util/assert';
 
 export const PRINTABLES = new Map<PrintableType, PrintableSchema>([
     [

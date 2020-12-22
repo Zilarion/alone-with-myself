@@ -4,7 +4,7 @@ import {
     observable,
 } from 'mobx';
 
-import { multiplyResources } from '../util';
+import { multiplyResources } from '../util/multiplyResources';
 import {
     Printable,
     PrintableProps,

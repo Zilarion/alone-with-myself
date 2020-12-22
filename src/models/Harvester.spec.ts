@@ -1,6 +1,6 @@
 import { findHarvesterSchema } from '../data/Harvesters';
 import { findPrintableSchema } from '../data/Printables';
-import { multiplyResources } from '../util';
+import { multiplyResources } from '../util/multiplyResources';
 import { EntityType } from './core';
 import { Harvester } from './Harvester';
 import {
