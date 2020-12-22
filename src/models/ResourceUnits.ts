@@ -1,4 +1,4 @@
-import { ResourceType } from './types/ResourceType';
+import { ResourceType } from '../internal';
 
 export type ResourceUnit = 'kilogram' | 'watt';
 

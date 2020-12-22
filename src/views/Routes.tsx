@@ -8,7 +8,7 @@ import { ActionPanel } from '../components/ActionPanel';
 import { FloatingSidebar } from '../components/FloatingSidebar';
 import { InformationPanel } from '../components/InformationPanel';
 import { System } from '../components/System';
-import { Game } from '../models';
+import { Game } from '../internal';
 
 interface RoutesProps {
     game: Game;

@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 
-import { HeadquarterPoint } from '../models';
+import { HeadquarterPoint } from '../internal';
 import styled from '../themed-components';
 import { Card } from './Card';
 import { StorageSummary } from './StorageSummary';

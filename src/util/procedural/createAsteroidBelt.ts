@@ -1,11 +1,11 @@
-import { AsteroidBelt } from '../../drawables/AsteroidBelt';
-import { Body } from '../../drawables/Body';
-import { emptyArray } from '../emptyArray';
-import { createSatelliteOf } from './createSatelliteOf';
 import {
+    AsteroidBelt,
+    Body,
+    createSatelliteOf,
+    emptyArray,
     randomNormalDistribution,
     randomNumber,
-} from './random';
+} from '../../internal';
 
 interface CreateAsteroidBeltProps {
     body: Body;

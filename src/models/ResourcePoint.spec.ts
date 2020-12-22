@@ -1,10 +1,10 @@
-import { EntityType } from './core';
-import { ResourcePoint } from './ResourcePoint';
 import {
+    EntityType,
     PrintableType,
+    ResourcePoint,
     ResourceSet,
     ResourceType,
-} from './types';
+} from '../internal';
 
 describe('model: ResourcePoint', () => {
     let point: ResourcePoint;

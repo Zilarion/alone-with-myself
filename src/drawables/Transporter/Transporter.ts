@@ -5,16 +5,14 @@ import {
 } from 'mobx';
 
 import {
+    distanceToSegment,
     DrawableEntity,
     EntityType,
-} from '../../models/core';
-import {
+    InteractionPoint,
     ResourceSet,
     ResourceType,
     Vector,
-} from '../../models/types';
-import { distanceToSegment } from '../../util/geometry';
-import { InteractionPoint } from '../InteractionPoint';
+} from '../../internal';
 
 const TRANSPORTER_WIDTH = 200;
 

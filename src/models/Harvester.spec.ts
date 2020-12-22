@@ -1,12 +1,12 @@
-import { findHarvesterSchema } from '../data/Harvesters';
-import { findPrintableSchema } from '../data/Printables';
-import { multiplyResources } from '../util/multiplyResources';
-import { EntityType } from './core';
-import { Harvester } from './Harvester';
 import {
+    EntityType,
+    findHarvesterSchema,
+    findPrintableSchema,
+    Harvester,
+    multiplyResources,
     PrintableType,
     ResourceType,
-} from './types';
+} from '../internal';
 
 describe('model: Harvester', () => {
     let miner: Harvester;

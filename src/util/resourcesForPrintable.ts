@@ -1,5 +1,7 @@
-import { ResourceStorage } from '../models';
-import { Printable } from '../models/Printable';
+import {
+    Printable,
+    ResourceStorage,
+} from '../internal';
 
 export function resourcesForPrintable({ numberOf }: ResourceStorage, { cost }: Printable) {
     return cost.reduce((minimum, {

@@ -5,16 +5,14 @@ import {
     observable,
 } from 'mobx';
 
-import { findPrintableSchema } from '../data/Printables';
-import { assert } from '../util/assert';
 import {
+    assert,
     Entity,
     EntityType,
-} from './core';
-import {
+    findPrintableSchema,
     PrintableType,
     ResourceSet,
-} from './types';
+} from '../internal';
 
 export interface PrintableSchema {
     cost: ResourceSet;

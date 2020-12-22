@@ -6,18 +6,16 @@ import {
 } from 'mobx';
 
 import {
+    distanceBetween,
     DrawableEntity,
     Entity,
     EntityType,
-} from '../../models/core';
-import { Printable } from '../../models/Printable';
-import { ResourceStorage } from '../../models/ResourceStorage';
-import {
+    Printable,
     PrintableType,
+    ResourceStorage,
+    Transporter,
     Vector,
-} from '../../models/types';
-import { distanceBetween } from '../../util/distanceBetween';
-import { Transporter } from '../Transporter';
+} from '../../internal';
 
 export interface InteractionPointProps {
     location: Vector;

@@ -1,4 +1,4 @@
-import { ResourceSet } from '../models/types';
+import { ResourceSet } from '../internal';
 import { Table } from './Table';
 
 interface CostSummaryProps {

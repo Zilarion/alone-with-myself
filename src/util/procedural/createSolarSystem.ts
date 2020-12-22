@@ -1,14 +1,14 @@
-import { Body } from '../../drawables/Body';
-import { Entity } from '../../models/core';
-import { HeadquarterPoint } from '../../models/HeadquarterPoint';
-import { emptyArray } from '../emptyArray';
-import { createAsteroidBelt } from './createAsteroidBelt';
-import { createPlanet } from './createPlanet';
 import {
+    Body,
+    createAsteroidBelt,
+    createPlanet,
+    emptyArray,
+    Entity,
+    HeadquarterPoint,
     randomInt,
     randomNormalDistribution,
-} from './random';
-import { randomStarName } from './randomStarName';
+    randomStarName,
+} from '../../internal';
 
 interface CreateSolarSystemProps {
     numberOfPlanets: number;

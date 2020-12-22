@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 
-import { ResourcePoint } from '../models';
+import { ResourcePoint } from '../internal';
 import styled from '../themed-components';
 import { Card } from './Card';
 import { LabelValue } from './LabelValue';

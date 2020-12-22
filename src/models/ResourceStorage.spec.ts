@@ -1,5 +1,7 @@
-import { ResourceStorage } from './ResourceStorage';
-import { ResourceType } from './types';
+import {
+    ResourceStorage,
+    ResourceType,
+} from '../internal';
 
 describe('model: ResourceStorage', () => {
     let storage: ResourceStorage;

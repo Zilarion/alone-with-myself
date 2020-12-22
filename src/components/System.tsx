@@ -4,8 +4,10 @@ import {
     useRef,
 } from 'react';
 
-import { useWindowSize } from '../hooks';
-import { Game } from '../models';
+import {
+    Game,
+    useWindowSize,
+} from '../internal';
 
 interface SystemProps {
     game: Game;

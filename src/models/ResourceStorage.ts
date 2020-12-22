@@ -3,11 +3,11 @@ import {
     makeAutoObservable,
 } from 'mobx';
 
-import { assert } from '../util/assert';
 import {
+    assert,
     ResourceSet,
     ResourceType,
-} from './types';
+} from '../internal';
 
 export class ResourceStorage {
     private _resources = new Map<ResourceType, number>();

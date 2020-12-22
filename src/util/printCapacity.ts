@@ -1,5 +1,7 @@
-import { PrintTask } from '../models/PrintTask';
-import { assert } from './assert';
+import {
+    assert,
+    PrintTask,
+} from '../internal';
 
 export function printCapacity(
     capacity: number,
