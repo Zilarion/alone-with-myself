@@ -6,13 +6,12 @@ const StyledSideBar = styled.div`
     position: absolute;
     top: ${p => p.theme.margin.medium};
     color: ${p => p.theme.color.primary};
-    width: 300px;
+    width: 500px;
 `;
 
 type FloatingSidebarProps = React.PropsWithChildren<{
     side: 'left' | 'right';
 }>
-
 
 export function FloatingSidebar({
     children,

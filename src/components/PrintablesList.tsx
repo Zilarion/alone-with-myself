@@ -14,8 +14,8 @@ interface PrintableSummaryProps {
 }
 
 const ListWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: ${p => p.theme.margin.small};
 `;
 
