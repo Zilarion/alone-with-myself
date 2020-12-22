@@ -1,5 +1,6 @@
 import {
-    useState, useEffect,
+    useEffect,
+    useState,
 } from 'react';
 
 export function useWindowSize() {
