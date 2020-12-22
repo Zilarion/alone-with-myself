@@ -5,8 +5,8 @@ import {
     observable,
 } from 'mobx';
 
-import { findPrintableSchema } from '../data';
-import { assert } from '../util';
+import { findPrintableSchema } from '../data/Printables';
+import { assert } from '../util/assert';
 import {
     Entity,
     EntityType,

@@ -1,6 +1,6 @@
 import { Body } from '../../drawables/Body';
-import { HeadquarterPoint } from '../../models';
 import { Entity } from '../../models/core';
+import { HeadquarterPoint } from '../../models/HeadquarterPoint';
 import { emptyArray } from '../emptyArray';
 import { createAsteroidBelt } from './createAsteroidBelt';
 import { createPlanet } from './createPlanet';
