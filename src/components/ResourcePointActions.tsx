@@ -36,7 +36,7 @@ export const ResourcePointActions = observer(({
         <ResourceActionWrapper>
             <Card header="Printing controls">
                 <PrintableSummary
-                    tasks={availableTasks} 
+                    tasks={availableTasks}
                     printables={Array.from(printables.values())}
                 />
             </Card>

@@ -34,15 +34,15 @@ export function Table({
     const width = Math.floor(100 / data[0].length);
 
     const header = headers ?
-            headers?.map((value, idx) =>
-                <TableCell
-                    width={width}
-                    key={idx}
-                    align={align?.[idx]}
-                >
-                    {value}
-                </TableCell>
-            ) : undefined;
+        headers?.map((value, idx) =>
+            <TableCell
+                width={width}
+                key={idx}
+                align={align?.[idx]}
+            >
+                {value}
+            </TableCell>,
+        ) : undefined;
 
     const content = data.map((row, idx) =>
         <TableRow key={idx}>{

@@ -11,4 +11,4 @@ export const Header: FC = ({ children }) => {
     return <StyledHeader>
         {children}
     </StyledHeader>;
-}
+};
