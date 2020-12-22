@@ -5,20 +5,18 @@ import {
     observable,
 } from 'mobx';
 
-import { findHarvesterSchema } from '../data/Harvesters';
 import {
+    assert,
+    findHarvesterSchema,
+    Harvester,
     InteractionPoint,
     InteractionPointProps,
-} from '../drawables/InteractionPoint';
-import { assert } from '../util';
-import { Harvester } from './Harvester';
-import { Printers } from './Printers';
-import { PrintTask } from './PrintTask';
-import { Producer } from './Producer';
-import {
     PrintableType,
+    Printers,
+    PrintTask,
+    Producer,
     ResourceSet,
-} from './types';
+} from '../internal';
 
 type ResourcePointProps = {
     resources: ResourceSet;

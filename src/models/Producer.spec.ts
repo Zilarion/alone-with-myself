@@ -1,10 +1,10 @@
-import { findHarvesterSchema } from '../data/Harvesters';
-import { Harvester } from './Harvester';
-import { Producer } from './Producer';
 import {
+    findHarvesterSchema,
+    Harvester,
     PrintableType,
+    Producer,
     ResourceType,
-} from './types';
+} from '../internal';
 
 describe('model: Producer', () => {
     const MAX_RESOURCES = 100;

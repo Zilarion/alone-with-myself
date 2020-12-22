@@ -1,11 +1,11 @@
-import { findPrintableSchema } from '../data';
-import { Printable } from './Printable';
-import { PrintTask } from './PrintTask';
-import { ResourceStorage } from './ResourceStorage';
 import {
+    findPrintableSchema,
+    Printable,
     PrintableType,
+    PrintTask,
+    ResourceStorage,
     ResourceType,
-} from './types';
+} from '../internal';
 
 describe('model: PrintTask', () => {
 

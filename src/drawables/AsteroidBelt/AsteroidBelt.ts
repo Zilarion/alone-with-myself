@@ -5,21 +5,17 @@ import {
 } from 'mobx';
 
 import { FULL_CIRCLE } from '../../constants';
-import { ResourcePoint } from '../../models';
 import {
+    Body,
+    distanceBetween,
     DrawableEntity,
+    emptyArray,
     EntityType,
-} from '../../models/core';
-import {
+    randomInt,
+    ResourcePoint,
     ResourceType,
     Vector,
-} from '../../models/types';
-import {
-    distanceBetween,
-    emptyArray,
-} from '../../util';
-import { randomInt } from '../../util/procedural/random';
-import { Body } from '../Body';
+} from '../../internal';
 
 interface AsteroidBeltProps {
     id: string;

@@ -1,11 +1,11 @@
-import { findPrintableSchema } from '../data';
-import { Printers } from './Printers';
-import { PrintTask } from './PrintTask';
-import { ResourceStorage } from './ResourceStorage';
 import {
+    findPrintableSchema,
     PrintableType,
+    Printers,
+    PrintTask,
+    ResourceStorage,
     ResourceType,
-} from './types';
+} from '../internal';
 
 describe('model: Printer', () => {
     let printers: Printers;

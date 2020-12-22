@@ -1,5 +1,7 @@
-import { InteractionPoint } from '../drawables/InteractionPoint';
-import { Vector } from './types';
+import {
+    InteractionPoint,
+    Vector,
+} from '../internal';
 
 export class HeadquarterPoint extends InteractionPoint {
     constructor(location: Vector) {

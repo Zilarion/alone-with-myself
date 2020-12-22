@@ -1,7 +1,5 @@
-
-
 import { NavBar } from '../components/NavBar';
-import { Game } from '../models';
+import { Game } from '../internal';
 import styled from '../themed-components';
 import { Routes } from './Routes';
 

@@ -1,6 +1,6 @@
 // Source:
 // https://stackoverflow.com/questions/849211/shortest-distance-between-a-point-and-a-line-segment
-import { Vector } from '../../models/types';
+import { Vector } from '../../internal';
 
 function dist2(v: Vector, w: Vector) {
     return Math.pow(v.x - w.x, 2) + Math.pow(v.y - w.y, 2);

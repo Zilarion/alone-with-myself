@@ -1,8 +1,10 @@
 import { observer } from 'mobx-react-lite';
 
-import { Printable } from '../models/Printable';
-import { PrintTask } from '../models/PrintTask';
-import { assert } from '../util';
+import {
+    assert,
+    Printable,
+    PrintTask,
+} from '../internal';
 import { ProgressButton } from './ProgressButton';
 import { Table } from './Table';
 

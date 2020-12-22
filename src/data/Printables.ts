@@ -1,9 +1,9 @@
-import { PrintableSchema } from '../models/Printable';
 import {
+    assert,
+    PrintableSchema,
     PrintableType,
     ResourceType,
-} from '../models/types';
-import { assert } from '../util/assert';
+} from '../internal';
 
 export const PRINTABLES = new Map<PrintableType, PrintableSchema>([
     [

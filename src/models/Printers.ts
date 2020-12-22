@@ -5,10 +5,12 @@ import {
     observable,
 } from 'mobx';
 
-import { printCapacity } from '../util/printCapacity';
-import { Printable } from './Printable';
-import { PrintTask } from './PrintTask';
-import { PrintableType } from './types';
+import {
+    Printable,
+    PrintableType,
+    printCapacity,
+    PrintTask,
+} from '../internal';
 
 export class Printers extends Printable {
     @observable

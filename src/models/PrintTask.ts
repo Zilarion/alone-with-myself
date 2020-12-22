@@ -2,11 +2,11 @@ import { makeAutoObservable } from 'mobx';
 
 import {
     assert,
+    multiplyResources,
+    Printable,
     resourcesForPrintable,
-} from '../util';
-import { multiplyResources } from '../util/multiplyResources';
-import { Printable } from './Printable';
-import { ResourceStorage } from './ResourceStorage';
+    ResourceStorage,
+} from '../internal';
 
 interface PrintTaskProps {
     printable: Printable;

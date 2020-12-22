@@ -3,23 +3,21 @@ import {
     makeAutoObservable,
 } from 'mobx';
 
-import { drawEntity } from '../drawables';
-import { AsteroidBelt } from '../drawables/AsteroidBelt';
-import { Body } from '../drawables/Body';
-import { InteractionPoint } from '../drawables/InteractionPoint';
 import {
     assert,
+    AsteroidBelt,
+    Body,
     CanvasCamera,
     childrenOfEntity,
     clearCanvas,
     createSolarSystem,
-    findSelectedEntity,
-} from '../util';
-import {
     DrawableEntity,
+    drawEntity,
     Entity,
-} from './core';
-import { Vector } from './types';
+    findSelectedEntity,
+    InteractionPoint,
+    Vector,
+} from '../internal';
 
 const WORLD_DELTA_MINIMUM = 1000;
 

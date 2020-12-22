@@ -1,9 +1,11 @@
-import { findPrintableSchema } from '../data';
-import { Printers } from '../models/Printers';
-import { PrintTask } from '../models/PrintTask';
-import { ResourceStorage } from '../models/ResourceStorage';
-import { PrintableType } from '../models/types';
-import { printCapacity } from './printCapacity';
+import {
+    findPrintableSchema,
+    PrintableType,
+    printCapacity,
+    Printers,
+    PrintTask,
+    ResourceStorage,
+} from '../internal';
 
 describe('util: printCapacity', () => {
     const {

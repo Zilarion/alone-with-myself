@@ -1,5 +1,7 @@
-import { Vector } from '../types';
-import { Entity } from './Entity';
+import {
+    Entity,
+    Vector,
+} from '../../internal';
 
 export abstract class DrawableEntity extends Entity {
     private _selected: boolean = false;

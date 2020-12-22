@@ -4,12 +4,12 @@ import {
     observable,
 } from 'mobx';
 
-import { multiplyResources } from '../util/multiplyResources';
 import {
+    multiplyResources,
     Printable,
     PrintableProps,
-} from './Printable';
-import { ResourceSet } from './types';
+    ResourceSet,
+} from '../internal';
 
 export type HarvesterSchema = {
     produces: ResourceSet;

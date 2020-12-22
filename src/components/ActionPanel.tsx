@@ -1,5 +1,7 @@
-import { ResourcePoint } from '../models';
-import { Entity } from '../models/core';
+import {
+    Entity,
+    ResourcePoint,
+} from '../internal';
 import { ResourcePointActions } from './ResourcePointActions';
 
 interface InformationPanel {

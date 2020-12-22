@@ -1,7 +1,9 @@
-import { findPrintableSchema } from '../data';
-import { EntityType } from './core';
-import { Printable } from './Printable';
-import { PrintableType } from './types';
+import {
+    EntityType,
+    findPrintableSchema,
+    Printable,
+    PrintableType,
+} from '../internal';
 
 describe('model: Printable', () => {
 

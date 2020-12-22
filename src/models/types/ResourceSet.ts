@@ -1,4 +1,4 @@
-import { ResourceType } from './ResourceType';
+import { ResourceType } from '../../internal';
 
 export type ResourceSet = {
     type: ResourceType;
