@@ -49,7 +49,7 @@ export const PrintableItem = observer(({
             grey,
         },
     } = useTheme();
-    return <>
+    return <div>
         <ProgressButton
             disabled={disabled}
             fullWidth={true}
@@ -82,5 +82,5 @@ export const PrintableItem = observer(({
                 </IconButton>
             </ButtonList>
         </QueueWrapper>
-    </>;
+    </div>;
 });
