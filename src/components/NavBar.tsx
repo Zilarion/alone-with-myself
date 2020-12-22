@@ -6,6 +6,7 @@ import {
 import {
     AllInclusive,
     AllOut,
+    AttachMoney,
     BlurOn,
     Explore,
 } from '@material-ui/icons';
@@ -38,6 +39,7 @@ export function NavBar() {
     >
         <Tab icon={<Explore />} value='scanner' aria-label="scanner" />
         <Tab icon={<BlurOn />} value='system' aria-label="system" />
+        <Tab icon={<AttachMoney />} value='trade' aria-label="trade" />
         <Tab icon={<AllOut />} value='technology' aria-label="technology" />
         <Tab icon={<AllInclusive />} value='replicate' aria-label="replicate" disabled />
     </StyledTabs>;

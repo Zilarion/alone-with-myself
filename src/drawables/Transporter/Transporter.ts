@@ -14,6 +14,7 @@ import {
     ResourceType,
     Vector,
 } from '../../internal';
+import { multiplyResources } from '../../util/multiplyResources';
 
 const TRANSPORTER_WIDTH = 200;
 
@@ -26,7 +27,8 @@ export class Transporter extends DrawableEntity {
     @observable
     private _to: InteractionPoint;
 
-    private _speed: ResourceSet = [];
+    @observable
+    private _speed = new Map<ResourceType, number>();
 
     constructor(from: InteractionPoint, to: InteractionPoint) {
         super();
@@ -46,17 +48,27 @@ export class Transporter extends DrawableEntity {
     }
 
     @computed
-    public get speed() {
-        return this._speed;
+    public get speed(): ResourceSet {
+        return Array.from(this._speed.entries())
+            .map(([ type, amount ]) => ({
+                type,
+                amount,
+            }));
+    }
+
+    public speedOf = (type: ResourceType) => {
+        return this._speed.get(type) ?? 0;
+    }
+
+    @action.bound
+    public setSpeedPerSecond(type: ResourceType, amount: number) {
+        this._speed.set(type, amount);
     }
 
     @action.bound
     public update(delta: number) {
-        const transportedResources = [ {
-            type: ResourceType.minerals,
-            amount: 0.1 * delta,
-        } ];
-
+        const deltaSeconds = delta / 1000;
+        const transportedResources = multiplyResources(this.speed, deltaSeconds);
         this._from.storage.decrement(transportedResources);
         this._to.storage.increment(transportedResources);
     }

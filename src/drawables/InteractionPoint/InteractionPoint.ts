@@ -32,6 +32,9 @@ export abstract class InteractionPoint extends DrawableEntity {
     private _outgoing: Transporter[] = [];
 
     @observable
+    private _incoming: Transporter[] = [];
+
+    @observable
     private _printables = new Map<PrintableType, Printable>();
 
     @observable
@@ -56,6 +59,11 @@ export abstract class InteractionPoint extends DrawableEntity {
     @computed
     public get outgoing() {
         return this._outgoing;
+    }
+
+    @computed
+    public get incoming() {
+        return this._incoming;
     }
 
     public set location(value: Vector) {
@@ -88,8 +96,14 @@ export abstract class InteractionPoint extends DrawableEntity {
         ];
     }
 
+    @action.bound
     public connectTo(target: InteractionPoint): void {
         this._outgoing.push(new Transporter(this, target));
+    }
+
+    @action.bound
+    public connectFrom(source: InteractionPoint): void {
+        this._incoming.push(new Transporter(source, this));
     }
 
     public abstract update(delta: number): void;
