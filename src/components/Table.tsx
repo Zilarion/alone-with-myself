@@ -22,6 +22,10 @@ interface TableProps {
     data: (string | JSX.Element)[][];
 }
 
+const StyledTableCell = styled(TableCell)`
+    border-bottom: none;
+`;
+
 export function Table({
     headers,
     data,
@@ -47,13 +51,13 @@ export function Table({
     const content = data.map((row, idx) =>
         <TableRow key={idx}>{
             row.map((cell, cellIdx) =>
-                <TableCell
+                <StyledTableCell
                     width={width}
                     key={cellIdx}
                     align={align?.[cellIdx]}
                 >
                     {cell}
-                </TableCell>,
+                </StyledTableCell>,
             )}
         </TableRow>,
     );

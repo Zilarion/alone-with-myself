@@ -144,7 +144,7 @@ export class Game {
 
     private _entitiesUnderMouse() {
         const mousePosition = this.camera.screenToWorld(this._mousePosition);
-        return this.drawableEntities.filter((entity) => {
+        return this._drawableEntities.filter((entity) => {
             const isMouseOver = entity.pointIsInside(mousePosition);
             entity.mouseOver = isMouseOver;
             return isMouseOver;
@@ -152,13 +152,13 @@ export class Game {
     }
 
     private _worldUpdate(dialatedDelta: number) {
-        this.normalEntities.forEach((entity) => entity.update(dialatedDelta));
+        this.entities.forEach((entity) => entity.update(dialatedDelta));
     }
 
     private _update(delta: number) {
         const dialatedDelta = delta * this._gameSpeed;
 
-        this.drawableEntities.forEach((entity) => entity.update(dialatedDelta));
+        this._drawableEntities.forEach((entity) => entity.drawUpdate(dialatedDelta));
 
         this._gameDelta += dialatedDelta;
 
@@ -197,12 +197,8 @@ export class Game {
         this._selectedEntity = entity;
     }
 
-    private get drawableEntities(): DrawableEntity[] {
+    private get _drawableEntities(): DrawableEntity[] {
         return this.entities.filter((entity): entity is DrawableEntity => entity instanceof DrawableEntity);
-    }
-
-    private get normalEntities() {
-        return this.entities.filter((entity) => !(entity instanceof DrawableEntity));
     }
 
     private _draw() {
@@ -217,7 +213,7 @@ export class Game {
         });
 
         this._updateMouse();
-        this.drawableEntities.forEach((entity) => drawEntity(this.context, entity));
+        this._drawableEntities.forEach((entity) => drawEntity(this.context, entity));
 
         this.camera.restore();
     }

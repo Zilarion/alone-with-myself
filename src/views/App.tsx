@@ -1,4 +1,7 @@
-import { ThemeProvider } from '@material-ui/core/styles';
+import {
+    StylesProvider,
+    ThemeProvider,
+} from '@material-ui/core/styles';
 
 import { IntlProvider } from 'react-intl';
 import { HashRouter } from 'react-router-dom';
@@ -11,13 +14,15 @@ import { View } from './View';
 export function App() {
     return (
         <ThemeProvider theme={muiTheme}>
-            <StyledThemeProvider theme={theme}>
-                <IntlProvider locale={'en-US'}>
-                    <HashRouter>
-                        <View />
-                    </HashRouter>
-                </IntlProvider>
-            </StyledThemeProvider>
+            <StylesProvider injectFirst>
+                <StyledThemeProvider theme={theme}>
+                    <IntlProvider locale={'en-US'}>
+                        <HashRouter>
+                            <View />
+                        </HashRouter>
+                    </IntlProvider>
+                </StyledThemeProvider>
+            </StylesProvider>
         </ThemeProvider>
     );
 }

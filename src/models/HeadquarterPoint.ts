@@ -8,7 +8,6 @@ export class HeadquarterPoint extends InteractionPoint {
         super({ location });
     }
 
-    public update() {
-
-    }
+    public update(_delta: number) {}
+    public drawUpdate(_delta: number) {}
 }

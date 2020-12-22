@@ -59,7 +59,11 @@ export class ResourceStorage {
         this._resources.set(type, newValue);
     }
 
-    public get resources() {
-        return Array.from(this._resources.entries());
+    public get resources(): ResourceSet {
+        return Array.from(this._resources.entries())
+        .map(([ type, amount ]) => ({
+            type, 
+            amount,
+        }));
     }
 }

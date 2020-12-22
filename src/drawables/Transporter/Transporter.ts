@@ -1,4 +1,5 @@
 import {
+    action,
     computed,
     makeObservable,
     observable,
@@ -48,7 +49,8 @@ export class Transporter extends DrawableEntity {
     public get speed() {
         return this._speed;
     }
-
+    
+    @action.bound
     public update(delta: number) {
         const transportedResources = [ {
             type: ResourceType.minerals,
@@ -58,6 +60,7 @@ export class Transporter extends DrawableEntity {
         this._from.storage.decrement(transportedResources);
         this._to.storage.increment(transportedResources);
     }
+    public drawUpdate(_delta: number) {}
 
     public pointIsInside(p: Vector) {
         const v = this._from.location;

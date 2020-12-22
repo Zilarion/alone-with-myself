@@ -110,9 +110,9 @@ export class AsteroidBelt extends DrawableEntity {
         return this._bodies;
     }
 
-    public update(delta: number) {
-        this._bodies.forEach((body) => body.update(delta));
-        return;
+    public update(_delta: number) {}
+    public drawUpdate(delta: number) {
+        this._bodies.forEach((body) => body.drawUpdate(delta));
     }
 
     public pointIsInside = (vector: Vector) => {
