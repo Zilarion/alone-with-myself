@@ -77,8 +77,7 @@ export class PrintTask {
             return 0;
         }
 
-        const totalCost = this.durationPerItem * this.count;
-        return this._progress / totalCost;
+        return this._progress / this.durationPerItem;
     }
 
     public get progress() {

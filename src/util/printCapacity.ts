@@ -31,14 +31,10 @@ export function printCapacity(
     const numberFinished = Math.min(maxPrinted, maxAffordable);
     const completedAll = count === numberFinished || maxAffordable === numberFinished;
 
-    const capacityUsed = numberFinished * durationPerItem;
+    const capacityUsed = numberFinished * durationPerItem - progress;
     const capacityLeft = capacity - capacityUsed;
 
-    const numberStarted = Math.min(
-        count,
-        maxAffordable,
-        progressWasZero ? numberFinished + 1 : numberFinished,
-    );
+    const numberStarted = numberFinished + (progressWasZero ? 1 : 0) + (completedAll ? -1 : 0);
 
     return {
         capacityLeft: completedAll ? capacityLeft : 0,
