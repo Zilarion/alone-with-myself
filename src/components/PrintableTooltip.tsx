@@ -20,7 +20,7 @@ const TooltipHeader = styled.span`
     border-bottom: 1px solid ${p => p.theme.color.disabled};
 `;
 
-export const PrintableTooltip = observer(({ 
+export const PrintableTooltip = observer(({
     printable: {
         name,
         cost,
@@ -29,5 +29,5 @@ export const PrintableTooltip = observer(({
     return <TooltipWrapper>
         <TooltipHeader>{name}</TooltipHeader>
         <ResourceSetSummary resources={cost} />
-    </TooltipWrapper>
-})
+    </TooltipWrapper>;
+});

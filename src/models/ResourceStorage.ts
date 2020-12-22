@@ -61,9 +61,9 @@ export class ResourceStorage {
 
     public get resources(): ResourceSet {
         return Array.from(this._resources.entries())
-        .map(([ type, amount ]) => ({
-            type, 
-            amount,
-        }));
+            .map(([ type, amount ]) => ({
+                type,
+                amount,
+            }));
     }
 }

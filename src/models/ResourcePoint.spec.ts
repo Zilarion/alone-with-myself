@@ -63,13 +63,13 @@ describe('model: ResourcePoint', () => {
         point.printers.tasks[0].count++;
         point.update(1000);
 
-        expect(point.storage.resources).toEqual([{
+        expect(point.storage.resources).toEqual([ {
             type: ResourceType.minerals,
             amount: 10,
-        }]);
+        } ]);
         expect(point.resources.resources).toEqual([ {
             type: ResourceType.minerals,
             amount: 90,
-         } ]);
+        } ]);
     });
 });
