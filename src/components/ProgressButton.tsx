@@ -8,8 +8,12 @@ type ProgressButtonProps = {
     progress?: number;
 } & ButtonProps;
 
-const ProgressBackground = styled.div<{ progress: number }>`
-    width: ${p => p.progress * 100}%;
+interface ProgressProps {
+    progress: number;
+}
+
+const ProgressBackground = styled.div.attrs<ProgressProps>(p => ({ style: { width: `${p.progress * 100}%` } }))<ProgressProps>`
+    transition: width 500ms linear;
     height: 100%;
     position: absolute;
     background: ${p => p.theme.color.border};

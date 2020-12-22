@@ -27,7 +27,7 @@ export const PRINTABLES = new Map<PrintableType, PrintableSchema>([
                     amount: 100,
                 },
             ],
-            duration: 60,
+            duration: 20,
         },
     ],
 ]);

@@ -52,7 +52,7 @@ export class Printers extends Printable {
             remainingCapacity = capacityLeft;
             task.startPrint(numberStarted);
             task.printable.add(numberFinished);
-            task.progress += progress;
+            task.progress = progress;
             task.count -= numberFinished;
 
             if (task.count === 0) {

@@ -23,6 +23,21 @@ describe('util: printCapacity', () => {
         });
     });
 
+    it('should use existing progress', () => {
+        task.progress = 19.009602000000044;
+        const capacity = 1.000140000000014;
+        storage.increment(printerCost);
+        storage.increment(printerCost);
+        task.count += 1;
+
+        expect(printCapacity(capacity, task)).toEqual({
+            capacityLeft: 0.009742000000057649,
+            progress: 0,
+            numberFinished: 1,
+            numberStarted: 0,
+        });
+    });
+
     it('should return empty when count is zero', () => {
         storage.increment(printerCost);
         expect(printCapacity(1000, task)).toEqual({
