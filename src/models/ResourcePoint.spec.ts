@@ -31,10 +31,7 @@ describe('model: ResourcePoint', () => {
         expect(point.storage.resources).toEqual([]);
         expect(point.operational).toEqual(false);
         expect(point.availableTasks.length).toEqual(0);
-        expect(point.resources.resources).toEqual([ [
-            ResourceType.minerals,
-            100,
-        ] ]);
+        expect(point.resources.resources).toEqual(resources);
     });
 
     it('should activate correctly', () => {
@@ -58,10 +55,7 @@ describe('model: ResourcePoint', () => {
     it('should not update when inactive', () => {
         point.update(1000);
         expect(point.storage.resources).toEqual([]);
-        expect(point.resources.resources).toEqual([ [
-            ResourceType.minerals,
-            100,
-        ] ]);
+        expect(point.resources.resources).toEqual(resources);
     });
 
     it('should update when active', () => {
@@ -69,13 +63,13 @@ describe('model: ResourcePoint', () => {
         point.printers.tasks[0].count++;
         point.update(1000);
 
-        expect(point.storage.resources).toEqual([ [
-            ResourceType.minerals,
-            10,
-        ] ]);
-        expect(point.resources.resources).toEqual([ [
-            ResourceType.minerals,
-            90,
-        ] ]);
+        expect(point.storage.resources).toEqual([{
+            type: ResourceType.minerals,
+            amount: 10,
+        }]);
+        expect(point.resources.resources).toEqual([ {
+            type: ResourceType.minerals,
+            amount: 90,
+         } ]);
     });
 });

@@ -3,6 +3,8 @@ import Tippy from '@tippyjs/react';
 
 import { PropsWithChildren } from 'react';
 
+import styled from '../themed-components';
+
 export type ButtonProps = PropsWithChildren<{
     onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     disabled?: boolean;
@@ -11,6 +13,10 @@ export type ButtonProps = PropsWithChildren<{
     fullWidth?: boolean;
 }>;
 
+const TippyWrapper = styled.div<{ fullWidth: boolean }>`
+    width: ${p => p.fullWidth ? '100%' : 'auto'};
+`;
+
 export function Button({
     onClick,
     disabled,
@@ -18,16 +24,18 @@ export function Button({
     tooltip,
     fullWidth = false,
 }: ButtonProps) {
-    return <Tippy content={tooltip ?? children}>
-        <MuiButton
-            variant="outlined"
-            onClick={onClick}
-            color="primary"
-            size="small"
-            disabled={disabled}
-            fullWidth={fullWidth}
-        >
-            {children}
-        </MuiButton>
+    return <Tippy theme="scifi" content={tooltip ?? children}>
+        <TippyWrapper fullWidth={fullWidth}>
+            <MuiButton
+                variant="outlined"
+                onClick={onClick}
+                color="primary"
+                size="small"
+                disabled={disabled}
+                fullWidth={fullWidth}
+            >
+                {children}
+            </MuiButton>
+        </TippyWrapper>
     </Tippy>;
 }

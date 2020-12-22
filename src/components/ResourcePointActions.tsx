@@ -4,8 +4,8 @@ import { ResourcePoint } from '../internal';
 import styled from '../themed-components';
 import { Button } from './Button';
 import { Card } from './Card';
-import { PrintableSummary } from './PrintableSummary';
-import { StorageSummary } from './StorageSummary';
+import { PrintablesList } from './PrintablesList';
+import { ResourceSetSummary } from './ResourceSetSummary';
 
 interface ResourcePointActionsProps {
     point: ResourcePoint;
@@ -35,16 +35,16 @@ export const ResourcePointActions = observer(({
     return (
         <ResourceActionWrapper>
             <Card header="Printing controls">
-                <PrintableSummary
+                <PrintablesList
                     tasks={availableTasks}
                     printables={Array.from(printables.values())}
                 />
             </Card>
             <Card header="Storage">
-                <StorageSummary
+                <ResourceSetSummary
                     compact={true}
                     showHeader={true}
-                    storage={storage}
+                    resources={storage.resources}
                     delta={productionPerSecond}
                 />
             </Card>

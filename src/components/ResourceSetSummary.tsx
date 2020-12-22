@@ -1,27 +1,24 @@
 import { observer } from 'mobx-react-lite';
 import { FormattedNumber } from 'react-intl';
 
-import {
-    ResourceSet,
-    ResourceStorage,
-} from '../internal';
+import { ResourceSet } from '../internal';
 import { FormattedResource } from './FormattedResource';
 import { Table } from './Table';
 
-interface StorageSummaryProps {
-    storage: ResourceStorage;
+interface ResourceSetSummaryProps {
+    resources: ResourceSet;
     delta?: ResourceSet;
     showHeader?: boolean;
     compact?: boolean;
 }
 
-export const StorageSummary = observer(({
-    storage,
+export const ResourceSetSummary = observer(({
+    resources,
     delta,
     compact = false,
     showHeader = false,
-}: StorageSummaryProps) => {
-    const data = storage.resources.map(([ resource, amount ], idx) => [
+}: ResourceSetSummaryProps) => {
+    const data = resources.map(({ type: resource, amount }, idx) => [
         resource,
         <FormattedResource
             key={resource}

@@ -24,4 +24,5 @@ export abstract class DrawableEntity extends Entity {
     }
 
     public abstract pointIsInside(point: Vector): boolean;
+    public abstract drawUpdate(delta: number): void;
 }

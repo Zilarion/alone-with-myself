@@ -83,6 +83,7 @@ export class ResourcePoint extends InteractionPoint {
         });
     }
 
+    @action.bound
     public update(delta: number) {
         if (!this.operational) {
             return;
@@ -95,6 +96,8 @@ export class ResourcePoint extends InteractionPoint {
         this.storage.increment(production);
         this._producer.consume(production);
     }
+
+    public drawUpdate(_delta: number) {}
 
     @computed
     public get productionPerSecond() {

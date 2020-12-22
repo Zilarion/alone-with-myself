@@ -87,7 +87,8 @@ export class Body extends DrawableEntity {
         this._satellites = this._satellites.concat(satellites);
     }
 
-    public update = (delta: number) => {
+    public update(_delta: number) {}
+    public drawUpdate(delta: number) {
         this._updateOrbit(delta);
     }
 

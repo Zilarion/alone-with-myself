@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { HeadquarterPoint } from '../internal';
 import styled from '../themed-components';
 import { Card } from './Card';
-import { StorageSummary } from './StorageSummary';
+import { ResourceSetSummary } from './ResourceSetSummary';
 
 interface HeadquarterSummaryProps {
     point: HeadquarterPoint;
@@ -22,7 +22,7 @@ export const HeadquarterSummary = observer(({ point: { storage } }: HeadquarterS
                 { 'This is the spot where you can build your own headquarters.' }
             </Card>
             <Card header="Storage">
-                <StorageSummary storage={storage} />
+                <ResourceSetSummary resources={storage.resources} />
             </Card>
         </HeadquarterWrapper>
     );

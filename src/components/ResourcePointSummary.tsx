@@ -4,7 +4,7 @@ import { ResourcePoint } from '../internal';
 import styled from '../themed-components';
 import { Card } from './Card';
 import { LabelValue } from './LabelValue';
-import { StorageSummary } from './StorageSummary';
+import { ResourceSetSummary } from './ResourceSetSummary';
 
 interface ResourcePointSummaryProps {
     point: ResourcePoint;
@@ -13,6 +13,12 @@ interface ResourcePointSummaryProps {
 const ResourceWrapper = styled.div`
     display: grid;
     grid-gap: ${p => p.theme.margin.medium};
+`;
+
+const ResourceInfoWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: ${p => p.theme.margin.small}
 `;
 
 export const ResourcePointSummary = observer(({
@@ -27,13 +33,15 @@ export const ResourcePointSummary = observer(({
     return (
         <ResourceWrapper>
             <Card header="Resource point">
-                { description }
-                <LabelValue
-                    label="Available Resources"
-                    value={
-                        <StorageSummary storage={resources} />
-                    }
-                />
+                <ResourceInfoWrapper>
+                    { description }
+                    <LabelValue
+                        label="Available Resources"
+                        value={
+                            <ResourceSetSummary resources={resources.resources} />
+                        }
+                    />
+                </ResourceInfoWrapper>
             </Card>
         </ResourceWrapper>
     );

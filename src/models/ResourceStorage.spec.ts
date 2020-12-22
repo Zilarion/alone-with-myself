@@ -22,10 +22,7 @@ describe('model: ResourceStorage', () => {
     });
 
     it('should initialize correctly', () => {
-        expect(storage.resources).toEqual([
-            [ ResourceType.minerals, 100 ],
-            [ ResourceType.power, 10 ],
-        ]);
+        expect(storage.resources).toEqual(initialResources);
         expect(storage.numberOf(ResourceType.minerals)).toEqual(100);
         expect(storage.numberOf(ResourceType.power)).toEqual(10);
     });
