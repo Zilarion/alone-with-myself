@@ -53,6 +53,11 @@ export class Printers extends Printable {
             task.startPrint(numberStarted);
             task.printable.add(numberFinished);
             task.progress += progress;
+            task.count -= numberFinished;
+
+            if (task.count === 0) {
+                task.progress = 0;
+            }
         });
     }
 }
