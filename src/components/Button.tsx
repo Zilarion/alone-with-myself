@@ -15,6 +15,7 @@ export type ButtonProps = PropsWithChildren<{
 
 const TippyWrapper = styled.div<{ fullWidth: boolean }>`
     width: ${p => p.fullWidth ? '100%' : 'auto'};
+    display: ${p => p.fullWidth ? 'block' : 'inline'};
 `;
 
 export function Button({
