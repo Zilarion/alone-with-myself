@@ -16,7 +16,7 @@ import {
     PrintableType,
     Vector,
 } from '../../models/types';
-import { distanceBetween } from '../../util';
+import { distanceBetween } from '../../util/distanceBetween';
 import { Transporter } from '../Transporter';
 
 export interface InteractionPointProps {
