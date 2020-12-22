@@ -42,4 +42,5 @@ export * from './drawables/drawMarker';
 export * from './drawables/AsteroidBelt';
 export * from './drawables/Body';
 export * from './hooks/useWindowSize';
+export * from './hooks/useGame';
 export * from './models/ResourceUnits';

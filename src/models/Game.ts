@@ -1,7 +1,4 @@
-import {
-    computed,
-    makeAutoObservable,
-} from 'mobx';
+import { makeAutoObservable } from 'mobx';
 
 import {
     assert,
@@ -29,6 +26,7 @@ export class Game {
     private _lastFrame: number | null = null;
     private _camera: CanvasCamera | null = null;
     private _gameSpeed: number = 1;
+    private _transportSource: InteractionPoint | null = null;
     private _mousePosition: Vector = {
         x: 0,
         y: 0,
@@ -48,6 +46,14 @@ export class Game {
             numberOfAsteroidBelts: 2,
         }));
         makeAutoObservable(this);
+    }
+
+    public setTransportSource = (point: InteractionPoint | null) => {
+        this._transportSource = point;
+    }
+
+    public get transportSource() {
+        return this._transportSource;
     }
 
     public setCanvas(canvas: HTMLCanvasElement) {
@@ -84,24 +90,10 @@ export class Game {
                 this._setSelectedEntity(this._mouseDownEntity);
                 return;
             }
-            const targetEntity = findSelectedEntity(
-                this._entitiesUnderMouse(),
-            );
-
-            if (
-                this._mouseDownEntity instanceof InteractionPoint &&
-                targetEntity instanceof InteractionPoint
-            ) {
-                this._mouseDownEntity.connectTo(
-                    targetEntity,
-                );
-            }
-
             this._mouseDownEntity = null;
         });
     }
 
-    @computed
     public get selectedEntity() {
         return this._selectedEntity;
     }
@@ -195,6 +187,20 @@ export class Game {
         }
 
         this._selectedEntity = entity;
+
+        if (this._selectedEntity instanceof InteractionPoint) {
+            if (this._transportSource) {
+                this._connect(this._transportSource, this._selectedEntity);
+            }
+        } else {
+            this._transportSource = null;
+        }
+    }
+
+    private _connect(source: InteractionPoint, target: InteractionPoint) {
+        source.connectTo(target);
+        target.connectFrom(source);
+        this._transportSource = null;
     }
 
     private get _drawableEntities(): DrawableEntity[] {
