@@ -18,7 +18,9 @@ export const ResourceSetSummary = observer(({
     compact = false,
     showHeader = false,
 }: ResourceSetSummaryProps) => {
-    const data = resources.map(({ type: resource, amount }, idx) => [
+    const data = resources.map(({
+        type: resource, amount,
+    }, idx) => [
         resource,
         <FormattedResource
             key={resource}

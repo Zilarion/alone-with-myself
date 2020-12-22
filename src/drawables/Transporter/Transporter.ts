@@ -49,7 +49,7 @@ export class Transporter extends DrawableEntity {
     public get speed() {
         return this._speed;
     }
-    
+
     @action.bound
     public update(delta: number) {
         const transportedResources = [ {
