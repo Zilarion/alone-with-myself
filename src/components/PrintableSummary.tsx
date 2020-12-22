@@ -32,7 +32,7 @@ export const PrintableSummary = observer(({
                 progress={task.progressPercentage}
             >
                 { task.name } ({ printable.amount })
-            </ProgressButton>
+            </ProgressButton>,
         ];
     });
 
