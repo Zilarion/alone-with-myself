@@ -66,6 +66,7 @@ export class ResourcePoint extends InteractionPoint {
 
     @action.bound
     public activate() {
+        assert(this.operational === false, 'Cannot active a resource point twice.');
         this._operational = true;
 
         this.printables.get(PrintableType.miner)?.add(1);
