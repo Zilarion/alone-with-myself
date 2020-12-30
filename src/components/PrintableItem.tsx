@@ -21,6 +21,7 @@ import { ProgressButton } from './ProgressButton';
 interface PrintableItemProps {
     printable: Printable;
     task: PrintTask;
+    printableCount: number;
 }
 
 const ButtonList = styled.div`
@@ -39,6 +40,7 @@ const QueueWrapper = styled.div`
 export const PrintableItem = observer(({
     printable,
     task,
+    printableCount,
 }: PrintableItemProps) => {
     const disabled = task.maxAffordable === 0;
 
@@ -55,7 +57,7 @@ export const PrintableItem = observer(({
             fullWidth={true}
             key={0}
             onClick={() => {
-                task.count++;
+                task.count += printableCount;
             }}
             tooltip={<PrintableTooltip printable={printable} />}
             progress={task.progressPercentage}
@@ -73,11 +75,11 @@ export const PrintableItem = observer(({
                     </IconButton>
                 }
                 {task.count > 1 &&
-                    <IconButton size="small" onClick={() => task.count--}>
+                    <IconButton size="small" onClick={() => task.count -= printableCount}>
                         <Remove htmlColor={error.main} />
                     </IconButton>
                 }
-                <IconButton disabled={disabled} size="small" onClick={() => task.count++} >
+                <IconButton disabled={disabled} size="small" onClick={() => task.count += printableCount} >
                     <Add htmlColor={disabled ? grey[900] : success.main}/>
                 </IconButton>
             </ButtonList>
