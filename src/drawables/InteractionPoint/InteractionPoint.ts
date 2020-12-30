@@ -6,6 +6,7 @@ import {
 } from 'mobx';
 
 import {
+    assert,
     distanceBetween,
     DrawableEntity,
     Entity,
@@ -98,12 +99,22 @@ export abstract class InteractionPoint extends DrawableEntity {
 
     @action.bound
     public connectTo(target: InteractionPoint): void {
-        this._outgoing.push(new Transporter(this, target));
+        const transporter = new Transporter(this, target);
+
+        this.addOutgoing(transporter);
+        target.addIncoming(transporter);
     }
 
     @action.bound
-    public connectFrom(source: InteractionPoint): void {
-        this._incoming.push(new Transporter(source, this));
+    public addIncoming(transporter: Transporter): void {
+        assert(transporter.to === this, 'Expected transporter to arrive at this point.');
+        this._incoming.push(transporter);
+    }
+
+    @action.bound
+    public addOutgoing(transporter: Transporter): void {
+        assert(transporter.from === this, 'Expected transporter to come from this point.');
+        this._outgoing.push(transporter);
     }
 
     public abstract update(delta: number): void;

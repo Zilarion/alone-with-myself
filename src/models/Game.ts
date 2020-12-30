@@ -199,7 +199,6 @@ export class Game {
 
     private _connect(source: InteractionPoint, target: InteractionPoint) {
         source.connectTo(target);
-        target.connectFrom(source);
         this._transportSource = null;
     }
 
