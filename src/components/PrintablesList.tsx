@@ -11,6 +11,7 @@ import { PrintableItem } from './PrintableItem';
 interface PrintableSummaryProps {
     tasks: PrintTask[];
     printables: Printable[];
+    printableCount: number;
 }
 
 const ListWrapper = styled.div`
@@ -22,6 +23,7 @@ const ListWrapper = styled.div`
 export const PrintablesList = observer(({
     tasks,
     printables,
+    printableCount,
 }: PrintableSummaryProps) => {
     return <ListWrapper>
         {
@@ -30,6 +32,7 @@ export const PrintablesList = observer(({
                 assert(printable != null, 'Failed to find related printable of a print task.');
                 return <PrintableItem
                     key={printable.name}
+                    printableCount={printableCount}
                     task={task}
                     printable={printable}
                 />;
