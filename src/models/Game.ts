@@ -1,4 +1,9 @@
-import { makeAutoObservable } from 'mobx';
+import {
+    action,
+    computed,
+    makeObservable,
+    observable,
+} from 'mobx';
 
 import {
     assert,
@@ -20,13 +25,11 @@ const WORLD_DELTA_MINIMUM = 1000;
 
 export class Game {
     private _entities: Entity[] = [];
-    private _selectedEntity: DrawableEntity | null = null;
     private _animationFrameId: number | null = null;
     private _context: CanvasRenderingContext2D | null = null;
     private _lastFrame: number | null = null;
     private _camera: CanvasCamera | null = null;
     private _gameSpeed: number = 1;
-    private _transportSource: InteractionPoint | null = null;
     private _mousePosition: Vector = {
         x: 0,
         y: 0,
@@ -37,6 +40,12 @@ export class Game {
 
     private _gameDelta: number = 0;
 
+    @observable
+    private _transportSource: InteractionPoint | null = null;
+
+    @observable
+    private _selectedEntity: DrawableEntity | null = null;
+
     constructor() {
         this.start();
 
@@ -45,13 +54,15 @@ export class Game {
             maxMoons: 4,
             numberOfAsteroidBelts: 2,
         }));
-        makeAutoObservable(this);
+        makeObservable(this);
     }
 
+    @action
     public setTransportSource = (point: InteractionPoint | null) => {
         this._transportSource = point;
     }
 
+    @computed
     public get transportSource() {
         return this._transportSource;
     }
@@ -94,6 +105,7 @@ export class Game {
         });
     }
 
+    @computed
     public get selectedEntity() {
         return this._selectedEntity;
     }
@@ -155,6 +167,7 @@ export class Game {
         this._gameDelta += dialatedDelta;
 
         if (this._gameDelta > WORLD_DELTA_MINIMUM) {
+            this._drawableEntities.forEach((entity) => entity.drawUpdate(dialatedDelta));
             this._worldUpdate(this._gameDelta);
             this._gameDelta = 0;
         }
@@ -177,6 +190,7 @@ export class Game {
         }
     }
 
+    @action
     private _setSelectedEntity(entity: DrawableEntity | null) {
         if (this._selectedEntity != null) {
             this._selectedEntity.selected = false;
@@ -197,6 +211,7 @@ export class Game {
         }
     }
 
+    @action
     private _connect(source: InteractionPoint, target: InteractionPoint) {
         source.connectTo(target);
         this._transportSource = null;
