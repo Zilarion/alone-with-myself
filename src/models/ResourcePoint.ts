@@ -70,8 +70,6 @@ export class ResourcePoint extends PrintablesPoint {
         this._producer.consume(production);
     }
 
-    public drawUpdate(_delta: number) {}
-
     @computed
     public get productionPerSecond() {
         return this._producer.productionOver(

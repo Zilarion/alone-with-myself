@@ -22,8 +22,8 @@ export function drawTransporter({
     context.beginPath();
     context.setLineDash([ 100, 100 ]);
     context.lineDashOffset = - Math.round(performance.now() / 5 % 1000);
-    context.moveTo(from.location.x, from.location.y);
-    context.lineTo(to.location.x, to.location.y);
+    context.moveTo(from.position.x, from.position.y);
+    context.lineTo(to.position.x, to.position.y);
     context.stroke();
 
     context.restore();
@@ -32,8 +32,8 @@ export function drawTransporter({
     if (mouseOver) {
         context.lineWidth = 200;
         context.beginPath();
-        context.moveTo(from.location.x, from.location.y);
-        context.lineTo(to.location.x, to.location.y);
+        context.moveTo(from.position.x, from.position.y);
+        context.lineTo(to.position.x, to.position.y);
         context.strokeStyle = 'rgba(100, 100, 100, 0.2)';
         context.stroke();
     }

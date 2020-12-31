@@ -4,7 +4,6 @@ import {
     observable,
 } from 'mobx';
 
-import { FULL_CIRCLE } from '../../constants';
 import {
     Body,
     distanceBetween,
@@ -60,14 +59,12 @@ export class AsteroidBelt extends DrawableEntity {
         this._orbitFocus = orbitFocus;
         this._id = id;
         this._interactionPoints = emptyArray(3).map(() => {
-            const angle = Math.random() * FULL_CIRCLE;
-            const distance = (Math.random() - 0.5) * width + orbitCenter;
+            const body = bodies[randomInt({
+                min: 0, max: bodies.length - 1,
+            })];
             const maxResourceCount = 1e10;
             return new ResourcePoint({
-                location: {
-                    x: orbitFocus.position.x + distance * Math.cos(angle),
-                    y: orbitFocus.position.y + distance * Math.sin(angle),
-                },
+                parent: body,
                 resources: [ {
                     type: ResourceType.minerals,
                     amount: randomInt({

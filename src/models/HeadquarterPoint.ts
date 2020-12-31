@@ -4,8 +4,8 @@ import {
 } from '../internal';
 
 export class HeadquarterPoint extends InteractionPoint {
-    constructor(location: Vector) {
-        super({ location });
+    constructor(position: Vector) {
+        super({ position });
     }
 
     public update(_delta: number) {}

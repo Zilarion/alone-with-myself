@@ -79,8 +79,8 @@ export class Transporter extends DrawableEntity {
     public drawUpdate(_delta: number) {}
 
     public pointIsInside(p: Vector) {
-        const v = this._from.location;
-        const w = this._to.location;
+        const v = this._from.position;
+        const w = this._to.position;
 
         return distanceToSegment(p, v, w) < TRANSPORTER_WIDTH;
     }

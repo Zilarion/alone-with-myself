@@ -8,7 +8,7 @@ interface DrawMarkerProps {
 export function drawMarker({
     context,
     point: {
-        location: {
+        position: {
             x,
             y,
         },
