@@ -11,6 +11,7 @@ export function drawTransporter({
         from,
         to,
         mouseOver,
+        selected,
     },
 }: DrawTransporterProps) {
     context.save();
@@ -29,12 +30,12 @@ export function drawTransporter({
     context.restore();
 
     context.save();
-    if (mouseOver) {
+    if (mouseOver || selected) {
         context.lineWidth = 200;
         context.beginPath();
         context.moveTo(from.position.x, from.position.y);
         context.lineTo(to.position.x, to.position.y);
-        context.strokeStyle = 'rgba(100, 100, 100, 0.2)';
+        context.strokeStyle = selected ? 'rgba(0, 180, 180, 0.4)' : 'rgba(100, 100, 100, 0.2)';
         context.stroke();
     }
     context.restore();
