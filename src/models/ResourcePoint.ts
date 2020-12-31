@@ -11,7 +11,6 @@ import {
     InteractionPointProps,
     PrintablesPoint,
     PrintableType,
-    PrintTask,
     Producer,
     ResourceSet,
 } from '../internal';
@@ -25,7 +24,10 @@ export class ResourcePoint extends PrintablesPoint {
     private _producer: Producer;
 
     constructor(props: ResourcePointProps) {
-        super(props);
+        super({
+            ... props,
+            name: 'Resource',
+        });
         this.addPrintableOption(new Harvester(
             findHarvesterSchema(PrintableType.miner),
         ));
@@ -48,12 +50,6 @@ export class ResourcePoint extends PrintablesPoint {
     public activate() {
         super.activate();
         this.printables.get(PrintableType.miner)?.add(1);
-        this.harvesters.forEach((harvester) => {
-            this.printers.addPrintOption(new PrintTask({
-                printable: harvester,
-                storage: this.storage,
-            }));
-        });
     }
 
     @action.bound
@@ -76,10 +72,5 @@ export class ResourcePoint extends PrintablesPoint {
             1000,
             this.harvesters,
         );
-    }
-
-    @computed
-    public get availableTasks(): PrintTask[] {
-        return this.printers.tasks;
     }
 }

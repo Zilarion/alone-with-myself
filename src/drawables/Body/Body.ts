@@ -104,7 +104,7 @@ export class Body extends DrawableEntity {
         if (this._orbit == null) {
             return;
         }
-        const dialate = 10;
+        const dialate = 50;
         const s = delta / 1000 / dialate;
         const {
             angle,

@@ -29,13 +29,6 @@ export function drawBody({
         });
     }
 
-    points.forEach((point) => {
-        drawInteractionPoint({
-            context,
-            point,
-        });
-    });
-
     const strokeColor = mouseOver || selected ?
         'rgb(0, 255, 255)' :
         color;
@@ -47,5 +40,12 @@ export function drawBody({
         strokeColor: strokeColor,
         radius,
         lineWidth: radius * 0.1,
+    });
+
+    points.forEach((point) => {
+        drawInteractionPoint({
+            context,
+            point,
+        });
     });
 }
