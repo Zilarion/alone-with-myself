@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 
 import { NavBar } from '../components/NavBar';
-import { Game } from '../internal';
+import { Game } from '../models/Game';
 import styled from '../themed-components';
 import { Routes } from './Routes';
 

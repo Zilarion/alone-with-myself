@@ -3,7 +3,7 @@ import { Box } from '@material-ui/core';
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
 
-import { ResourcePoint } from '../internal';
+import { PrintablesPoint } from '../internal';
 import styled from '../themed-components';
 import { Button } from './Button';
 import { Card } from './Card';
@@ -11,8 +11,8 @@ import { MultipleSelector } from './MultipleSelector';
 import { PrintablesList } from './PrintablesList';
 import { ResourceSetSummary } from './ResourceSetSummary';
 
-interface ResourcePointActionsProps {
-    point: ResourcePoint;
+interface PrintablesPointActionsProps {
+    point: PrintablesPoint;
 }
 
 const ResourceActionWrapper = styled.div`
@@ -20,20 +20,19 @@ const ResourceActionWrapper = styled.div`
     grid-gap: ${p => p.theme.margin.medium};
 `;
 
-export const ResourcePointActions = observer(({
+export const PrintablesPointActions = observer(({
     point: {
         availableTasks,
         operational,
         printables,
         activate,
         storage,
-        productionPerSecond,
     },
-}: ResourcePointActionsProps) => {
+}: PrintablesPointActionsProps) => {
     const [ printableCount, setPrintableCount ] = useState(1);
     if (!operational) {
         return <Card header="Available commands">
-            <Button onClick={activate}>Initiate mining procedures</Button>
+            <Button onClick={activate}>Initiate procedures</Button>
         </Card>;
     }
 
@@ -53,7 +52,7 @@ export const ResourcePointActions = observer(({
                     compact={true}
                     showHeader={true}
                     resources={storage.resources}
-                    delta={productionPerSecond}
+                    // delta={productionPerSecond}
                 />
             </Card>
         </ResourceActionWrapper>

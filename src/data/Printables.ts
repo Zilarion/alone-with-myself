@@ -30,6 +30,18 @@ export const PRINTABLES = new Map<PrintableType, PrintableSchema>([
             duration: 20,
         },
     ],
+    [
+        PrintableType.foundry, {
+            name: 'Foundry',
+            cost: [
+                {
+                    type: ResourceType.minerals,
+                    amount: 50,
+                },
+            ],
+            duration: 10,
+        },
+    ],
 ]);
 
 export function findPrintableSchema(type: PrintableType): PrintableSchema {

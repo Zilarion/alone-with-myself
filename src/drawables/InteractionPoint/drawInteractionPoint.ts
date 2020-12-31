@@ -27,5 +27,4 @@ export function drawInteractionPoint({
         point,
         color,
     });
-
 }

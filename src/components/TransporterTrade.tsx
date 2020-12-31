@@ -7,17 +7,17 @@ import { Card } from './Card';
 import { MultipleSelector } from './MultipleSelector';
 import { ResourceSetSpeedSummary } from './ResourceSetSpeedSummary';
 
-interface TransporterActionsProps {
+interface TransporterTradeProps {
     transporter: Transporter;
 }
 
-export const TransporterActions = observer(({
+export const TransporterTrade = observer(({
     transporter: {
         speedOf,
         setSpeedPerSecond,
         from,
     },
-}: TransporterActionsProps) => {
+}: TransporterTradeProps) => {
     const [ amount, setAmount ] = useState(1);
     return <Card header="Transport route">
         <MultipleSelector

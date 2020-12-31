@@ -1,15 +1,14 @@
-import { Planet } from '../../drawables';
-import { Body } from '../../drawables/Body';
-import { emptyArray } from '../emptyArray';
-import { createSatelliteOf } from './createSatelliteOf';
 import {
+    Body,
+    createSatelliteOf,
+    emptyArray,
+    Planet,
     randomInt,
     randomNumber,
-} from './random';
+} from '../../internal';
 
 const planetColors = [ 'blue', 'brown', 'green' ];
 const moonColors = [ 'grey', 'silver' ];
-
 
 function randomPlanetColor() {
     return planetColors[randomInt({

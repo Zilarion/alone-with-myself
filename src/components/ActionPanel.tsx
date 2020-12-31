@@ -1,10 +1,8 @@
 import {
     Entity,
-    ResourcePoint,
-    Transporter,
+    PrintablesPoint,
 } from '../internal';
-import { ResourcePointActions } from './ResourcePointActions';
-import { TransporterActions } from './TransporterActions';
+import { PrintablesPointActions } from './PrintablesPointActions';
 
 interface InformationPanel {
     entity: Entity;
@@ -12,8 +10,7 @@ interface InformationPanel {
 
 export function ActionPanel({ entity }: InformationPanel) {
     return <>
-        {entity instanceof ResourcePoint && <ResourcePointActions point={entity} />}
-        {entity instanceof Transporter && <TransporterActions transporter={entity} />}
+        {entity instanceof PrintablesPoint && <PrintablesPointActions point={entity} />}
     </>;
 }
 

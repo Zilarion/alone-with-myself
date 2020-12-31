@@ -65,6 +65,7 @@ export class AsteroidBelt extends DrawableEntity {
             const maxResourceCount = 1e10;
             return new ResourcePoint({
                 parent: body,
+                scaleToParent: false,
                 resources: [ {
                     type: ResourceType.minerals,
                     amount: randomInt({

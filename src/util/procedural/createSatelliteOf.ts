@@ -1,5 +1,7 @@
-import { Body } from '../../drawables/Body';
-import { Planet } from '../../drawables/Planet';
+import {
+    Body,
+    Planet,
+} from '../../internal';
 
 interface CreateSatelliteOfProps {
     body: Body;
@@ -34,7 +36,6 @@ export function createSatelliteOf({
         x: Math.cos(angle) * orbitRadius + body.position.x,
         y: Math.sin(angle) * orbitRadius + body.position.y,
     };
-
 
     const obj = typeMap[type];
     return new obj({

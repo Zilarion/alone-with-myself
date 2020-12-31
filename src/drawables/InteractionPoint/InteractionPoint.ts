@@ -1,7 +1,6 @@
 import {
     action,
     computed,
-    makeObservable,
     observable,
 } from 'mobx';
 
@@ -12,8 +11,6 @@ import {
     DrawableEntity,
     Entity,
     EntityType,
-    Printable,
-    PrintableType,
     ResourceStorage,
     Transporter,
     Vector,
@@ -23,6 +20,7 @@ export type InteractionPointProps = {
     position: Vector;
 } | {
     parent: Body;
+    scaleToParent?: boolean;
 }
 
 export abstract class InteractionPoint extends DrawableEntity {
@@ -31,6 +29,8 @@ export abstract class InteractionPoint extends DrawableEntity {
     private _position: Vector;
 
     private _radius: number = 200;
+
+    private _scaleToParent: boolean = true;
 
     private _parent: Body | null = null;
 
@@ -41,9 +41,6 @@ export abstract class InteractionPoint extends DrawableEntity {
     private _incoming: Transporter[] = [];
 
     @observable
-    private _printables = new Map<PrintableType, Printable>();
-
-    @observable
     private _storage: ResourceStorage = new ResourceStorage();
 
     constructor(props: InteractionPointProps) {
@@ -51,15 +48,14 @@ export abstract class InteractionPoint extends DrawableEntity {
         if ('parent' in props) {
             this._parent = props.parent;
             this._position = props.parent.position;
+            this._scaleToParent = props.scaleToParent ?? true;
+            if (this._scaleToParent) {
+                this._radius = props.parent.radius / 2;
+            }
+            this._updatePositionToParent();
         } else {
             this._position = props.position;
         }
-        makeObservable(this);
-    }
-
-    @action.bound
-    public addPrintableOption(printable: Printable) {
-        this._printables.set(printable.printableType, printable);
     }
 
     @computed
@@ -89,20 +85,15 @@ export abstract class InteractionPoint extends DrawableEntity {
         return this._position;
     }
 
-    @computed
-    public get printables() {
-        return this._printables;
-    }
-
     public pointIsInside(vector: Vector) {
         return distanceBetween(vector, this.position) <= this._radius;
     }
+
     @computed
     public get children(): Entity[] {
         return [
             ... super.children,
             ... this.outgoing,
-            ... Array.from(this.printables.values()),
         ];
     }
 
@@ -128,8 +119,25 @@ export abstract class InteractionPoint extends DrawableEntity {
 
     public abstract update(delta: number): void;
     public drawUpdate(_delta: number) {
-        if (this._parent) {
-            this._position = this._parent.position;
+        this._updatePositionToParent();
+    }
+
+    private _updatePositionToParent() {
+        if (this._parent == null) {
+            return;
+        }
+        const {
+            position,
+            radius,
+        } = this._parent;
+
+        if (this._scaleToParent) {
+            this._position = {
+                x: position.x + radius + this._radius * 2,
+                y: position.y,
+            };
+        } else {
+            this.position = position;
         }
     }
 }

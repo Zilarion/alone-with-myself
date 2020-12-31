@@ -32,7 +32,7 @@ export const ResourcePointSummary = observer(({
         : 'We have identified this as an ideal location to extract resources. Recommended to start resource extraction.';
     return (
         <ResourceWrapper>
-            <Card header="Resource point">
+            <Card header="Resource harvesting">
                 <ResourceInfoWrapper>
                     { description }
                     <LabelValue
