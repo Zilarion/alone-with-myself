@@ -67,6 +67,17 @@ describe('model: Transporter', () => {
         expect(to.storage.numberOf(ResourceType.minerals)).toEqual(0);
     });
 
+    it('should not move anything when speed is higher then storage', () => {
+        from.storage.increment([ {
+            type: ResourceType.minerals,
+            amount: 100,
+        } ]);
+        transporter.setSpeedPerSecond(ResourceType.minerals, 10000);
+        transporter.update(500);
+        expect(from.storage.numberOf(ResourceType.minerals)).toEqual(100);
+        expect(to.storage.numberOf(ResourceType.minerals)).toEqual(0);
+    });
+
     it('should update point storage according to speed', () => {
         from.storage.increment([ {
             type: ResourceType.minerals,
