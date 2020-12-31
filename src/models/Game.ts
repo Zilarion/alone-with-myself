@@ -18,8 +18,10 @@ import {
     Entity,
     findSelectedEntity,
     InteractionPoint,
+    Transporter,
     Vector,
 } from '../internal';
+import { inBetween } from '../util/geometry/inBetween';
 
 const WORLD_DELTA_MINIMUM = 1000;
 
@@ -186,6 +188,13 @@ export class Game {
                 this.camera.moveTo(this._selectedEntity.orbitFocus.position);
             } else if (this._selectedEntity instanceof InteractionPoint) {
                 this.camera.moveTo(this._selectedEntity.position);
+            } else if (this._selectedEntity instanceof Transporter) {
+                this.camera.moveTo(
+                    inBetween(
+                        this._selectedEntity.from.position,
+                        this._selectedEntity.to.position,
+                    ),
+                );
             }
         }
     }
