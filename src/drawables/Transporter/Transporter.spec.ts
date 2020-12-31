@@ -12,7 +12,7 @@ describe('model: Transporter', () => {
     let to: HeadquarterPoint;
     beforeEach(() => {
         from = new ResourcePoint({
-            location: {
+            position: {
                 x: 10,
                 y: 10,
             },

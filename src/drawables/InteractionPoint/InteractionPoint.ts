@@ -7,6 +7,7 @@ import {
 
 import {
     assert,
+    Body,
     distanceBetween,
     DrawableEntity,
     Entity,
@@ -18,16 +19,20 @@ import {
     Vector,
 } from '../../internal';
 
-export interface InteractionPointProps {
-    location: Vector;
+export type InteractionPointProps = {
+    position: Vector;
+} | {
+    parent: Body;
 }
 
 export abstract class InteractionPoint extends DrawableEntity {
     protected _type = EntityType.InteractionPoint;
 
-    private _location: Vector;
+    private _position: Vector;
 
     private _radius: number = 200;
+
+    private _parent: Body | null = null;
 
     @observable
     private _outgoing: Transporter[] = [];
@@ -41,9 +46,14 @@ export abstract class InteractionPoint extends DrawableEntity {
     @observable
     private _storage: ResourceStorage = new ResourceStorage();
 
-    constructor({ location }: InteractionPointProps) {
+    constructor(props: InteractionPointProps) {
         super();
-        this._location = location;
+        if ('parent' in props) {
+            this._parent = props.parent;
+            this._position = props.parent.position;
+        } else {
+            this._position = props.position;
+        }
         makeObservable(this);
     }
 
@@ -67,16 +77,16 @@ export abstract class InteractionPoint extends DrawableEntity {
         return this._incoming;
     }
 
-    public set location(value: Vector) {
-        this.location = value;
+    public set position(value: Vector) {
+        this._position = value;
     }
 
     public get size() {
         return this._radius * 2;
     }
 
-    public get location() {
-        return this._location;
+    public get position() {
+        return this._position;
     }
 
     @computed
@@ -85,11 +95,10 @@ export abstract class InteractionPoint extends DrawableEntity {
     }
 
     public pointIsInside(vector: Vector) {
-        return distanceBetween(vector, this._location) <= this._radius;
+        return distanceBetween(vector, this.position) <= this._radius;
     }
     @computed
     public get children(): Entity[] {
-
         return [
             ... super.children,
             ... this.outgoing,
@@ -118,4 +127,9 @@ export abstract class InteractionPoint extends DrawableEntity {
     }
 
     public abstract update(delta: number): void;
+    public drawUpdate(_delta: number) {
+        if (this._parent) {
+            this._position = this._parent.position;
+        }
+    }
 }

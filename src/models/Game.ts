@@ -185,7 +185,7 @@ export class Game {
             } else if (this._selectedEntity instanceof AsteroidBelt) {
                 this.camera.moveTo(this._selectedEntity.orbitFocus.position);
             } else if (this._selectedEntity instanceof InteractionPoint) {
-                this.camera.moveTo(this._selectedEntity.location);
+                this.camera.moveTo(this._selectedEntity.position);
             }
         }
     }

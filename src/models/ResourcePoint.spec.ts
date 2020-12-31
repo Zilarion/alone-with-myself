@@ -15,7 +15,7 @@ describe('model: ResourcePoint', () => {
             amount: 100,
         } ];
         point = new ResourcePoint({
-            location: {
+            position: {
                 x: 0,
                 y: 0,
             },
