@@ -1,6 +1,7 @@
 export * from './models/core/Entity';
 export * from './models/core/DrawableEntity';
 export * from './drawables/InteractionPoint';
+export * from './models/PrintablesPoint';
 export * from './models/Game';
 export * from './models/HeadquarterPoint';
 export * from './models/Printable';

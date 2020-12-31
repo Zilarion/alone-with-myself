@@ -6,13 +6,11 @@ import {
 } from 'mobx';
 
 import {
-    assert,
     findHarvesterSchema,
     Harvester,
-    InteractionPoint,
     InteractionPointProps,
+    PrintablesPoint,
     PrintableType,
-    Printers,
     PrintTask,
     Producer,
     ResourceSet,
@@ -22,28 +20,17 @@ type ResourcePointProps = {
     resources: ResourceSet;
 } & InteractionPointProps;
 
-export class ResourcePoint extends InteractionPoint {
+export class ResourcePoint extends PrintablesPoint {
     @observable
     private _producer: Producer;
 
-    @observable
-    private _operational: boolean = false;
-
     constructor(props: ResourcePointProps) {
         super(props);
-        this.addPrintableOption(new Printers());
         this.addPrintableOption(new Harvester(
             findHarvesterSchema(PrintableType.miner),
         ));
         this._producer = new Producer(props.resources);
         makeObservable(this);
-    }
-
-    @computed
-    public get printers(): Printers {
-        const printers = this.printables.get(PrintableType.printer);
-        assert(printers instanceof Printers, 'Failed to find printer in a resource point.');
-        return printers;
     }
 
     @computed
@@ -57,24 +44,10 @@ export class ResourcePoint extends InteractionPoint {
         return this._producer.consumables;
     }
 
-    @computed
-    public get operational() {
-        return this._operational;
-    }
-
     @action.bound
     public activate() {
-        assert(this.operational === false, 'Cannot active a resource point twice.');
-        this._operational = true;
-
+        super.activate();
         this.printables.get(PrintableType.miner)?.add(1);
-        this.printers.add(1);
-
-        this.printers.addPrintOption(new PrintTask({
-            printable: this.printers,
-            storage: this.storage,
-        }));
-
         this.harvesters.forEach((harvester) => {
             this.printers.addPrintOption(new PrintTask({
                 printable: harvester,
