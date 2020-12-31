@@ -67,7 +67,6 @@ export const MultipleSelector = observer(({
     return <Grid
         container
         alignItems="center"
-        xs={12}
     >
         <ToggleButtonGroup
             size="small"
