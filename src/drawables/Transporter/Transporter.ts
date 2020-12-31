@@ -69,8 +69,12 @@ export class Transporter extends DrawableEntity {
     public update(delta: number) {
         const deltaSeconds = delta / 1000;
         const transportedResources = multiplyResources(this.speed, deltaSeconds);
-        this._from.storage.decrement(transportedResources);
-        this._to.storage.increment(transportedResources);
+
+        const hasSufficientResources = this._from.storage.has(transportedResources);
+        if (hasSufficientResources){
+            this._from.storage.decrement(transportedResources);
+            this._to.storage.increment(transportedResources);
+        }
     }
     public drawUpdate(_delta: number) {}
 
