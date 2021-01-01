@@ -98,11 +98,13 @@ export abstract class InteractionPoint extends DrawableEntity {
     }
 
     @action.bound
-    public connectTo(target: InteractionPoint): void {
+    public connectTo(target: InteractionPoint) {
         const transporter = new Transporter(this, target);
 
         this.addOutgoing(transporter);
         target.addIncoming(transporter);
+
+        return transporter;
     }
 
     @action.bound
