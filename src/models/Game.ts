@@ -215,8 +215,6 @@ export class Game {
             if (this._transportSource) {
                 this._connect(this._transportSource, this._selectedEntity);
             }
-        } else {
-            this._transportSource = null;
         }
     }
 
