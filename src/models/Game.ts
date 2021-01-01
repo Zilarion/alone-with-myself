@@ -220,8 +220,9 @@ export class Game {
 
     @action
     private _connect(source: InteractionPoint, target: InteractionPoint) {
-        source.connectTo(target);
+        const transporter = source.connectTo(target);
         this._transportSource = null;
+        this._setSelectedEntity(transporter);
     }
 
     private get _drawableEntities(): DrawableEntity[] {
