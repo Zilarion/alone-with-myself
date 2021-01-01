@@ -17,6 +17,14 @@ export function findSelectedEntity(entities: DrawableEntity[]): DrawableEntity |
             return prev;
         }
 
+        if (current.type === EntityType.Transporter) {
+            return current;
+        }
+
+        if (prev.type === EntityType.Transporter) {
+            return prev;
+        }
+
         if (current.type === EntityType.AsteroidBelt) {
             return current;
         }
