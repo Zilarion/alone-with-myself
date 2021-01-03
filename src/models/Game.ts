@@ -158,7 +158,15 @@ export class Game {
     }
 
     private _worldUpdate(dialatedDelta: number) {
-        this.entities.forEach((entity) => entity.update(dialatedDelta));
+        this.entities.forEach((entity) => {
+            const start = performance.now();
+            entity.update(dialatedDelta);
+
+            const duration = performance.now() - start;
+            if (duration > 100) {
+                console.warn('Entity update took a long time', duration, entity);
+            }
+        });
     }
 
     private _update(delta: number) {
