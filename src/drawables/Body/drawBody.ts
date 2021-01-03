@@ -4,7 +4,7 @@ import { drawOrbit } from '../Orbit';
 import { Body } from './Body';
 
 interface DrawBodyProps {
-    context: CanvasRenderingContext2D;
+    context: OffscreenCanvasRenderingContext2D;
     model: Body;
     showOrbit?: boolean;
 }

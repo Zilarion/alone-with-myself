@@ -2,7 +2,7 @@ import { Orbit } from '../../drawables/Orbit';
 import { drawCircle } from '../drawCircle';
 
 interface DrawOrbitProps {
-    context: CanvasRenderingContext2D;
+    context: OffscreenCanvasRenderingContext2D;
     orbit: Orbit;
 }
 

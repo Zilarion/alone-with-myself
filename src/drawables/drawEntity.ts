@@ -6,7 +6,7 @@ import {
     drawBody,
 } from '../internal';
 
-export function drawEntity(context: CanvasRenderingContext2D, entity: DrawableEntity) {
+export function drawEntity(context: OffscreenCanvasRenderingContext2D, entity: DrawableEntity) {
     if (entity instanceof AsteroidBelt) {
         drawAsteroidBelt({
             context,

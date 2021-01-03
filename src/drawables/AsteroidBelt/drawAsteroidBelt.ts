@@ -4,7 +4,7 @@ import { drawInteractionPoint } from '../InteractionPoint';
 import { AsteroidBelt } from './AsteroidBelt';
 
 interface DrawAsteroidBeltProps {
-    context: CanvasRenderingContext2D;
+    context: OffscreenCanvasRenderingContext2D;
     model: AsteroidBelt;
 }
 

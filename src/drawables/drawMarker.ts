@@ -1,7 +1,7 @@
 import { InteractionPoint } from './InteractionPoint';
 
 interface DrawMarkerProps {
-    context: CanvasRenderingContext2D;
+    context: OffscreenCanvasRenderingContext2D;
     point: InteractionPoint;
     color: string;
 }

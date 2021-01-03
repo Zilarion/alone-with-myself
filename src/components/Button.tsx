@@ -31,7 +31,7 @@ export function Button({
                 variant="outlined"
                 onClick={onClick}
                 color="primary"
-                size="small"
+                size="medium"
                 disabled={disabled}
                 fullWidth={fullWidth}
             >

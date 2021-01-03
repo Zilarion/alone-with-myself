@@ -27,8 +27,10 @@ const WORLD_DELTA_MINIMUM = 1000;
 
 export class Game {
     private _entities: Entity[] = [];
+    private _canvas: HTMLCanvasElement | null = null;
+    private _offscreen: OffscreenCanvas | null = null;
+    private _offscreenCtx: OffscreenCanvasRenderingContext2D | null = null;
     private _animationFrameId: number | null = null;
-    private _context: CanvasRenderingContext2D | null = null;
     private _lastFrame: number | null = null;
     private _camera: CanvasCamera | null = null;
     private _gameSpeed: number = 1;
@@ -70,16 +72,25 @@ export class Game {
     }
 
     public setCanvas(canvas: HTMLCanvasElement) {
-        const ctx = canvas.getContext('2d');
-        if (ctx == null) {
-            throw Error('Expected context to exist');
-        }
+        this._canvas = canvas;
+        const offscreen = canvas.transferControlToOffscreen();
+
+        const offscreenCtx = offscreen.getContext('2d');
+        this._offscreenCtx = offscreenCtx;
+        this._offscreen = offscreen;
+
+        assert(offscreenCtx != null, 'Failed to create offscreen canvas context');
 
         this._camera = new CanvasCamera({
-            context: ctx, zoomBound: { min: 1000 },
+            canvas: this.canvas,
+            context: offscreenCtx,
+            zoomBound: { min: 1000 },
         });
-        this._context = ctx;
 
+        window.addEventListener('resize', () => {
+            this.offscreen.width = window.innerWidth;
+            this.offscreen.height = window.innerHeight;
+        });
         canvas.addEventListener('mousemove', ({
             offsetX,
             offsetY,
@@ -126,6 +137,11 @@ export class Game {
         }
     }
 
+    public get canvas() {
+        assert(this._canvas != null, 'Expected canvas to be defined before usage');
+        return this._canvas;
+    }
+
     public start() {
         this._animationFrameId = window.requestAnimationFrame(this._tick);
     }
@@ -135,9 +151,14 @@ export class Game {
         return this._camera;
     }
 
-    private get context() {
-        assert(this._context != null, 'Expected context to be defined before usage');
-        return this._context;
+    private get offscreen() {
+        assert(this._offscreen != null, 'Expected offscreen canvas to be defined before usage');
+        return this._offscreen;
+    }
+
+    private get offscreenCtx() {
+        assert(this._offscreenCtx != null, 'Expected offscreen context to be defined before usage');
+        return this._offscreenCtx;
     }
 
     public get entities() {
@@ -177,7 +198,6 @@ export class Game {
         this._gameDelta += dialatedDelta;
 
         if (this._gameDelta > WORLD_DELTA_MINIMUM) {
-            this._drawableEntities.forEach((entity) => entity.drawUpdate(dialatedDelta));
             this._worldUpdate(this._gameDelta);
             this._gameDelta = 0;
         }
@@ -187,7 +207,7 @@ export class Game {
         const entitiesUnderMouse = this._entitiesUnderMouse();
         const hasMouseOver = entitiesUnderMouse.length > 0;
 
-        this.context.canvas.style.cursor = hasMouseOver ? 'pointer' : 'default';
+        this.canvas.style.cursor = hasMouseOver ? 'pointer' : 'default';
 
         if (this._selectedEntity) {
             if (this._selectedEntity instanceof Body) {
@@ -238,18 +258,18 @@ export class Game {
     }
 
     private _draw() {
-        if (this._context == null) {
+        if (this._canvas == null || this.offscreen.width === 0 || this.offscreen.height === 0) {
             return;
         }
 
         this.camera.apply();
         clearCanvas({
-            context: this.context,
+            context: this.offscreenCtx,
             ...this.camera.viewport,
         });
 
         this._updateMouse();
-        this._drawableEntities.forEach((entity) => drawEntity(this.context, entity));
+        this._drawableEntities.forEach((entity) => drawEntity(this.offscreenCtx, entity));
 
         this.camera.restore();
     }

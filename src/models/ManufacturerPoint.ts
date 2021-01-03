@@ -59,9 +59,6 @@ export class ManufacturerPoint extends PrintablesPoint {
             const multipleConsumed = divideResources(maximumConsumption, this.storage.resources);
             const actualConsumption = multiplyResources(consumes, multipleConsumed);
             const actualProduction = multiplyResources(produces, multipleConsumed);
-            console.log({
-                maximumConsumption, multipleConsumed, actualConsumption, actualProduction,
-            });
 
             this.storage.decrement(actualConsumption);
             this.storage.increment(actualProduction);
