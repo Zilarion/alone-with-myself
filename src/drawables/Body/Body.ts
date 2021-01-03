@@ -1,3 +1,5 @@
+import { action } from 'mobx';
+
 import {
     AsteroidBelt,
     distanceBetween,
@@ -88,6 +90,8 @@ export class Body extends DrawableEntity {
     }
 
     public update(_delta: number) {}
+
+    @action
     public drawUpdate(delta: number) {
         this._updateOrbit(delta);
     }
@@ -100,6 +104,7 @@ export class Body extends DrawableEntity {
         return this._points;
     }
 
+    @action
     private _updateOrbit = (delta: number) => {
         if (this._orbit == null) {
             return;

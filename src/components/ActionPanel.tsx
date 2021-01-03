@@ -1,3 +1,5 @@
+import { observer } from 'mobx-react-lite';
+
 import {
     Entity,
     PrintablesPoint,
@@ -8,9 +10,9 @@ interface InformationPanel {
     entity: Entity;
 }
 
-export function ActionPanel({ entity }: InformationPanel) {
+export const ActionPanel = observer(({ entity }: InformationPanel) => {
     return <>
         {entity instanceof PrintablesPoint && <PrintablesPointActions point={entity} />}
     </>;
-}
+});
 

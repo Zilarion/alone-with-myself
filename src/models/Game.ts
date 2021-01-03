@@ -3,6 +3,7 @@ import {
     computed,
     makeObservable,
     observable,
+    runInAction,
 } from 'mobx';
 
 import {
@@ -103,18 +104,22 @@ export class Game {
         });
 
         canvas.addEventListener('mousedown', () => {
-            this._isClick = true;
-            this._mouseDownEntity = findSelectedEntity(
-                this._entitiesUnderMouse(),
-            );
+            runInAction(() => {
+                this._isClick = true;
+                this._mouseDownEntity = findSelectedEntity(
+                    this._entitiesUnderMouse(),
+                );
+            });
         });
 
         canvas.addEventListener('mouseup', () => {
-            if (this._isClick) {
-                this._setSelectedEntity(this._mouseDownEntity);
-                return;
-            }
-            this._mouseDownEntity = null;
+            runInAction(() => {
+                if (this._isClick) {
+                    this._setSelectedEntity(this._mouseDownEntity);
+                    return;
+                }
+                this._mouseDownEntity = null;
+            });
         });
     }
 
@@ -161,6 +166,7 @@ export class Game {
         return this._offscreenCtx;
     }
 
+    @computed
     public get entities() {
         return this._entities.reduce<Entity[]>((prev, current) => {
             return prev.concat(
@@ -253,6 +259,7 @@ export class Game {
         this._setSelectedEntity(transporter);
     }
 
+    @computed
     private get _drawableEntities(): DrawableEntity[] {
         return this.entities.filter((entity): entity is DrawableEntity => entity instanceof DrawableEntity);
     }
@@ -277,9 +284,10 @@ export class Game {
     private _tick = (time: number) => {
         const delta = this._lastFrame ? time - this._lastFrame : 0;
 
-        this._update(delta);
-
-        this._draw();
+        runInAction(() => {
+            this._update(delta);
+            this._draw();
+        });
 
         this._lastFrame = time;
         this._animationFrameId = window.requestAnimationFrame(this._tick);

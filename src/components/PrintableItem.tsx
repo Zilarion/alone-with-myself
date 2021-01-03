@@ -8,6 +8,7 @@ import {
     Remove,
 } from '@material-ui/icons';
 
+import { action } from 'mobx';
 import { observer } from 'mobx-react-lite';
 
 import {
@@ -56,9 +57,9 @@ export const PrintableItem = observer(({
             disabled={disabled}
             fullWidth={true}
             key={0}
-            onClick={() => {
+            onClick={action(() => {
                 task.count += printableCount;
-            }}
+            })}
             tooltip={<PrintableTooltip printable={printable} />}
             progress={task.progressPercentage}
         >

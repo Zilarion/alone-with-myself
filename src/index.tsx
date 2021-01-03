@@ -6,7 +6,11 @@ import { render } from 'react-dom';
 
 import { App } from './views/App';
 
-configure({ enforceActions: 'observed' });
+configure({
+    enforceActions: 'always',
+    computedRequiresReaction: true,
+    observableRequiresReaction: true,
+});
 
 render(
     <App />,
