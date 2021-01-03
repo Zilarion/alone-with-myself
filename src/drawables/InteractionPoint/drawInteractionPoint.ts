@@ -3,7 +3,7 @@ import { drawTransporter } from '../Transporter/drawTransporter';
 import { InteractionPoint } from './InteractionPoint';
 
 interface DrawInteractionPoint {
-    context: CanvasRenderingContext2D;
+    context: OffscreenCanvasRenderingContext2D;
     point: InteractionPoint;
 }
 

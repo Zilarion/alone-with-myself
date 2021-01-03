@@ -1,5 +1,5 @@
 interface ClearCanvasProps {
-    context: CanvasRenderingContext2D;
+    context: OffscreenCanvasRenderingContext2D;
     left: number;
     top: number;
     width: number;

@@ -9,7 +9,8 @@ interface Viewport {
 }
 
 interface CanvasCameraProps {
-    context: CanvasRenderingContext2D;
+    context: OffscreenCanvasRenderingContext2D;
+    canvas: HTMLCanvasElement;
     zoomBound?: {
         min?: number;
         max?: number;
@@ -17,18 +18,21 @@ interface CanvasCameraProps {
 }
 
 export class CanvasCamera {
-    private _context: CanvasRenderingContext2D;
+    private _context: OffscreenCanvasRenderingContext2D;
     private _viewport: Viewport;
     private _center: Vector;
     private _zoom: number;
     private _zoomMinBound: number;
     private _zoomMaxBound?: number;
+    private _canvas: HTMLCanvasElement;
 
     constructor({
         context,
         zoomBound,
+        canvas,
     }: CanvasCameraProps) {
         this._zoom = 50000;
+        this._canvas = canvas;
         this._center = {
             x: 0,
             y: 0,
@@ -139,7 +143,7 @@ export class CanvasCamera {
     }
 
     private _addListeners() {
-        this._context.canvas.addEventListener('wheel', (e) => {
+        this._canvas.addEventListener('wheel', (e) => {
             e.preventDefault();
             if (e.altKey) {
                 const zoomLevel = this._zoom - (e.deltaY * 20);

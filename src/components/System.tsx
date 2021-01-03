@@ -12,7 +12,10 @@ import {
 } from 'react';
 
 import { useGame } from '../hooks/useGame';
-import { useWindowSize } from '../internal';
+import {
+    assert,
+    useWindowSize,
+} from '../internal';
 
 export const System = observer(() => {
     const {
@@ -28,9 +31,7 @@ export const System = observer(() => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     useEffect(() => {
         const canvas = canvasRef.current;
-        if (canvas == null) {
-            throw Error('Expected canvas to exist');
-        }
+        assert(canvas != null, 'Expected canvas to exist');
         game.setCanvas(canvas);
     }, [ game ]);
 

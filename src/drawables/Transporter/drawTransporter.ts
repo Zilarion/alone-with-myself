@@ -1,7 +1,7 @@
 import { Transporter } from './Transporter';
 
 interface DrawTransporterProps {
-    context: CanvasRenderingContext2D;
+    context: OffscreenCanvasRenderingContext2D;
     transporter: Transporter;
 }
 

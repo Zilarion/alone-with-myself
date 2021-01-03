@@ -7,7 +7,7 @@ interface DrawArcProps {
     fillColor?: string | CanvasGradient;
     strokeColor?: string;
     lineWidth?: number;
-    context: CanvasRenderingContext2D;
+    context: OffscreenCanvasRenderingContext2D;
 }
 
 export function drawCircle({
