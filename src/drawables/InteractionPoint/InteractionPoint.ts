@@ -124,6 +124,7 @@ export abstract class InteractionPoint extends DrawableEntity {
         this._updatePositionToParent();
     }
 
+    @action
     private _updatePositionToParent() {
         if (this._parent == null) {
             return;

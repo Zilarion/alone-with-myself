@@ -1,4 +1,5 @@
 import {
+    action,
     computed,
     makeObservable,
     observable,
@@ -109,6 +110,8 @@ export class AsteroidBelt extends DrawableEntity {
     }
 
     public update(_delta: number) {}
+
+    @action
     public drawUpdate(delta: number) {
         this._bodies.forEach((body) => body.drawUpdate(delta));
     }
