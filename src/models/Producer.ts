@@ -22,11 +22,11 @@ export class Producer {
     }
 
     @computed
-    public get consumables() {
+    get consumables() {
         return this._consumables;
     }
 
-    public productionOver(
+    productionOver(
         delta: number,
         harvesters: Harvester[],
     ): ResourceSet {
@@ -53,7 +53,7 @@ export class Producer {
     }
 
     @action.bound
-    public consume(resources: ResourceSet) {
+    consume(resources: ResourceSet) {
         this._consumables.decrement(resources);
     }
 }
