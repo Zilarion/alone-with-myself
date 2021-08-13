@@ -1,8 +1,8 @@
+import styled from '@emotion/styled';
 import { createContext } from 'react';
 
 import { NavBar } from '../components/NavBar';
 import { Game } from '../models/Game';
-import styled from '../themed-components';
 import { Routes } from './Routes';
 
 const Content = styled.div`
@@ -12,7 +12,7 @@ const Content = styled.div`
 const game = new Game();
 export const GameContext = createContext(game);
 
-export function View() {
+export const View = () => {
     return <div>
         <GameContext.Provider value={game}>
             <NavBar />
@@ -21,4 +21,4 @@ export function View() {
             </Content>
         </GameContext.Provider>
     </div>;
-}
+};

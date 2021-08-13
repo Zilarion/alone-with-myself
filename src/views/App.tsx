@@ -1,22 +1,20 @@
+import { ThemeProvider as StyledThemeProvider } from '@emotion/react';
 import {
     StylesProvider,
     ThemeProvider,
 } from '@material-ui/core/styles';
-
 import { IntlProvider } from 'react-intl';
 import { HashRouter } from 'react-router-dom';
-import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 
-import { theme as muiTheme } from '../muiTheme';
-import theme from '../theme';
+import { theme } from '../theme';
 import { View } from './View';
 
-export function App() {
+export const App = () => {
     return (
-        <ThemeProvider theme={muiTheme}>
+        <ThemeProvider theme={theme}>
             <StylesProvider injectFirst>
                 <StyledThemeProvider theme={theme}>
-                    <IntlProvider locale={'en-US'}>
+                    <IntlProvider locale="en-US">
                         <HashRouter>
                             <View />
                         </HashRouter>
@@ -25,4 +23,4 @@ export function App() {
             </StylesProvider>
         </ThemeProvider>
     );
-}
+};

@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import { observer } from 'mobx-react-lite';
 
 import {
@@ -5,7 +6,6 @@ import {
     Printable,
     PrintTask,
 } from '../internal';
-import styled from '../themed-components';
 import { PrintableItem } from './PrintableItem';
 
 interface PrintableSummaryProps {
@@ -17,7 +17,7 @@ interface PrintableSummaryProps {
 const ListWrapper = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: ${p => p.theme.margin.small};
+    gap: ${p => p.theme.spacing(2)}px;
 `;
 
 export const PrintablesList = observer(({
@@ -28,13 +28,13 @@ export const PrintablesList = observer(({
     return <ListWrapper>
         {
             tasks.map((task) => {
-                const printable = printables.find((printable) => task.printable === printable);
-                assert(printable != null, 'Failed to find related printable of a print task.');
+                const taskPrintable = printables.find((printable) => task.printable === printable);
+                assert(taskPrintable != null, 'Failed to find related printable of a print task.');
                 return <PrintableItem
-                    key={printable.name}
+                    key={taskPrintable.name}
                     printableCount={printableCount}
                     task={task}
-                    printable={printable}
+                    printable={taskPrintable}
                 />;
             })
         }

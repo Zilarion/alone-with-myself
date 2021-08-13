@@ -1,9 +1,7 @@
+import styled from '@emotion/styled';
 import { Button as MuiButton } from '@material-ui/core';
 import Tippy from '@tippyjs/react';
-
 import { PropsWithChildren } from 'react';
-
-import styled from '../themed-components';
 
 export type ButtonProps = PropsWithChildren<{
     onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
@@ -18,14 +16,16 @@ const TippyWrapper = styled.div<{ fullWidth: boolean }>`
     display: ${p => p.fullWidth ? 'block' : 'inline'};
 `;
 
-export function Button({
+export const Button = ({
     onClick,
     disabled,
     children,
     tooltip,
     fullWidth = false,
-}: ButtonProps) {
-    return <Tippy theme="scifi" content={tooltip ?? children}>
+}: ButtonProps) => {
+    return <Tippy
+        theme="scifi"
+        content={tooltip ?? children}>
         <TippyWrapper fullWidth={fullWidth}>
             <MuiButton
                 variant="outlined"
@@ -39,4 +39,4 @@ export function Button({
             </MuiButton>
         </TippyWrapper>
     </Tippy>;
-}
+};
