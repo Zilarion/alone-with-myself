@@ -1,10 +1,9 @@
+import styled from '@emotion/styled';
 import { FC } from 'react';
 
-import styled from '../themed-components';
-
-const StyledHeader =styled.h2`
-    color: ${({ theme }) => theme.color.header};
-    margin-top: ${p => p.theme.margin.small};
+const StyledHeader = styled.h2`
+    color: ${({ theme }) => theme.palette.header};
+    margin-top: ${p => p.theme.spacing(2)}px;
 `;
 
 export const Header: FC = ({ children }) => {

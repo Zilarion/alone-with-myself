@@ -319,7 +319,6 @@ module.exports = {
         'react/jsx-one-expression-per-line': 'error',
         'react/jsx-pascal-case': 'error',
         'react/jsx-tag-spacing': 'error',
-        'react/jsx-no-literals': 'error',
         'react-hooks/exhaustive-deps': 'error',
         'react/function-component-definition': [ 'error', {
             'namedComponents': 'arrow-function',
