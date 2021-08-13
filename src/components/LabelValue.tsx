@@ -1,6 +1,4 @@
-
-
-import styled from '../themed-components';
+import styled from '@emotion/styled';
 
 interface LabelValueProps {
     label: string;
@@ -8,25 +6,29 @@ interface LabelValueProps {
 }
 
 const StyledWrapper = styled.div`
-    margin: ${p => p.theme.margin.small} 0;
+    margin: ${p => p.theme.spacing(2)}px 0;
 `;
 
 const StyledLabel = styled.div`
-    color: ${p => p.theme.color.header};
-    margin-bottom: ${p => p.theme.margin.tiny};
+    color: ${p => p.theme.palette.header};
+    margin-bottom: ${p => p.theme.spacing(1)}px;
     font-size: 16px;
 `;
 
 const StyledValue = styled.div`
-    color: ${p => p.theme.color.text};
+    color: ${p => p.theme.palette.text.primary};
     font-size: 14px;
 `;
 
-export function LabelValue({
+export const LabelValue = ({
     value, label,
-}: LabelValueProps) {
+}: LabelValueProps) => {
     return (<StyledWrapper>
-        <StyledLabel>{label}</StyledLabel>
-        <StyledValue>{value}</StyledValue>
+        <StyledLabel>
+            {label}
+        </StyledLabel>
+        <StyledValue>
+            {value}
+        </StyledValue>
     </StyledWrapper>);
-}
+};

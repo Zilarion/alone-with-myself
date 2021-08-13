@@ -1,26 +1,24 @@
-
-
-import styled from '../themed-components';
+import styled from '@emotion/styled';
 
 const StyledSideBar = styled.div`
     position: absolute;
-    top: ${p => p.theme.margin.medium};
-    color: ${p => p.theme.color.primary};
+    top: ${p => p.theme.spacing(2)}px;
+    color: ${p => p.theme.palette.primary.main};
     width: 500px;
 `;
 
 type FloatingSidebarProps = React.PropsWithChildren<{
     side: 'left' | 'right';
-}>
+}>;
 
-export function FloatingSidebar({
+export const FloatingSidebar = ({
     children,
     side,
-}: FloatingSidebarProps) {
+}: FloatingSidebarProps) => {
     const style = side === 'left' ? { left: 16 } : { right: 16 };
     return (
         <StyledSideBar style={style}>
             { children }
         </StyledSideBar>
     );
-}
+};

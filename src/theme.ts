@@ -1,29 +1,25 @@
-const theme = {
-    color: {
-        text: '#26dafd',
-        header: '#a1ecfb',
+import { createTheme } from '@material-ui/core';
 
-        primary: '#4CF2F6',
-        primaryLight: '#ACF9FB',
-
-        green: '#009A00',
-        greenLight: '#00FF02',
-
-        red: '#990000',
-        redLight: '#FF0000',
-
-        disabled: '#666666',
-        disabledLight: '#999999',
-
-        border: '#263535',
-        background: 'rgba(3, 26, 31, 0.6)',
+export const theme = createTheme({
+    palette: {
+        type: 'dark',
+        primary: {
+            main: '#4CF2F6',
+            light: '#ACF9FB',
+        },
+        success: {
+            main: '#009A00',
+            light: '#00FF02',
+        },
+        error: {
+            main: '#990000',
+            light: '#FF0000',
+        },
+        background: { default: 'rgba(3, 26, 31, 0.6)' },
+        text: {
+            primary: '#26dafd',
+            disabled: '#666666',
+        },
     },
-    margin: {
-        tiny: '4px',
-        small: '8px',
-        medium: '16px',
-        large: '32px',
-    },
-};
-export default theme;
-
+    spacing: 4,
+});

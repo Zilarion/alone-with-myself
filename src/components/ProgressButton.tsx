@@ -1,4 +1,5 @@
-import styled from '../themed-components';
+import styled from '@emotion/styled';
+
 import {
     Button,
     ButtonProps,
@@ -12,11 +13,12 @@ interface ProgressProps {
     progress: number;
 }
 
-const ProgressBackground = styled.div.attrs<ProgressProps>(p => ({ style: { width: `${p.progress * 100}%` } }))<ProgressProps>`
+const ProgressBackground = styled.div<ProgressProps>`
+    width: ${p => p.progress * 100}%;
     transition: width 500ms linear;
     height: 100%;
     position: absolute;
-    background: ${p => p.theme.color.border};
+    background: ${p => p.theme.palette.divider};
 `;
 
 const ProgressWrapper = styled.div<{ fullWidth: boolean }>`
@@ -24,14 +26,14 @@ const ProgressWrapper = styled.div<{ fullWidth: boolean }>`
     position: relative;
 `;
 
-export function ProgressButton({
+export const ProgressButton = ({
     children,
     disabled,
     onClick,
     tooltip,
     progress = 0,
     fullWidth = false,
-}: ProgressButtonProps) {
+}: ProgressButtonProps) => {
     return <ProgressWrapper fullWidth={fullWidth}>
         <ProgressBackground progress={progress} />
         <Button
@@ -43,4 +45,4 @@ export function ProgressButton({
             {children}
         </Button>
     </ProgressWrapper>;
-}
+};

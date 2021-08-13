@@ -20,7 +20,11 @@
         "allowSyntheticDefaultImports": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": false,
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "typeRoots": [
+            "node_modules/@types",
+            "./declarations"
+        ]
     },
     "include": [
         "src/**/*",
