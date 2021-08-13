@@ -17,7 +17,7 @@ export class ResourceStorage {
         makeAutoObservable(this);
     }
 
-    public has(resources: ResourceSet) {
+    has(resources: ResourceSet) {
         return resources.every(({
             type,
             amount,
@@ -28,7 +28,7 @@ export class ResourceStorage {
     }
 
     @action.bound
-    public decrement(resources: ResourceSet) {
+    decrement(resources: ResourceSet) {
         resources.forEach(({
             type,
             amount,
@@ -37,9 +37,8 @@ export class ResourceStorage {
         });
     }
 
-
     @action.bound
-    public increment(resources: ResourceSet) {
+    increment(resources: ResourceSet) {
         resources.forEach(({
             type,
             amount,
@@ -48,9 +47,9 @@ export class ResourceStorage {
         });
     }
 
-    public numberOf = (type: ResourceType) => {
+    numberOf = (type: ResourceType) => {
         return this._resources.get(type) ?? 0;
-    }
+    };
 
     private _incrementType(type: ResourceType, amount: number) {
         const currentValue = this._resources.get(type) ?? 0;
@@ -59,7 +58,7 @@ export class ResourceStorage {
         this._resources.set(type, newValue);
     }
 
-    public get resources(): ResourceSet {
+    get resources(): ResourceSet {
         return Array.from(this._resources.entries())
             .map(([ type, amount ]) => ({
                 type,

@@ -70,48 +70,4 @@ describe('model: Printer', () => {
         expect(task.progress).toEqual(DELTA * printers.capacityPerMs);
         expect(task.progressPercentage).toEqual(task.progress / duration);
     });
-
-    it('should call beforePrint for the first printable', () => {
-        const task = new PrintTask({
-            printable: new Printers(),
-            storage,
-        });
-
-        const startPrint = jest.spyOn(task, 'startPrint');
-        storage.increment([
-            {
-                type: ResourceType.minerals,
-                amount: 1000,
-            },
-        ]);
-        task.count += 2;
-        printers.add(1);
-        printers.addPrintOption(task);
-
-        const DELTA = 500;
-        printers.update(DELTA);
-        expect(startPrint).toHaveBeenCalledWith(1);
-    });
-
-    it('should call beforePrint for each printable', () => {
-        const task = new PrintTask({
-            printable: new Printers(),
-            storage,
-        });
-
-        const startPrint = jest.spyOn(task, 'startPrint');
-        storage.increment([
-            {
-                type: ResourceType.minerals,
-                amount: 1000,
-            },
-        ]);
-        task.count += 2;
-        printers.add(100);
-        printers.addPrintOption(task);
-
-        const DELTA = 5000;
-        printers.update(DELTA);
-        expect(startPrint).toHaveBeenCalledWith(2);
-    });
 });
