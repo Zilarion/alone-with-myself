@@ -1,7 +1,5 @@
 export enum EntityType {
-    InteractionPoint,
-    AsteroidBelt,
-    PlanetaryBody,
+    System,
     Printable,
     Transporter,
 }
