@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import {
     IconButton,
     useTheme,
@@ -7,7 +8,6 @@ import {
     Clear,
     Remove,
 } from '@material-ui/icons';
-
 import { action } from 'mobx';
 import { observer } from 'mobx-react-lite';
 
@@ -15,7 +15,6 @@ import {
     Printable,
     PrintTask,
 } from '../internal';
-import styled from '../themed-components';
 import { PrintableTooltip } from './PrintableTooltip';
 import { ProgressButton } from './ProgressButton';
 
@@ -52,6 +51,7 @@ export const PrintableItem = observer(({
             grey,
         },
     } = useTheme();
+
     return <div>
         <ProgressButton
             disabled={disabled}
@@ -63,25 +63,36 @@ export const PrintableItem = observer(({
             tooltip={<PrintableTooltip printable={printable} />}
             progress={task.progressPercentage}
         >
-            { task.name } ({ printable.amount })
+            { task.name }
+            {' '}
+(
+            { printable.amount }
+)
         </ProgressButton>
         <QueueWrapper>
             <QueueStatus>
-                Queued: { task.count }
+                Queued:
+                {' '}
+                { task.count }
             </QueueStatus>
             <ButtonList>
                 {task.count > 1 &&
-                    <IconButton size="small" onClick={() => task.count = 1}>
+                    <IconButton
+                        size="small"
+                        onClick={() => task.count = 1}>
                         <Clear htmlColor={grey[400]} />
-                    </IconButton>
-                }
+                    </IconButton>}
                 {task.count > 1 &&
-                    <IconButton size="small" onClick={() => task.count -= printableCount}>
+                    <IconButton
+                        size="small"
+                        onClick={() => task.count -= printableCount}>
                         <Remove htmlColor={error.main} />
-                    </IconButton>
-                }
-                <IconButton disabled={disabled} size="small" onClick={() => task.count += printableCount} >
-                    <Add htmlColor={disabled ? grey[900] : success.main}/>
+                    </IconButton>}
+                <IconButton
+                    disabled={disabled}
+                    size="small"
+                    onClick={() => task.count += printableCount} >
+                    <Add htmlColor={disabled ? grey[900] : success.main} />
                 </IconButton>
             </ButtonList>
         </QueueWrapper>
