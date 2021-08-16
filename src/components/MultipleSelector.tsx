@@ -6,7 +6,6 @@ import {
     ToggleButton,
     ToggleButtonGroup,
 } from '@material-ui/lab';
-
 import { observer } from 'mobx-react-lite';
 import {
     useEffect,
@@ -39,10 +38,10 @@ export const MultipleSelector = observer(({
         } else if (newAlignment === '10') {
             setValue(10);
             setType('10');
-        }else if (newAlignment === '100') {
+        } else if (newAlignment === '100') {
             setValue(100);
             setType('100');
-        }else if (newAlignment === '1k') {
+        } else if (newAlignment === '1k') {
             setValue(1000);
             setType('1k');
         } else if (newAlignment === 'custom') {
@@ -51,8 +50,6 @@ export const MultipleSelector = observer(({
             setType('custom');
         }
     };
-
-
 
     const handleCustomChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = Number.parseInt(event.target.value);
@@ -74,19 +71,29 @@ export const MultipleSelector = observer(({
             exclusive
             onChange={handleChange}
         >
-            <ToggleButton size='small' value={'1'}>
+            <ToggleButton
+                size='small'
+                value="1">
                 1
             </ToggleButton>
-            <ToggleButton size='small' value={'10'}>
+            <ToggleButton
+                size='small'
+                value="10">
                 10
             </ToggleButton>
-            <ToggleButton size='small' value={'100'}>
+            <ToggleButton
+                size='small'
+                value="100">
                 100
             </ToggleButton>
-            <ToggleButton size='small' value={'1k'}>
+            <ToggleButton
+                size='small'
+                value="1k">
                 1K
             </ToggleButton>
-            <ToggleButton size='small' value="custom">
+            <ToggleButton
+                size='small'
+                value="custom">
                 <Input
                     type='number'
                     fullWidth

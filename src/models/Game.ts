@@ -8,6 +8,7 @@ import {
     Entity,
     System,
 } from '../internal';
+import { assertDefined } from '../util/assertDefined';
 
 const WORLD_DELTA_MINIMUM = 1000;
 
@@ -41,6 +42,12 @@ export class Game {
 
     start() {
         this._animationFrameId = window.requestAnimationFrame(this._tick);
+    }
+
+    get system(): System {
+        return assertDefined(
+            this.entities.find((entity): entity is System => entity instanceof System)
+        );
     }
 
     get entities() {

@@ -4,19 +4,16 @@ import {
     Switch,
 } from 'react-router-dom';
 
-import { FloatingSidebar } from '../components/FloatingSidebar';
+import { Scanner } from './Scanner';
 
 export const Routes = observer(() => {
     return <Switch>
         <Route path="/technology">
-            Tech placeholder
+                Tech placeholder
         </Route>
 
         <Route path="/">
-            <FloatingSidebar side={'left'}>
-                sidebar
-            </FloatingSidebar>
-            content
+            <Scanner />
         </Route>
     </Switch>;
 });
