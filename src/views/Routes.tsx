@@ -4,6 +4,8 @@ import {
     Switch,
 } from 'react-router-dom';
 
+import { Scanner } from './Scanner';
+
 export const Routes = observer(() => {
     return <Switch>
         <Route path="/technology">
@@ -11,7 +13,7 @@ export const Routes = observer(() => {
         </Route>
 
         <Route path="/">
-                content
+            <Scanner />
         </Route>
     </Switch>;
 });

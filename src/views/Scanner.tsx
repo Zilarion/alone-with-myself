@@ -10,9 +10,12 @@ const Wrapper = styled.h2`
 `;
 
 export const Scanner = observer(() => {
-    const { system } = useGame();
+    const { system: { fullyExplored } } = useGame();
+
     return <Wrapper>
-        <Button>
+        <Button
+            disabled={fullyExplored}
+        >
             Scan area
         </Button>
     </Wrapper>;

@@ -45,6 +45,11 @@ export class System extends Entity {
     }
 
     @computed
+    get fullyExplored() {
+        return this._exploredArea === this._totalArea;
+    }
+
+    @computed
     get totalArea() {
         return this._totalArea;
     }
