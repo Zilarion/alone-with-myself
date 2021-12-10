@@ -2,10 +2,10 @@ import {
     Add,
     Remove,
 } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 
 import {
+    IconButton,
     ResourceSet,
     ResourceType,
 } from '../internal';
@@ -40,6 +40,7 @@ export const ResourceSetSpeedSummary = observer(({
             <IconButton
                 key={0}
                 size="small"
+                label="Remove"
                 disabled={amount === 0}
                 onClick={() => setSpeed(type, Math.max(amount - changePerClick, 0))}
             >
@@ -48,6 +49,7 @@ export const ResourceSetSpeedSummary = observer(({
             <IconButton
                 key={1}
                 size="small"
+                label="Add"
                 onClick={() => setSpeed(type, amount + changePerClick)}
             >
                 <Add />
