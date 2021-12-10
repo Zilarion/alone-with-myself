@@ -4,14 +4,12 @@ import {
     Clear,
     Remove,
 } from '@mui/icons-material';
-import {
-    IconButton,
-    useTheme,
-} from '@mui/material';
+import { useTheme } from '@mui/material';
 import { action } from 'mobx';
 import { observer } from 'mobx-react-lite';
 
 import {
+    IconButton,
     Printable,
     PrintTask,
 } from '../internal';
@@ -78,20 +76,26 @@ export const PrintableItem = observer(({
             <ButtonList>
                 {task.count > 1 &&
                     <IconButton
+                        label="Clear"
                         size="small"
-                        onClick={() => task.count = 1}>
+                        onClick={() => task.count = 1}
+                    >
                         <Clear htmlColor={grey[400]} />
                     </IconButton>}
                 {task.count > 1 &&
                     <IconButton
                         size="small"
-                        onClick={() => task.count -= printableCount}>
+                        label="Remove"
+                        onClick={() => task.count -= printableCount}
+                    >
                         <Remove htmlColor={error.main} />
                     </IconButton>}
                 <IconButton
                     disabled={disabled}
                     size="small"
-                    onClick={() => task.count += printableCount} >
+                    label="Add"
+                    onClick={() => task.count += printableCount}
+                >
                     <Add htmlColor={disabled ? grey[900] : success.main} />
                 </IconButton>
             </ButtonList>

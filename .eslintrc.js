@@ -326,5 +326,20 @@ module.exports = {
         } ],
         'react/no-danger': 'error',
         'react/no-unstable-nested-components': 'error',
+        'no-restricted-imports': [ 'error', {
+            paths: [
+                {
+                    name: '@mui/material',
+                    importNames: [ 'IconButton' ],
+                    message: 'Use MUI wrappers instead.',
+                },
+            ],
+            patterns: [
+                {
+                    'group': [ '../**/internal/**', 'src/**/internal', '!src/internal' ],
+                    'message': 'You can only import from relative internal modules, i.e. \'./internal/**\'',
+                },
+            ],
+        } ],
     },
 };
