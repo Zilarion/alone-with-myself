@@ -10,13 +10,13 @@ export function divideResources(numerator: ResourceSet, denominator: ResourceSet
     numerator.forEach(({
         type, amount,
     }) => {
-        const resource = denominator.find((resource) => resource.type === type);
-        if (resource == null) {
+        const foundResource = denominator.find((resource) => resource.type === type);
+        if (foundResource == null) {
             hasAllResources = false;
             return;
         }
 
-        maxDivision = Math.min(maxDivision, resource.amount / amount);
+        maxDivision = Math.min(maxDivision, foundResource.amount / amount);
     });
     return hasAllResources ? maxDivision : 0;
 }

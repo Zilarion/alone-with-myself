@@ -22,22 +22,22 @@ export class Printers extends Printable {
     }
 
     @computed
-    public get capacityPerMs() {
+    get capacityPerMs() {
         return this.amount / 1000;
     }
 
     @action.bound
-    public addPrintOption(task: PrintTask) {
+    addPrintOption(task: PrintTask) {
         this._tasks.add(task);
     }
 
     @computed
-    public get tasks() {
+    get tasks() {
         return Array.from(this._tasks.values());
     }
 
     @action.bound
-    public update(delta: number) {
+    update(delta: number) {
         const capacity = this.capacityPerMs * delta;
         let remainingCapacity = capacity;
 

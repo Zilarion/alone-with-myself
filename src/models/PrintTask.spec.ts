@@ -61,7 +61,6 @@ describe('model: PrintTask', () => {
         task.count = 1;
         expect(task.progressPercentage).toEqual(progress / duration);
 
-
         task.count = 10;
         expect(task.progressPercentage).toEqual(progress / duration);
     });

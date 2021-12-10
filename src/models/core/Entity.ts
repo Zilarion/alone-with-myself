@@ -1,19 +1,19 @@
 export enum EntityType {
-    System,
-    Printable,
-    Transporter,
+    System = 'system',
+    Printable = 'printable',
+    Transporter = 'transporter',
 }
 
 export abstract class Entity {
     protected abstract _type: EntityType;
 
-    public get type(): EntityType {
+    get type(): EntityType {
         return this._type;
     }
 
-    public get children(): Entity[] {
+    get children(): Entity[] {
         return [];
     }
 
-    public abstract update(delta: number): void;
+    abstract update(delta: number): void;
 }

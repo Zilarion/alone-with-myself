@@ -35,7 +35,6 @@ Array.from(MANUFACTURER_SCHEMAS.entries()).forEach(([ type, properties ]) => {
     });
 });
 
-
 export function findManufacturerSchema(type: PrintableType): ManufacturerProps {
     const manufacturer = manufacturers.get(type);
     assert(manufacturer != null, `Could not find manufacturer ${type}`);

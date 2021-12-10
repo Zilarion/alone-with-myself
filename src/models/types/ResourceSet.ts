@@ -1,6 +1,6 @@
 import { ResourceType } from '../../internal';
 
-export type ResourceSet = {
+export type ResourceSet = Array<{
     type: ResourceType;
     amount: number;
-}[];
+}>;

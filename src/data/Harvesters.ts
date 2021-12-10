@@ -29,7 +29,6 @@ Array.from(HARVESTER_SCHEMAS.entries()).forEach(([ type, properties ]) => {
     });
 });
 
-
 export function findHarvesterSchema(type: PrintableType): HarvesterProps {
     const harvester = harvesters.get(type);
     assert(harvester != null, `Could not find harvester ${type}`);

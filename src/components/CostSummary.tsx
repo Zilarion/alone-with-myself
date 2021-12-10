@@ -5,10 +5,10 @@ interface CostSummaryProps {
     cost: ResourceSet;
 }
 
-export function CostSummary ({ cost }: CostSummaryProps) {
+export const CostSummary = ({ cost }: CostSummaryProps) => {
     const data = cost.map(({
         type, amount,
     }) => [ type.toString(), amount.toString() ]);
 
-    return <Table data={data}></Table>;
-}
+    return <Table data={data} />;
+};

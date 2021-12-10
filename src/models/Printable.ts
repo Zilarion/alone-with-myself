@@ -60,35 +60,35 @@ export class Printable extends Entity {
     }
 
     @action.bound
-    public add(increment: number) {
+    add(increment: number) {
         assert(this._amount + increment >= 0, 'An attempt was made to decrease a printable below zero.');
         this._amount += increment;
     }
 
     @computed
-    public get cost() {
+    get cost() {
         return this._cost;
     }
 
     @computed
-    public get duration() {
+    get duration() {
         return this._duration;
     }
 
     @computed
-    public get name() {
+    get name() {
         return this._name;
     }
 
     @computed
-    public get amount() {
+    get amount() {
         return this._amount;
     }
 
     @computed
-    public get printableType() {
+    get printableType() {
         return this._printableType;
     }
 
-    public update(_delta: number) {}
+    update(_delta: number) {}
 }

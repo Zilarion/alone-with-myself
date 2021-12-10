@@ -29,15 +29,15 @@ export class PrintTask {
         makeAutoObservable(this);
     }
 
-    public get printable() {
+    get printable() {
         return this._printable;
     }
 
-    public get durationPerItem() {
+    get durationPerItem() {
         return this._printable.duration;
     }
 
-    public get maxAffordable() {
+    get maxAffordable() {
         return Math.floor(
             resourcesForPrintable(
                 this._storage,
@@ -46,7 +46,7 @@ export class PrintTask {
         );
     }
 
-    public startPrint = (amount: number) => {
+    startPrint = (amount: number) => {
         assert(this.maxAffordable >= amount, 'Attempting to print more than affordable.');
         this._storage.decrement(
             multiplyResources(
@@ -54,25 +54,25 @@ export class PrintTask {
                 amount,
             ),
         );
-    }
+    };
 
-    public get active() {
+    get active() {
         return this.count > 0 && this.progress > 0;
     }
 
-    public get name() {
+    get name() {
         return this._printable.name;
     }
 
-    public get count() {
+    get count() {
         return this._count;
     }
 
-    public set count(newValue: number) {
+    set count(newValue: number) {
         this._count = newValue;
     }
 
-    public get progressPercentage() {
+    get progressPercentage() {
         if (this.count === 0) {
             return 0;
         }
@@ -80,11 +80,11 @@ export class PrintTask {
         return this._progress / this.durationPerItem;
     }
 
-    public get progress() {
+    get progress() {
         return this._progress;
     }
 
-    public set progress(newValue: number) {
+    set progress(newValue: number) {
         this._progress = newValue;
     }
 }

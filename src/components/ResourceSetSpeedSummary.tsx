@@ -3,7 +3,6 @@ import {
     Add,
     Remove,
 } from '@material-ui/icons';
-
 import { observer } from 'mobx-react-lite';
 
 import {
@@ -35,7 +34,8 @@ export const ResourceSetSpeedSummary = observer(({
                     value={amount}
                     type={type}
                     compact={true}
-                />/s
+                />
+/s
             </>,
             <IconButton
                 key={0}

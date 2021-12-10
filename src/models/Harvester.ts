@@ -29,7 +29,7 @@ export class Harvester extends Printable {
     }
 
     @computed
-    public get produces() {
+    get produces() {
         return multiplyResources(this._produces, this.amount);
     }
 }
