@@ -1,10 +1,6 @@
 import styled from '@emotion/styled';
 import { CardContent } from '@mui/material';
 import { FC } from 'react';
-import {
-    animated,
-    useSpring,
-} from 'react-spring';
 
 const StyledCard = styled.div`
     background: ${p => p.theme.palette.background.default};
@@ -13,16 +9,9 @@ const StyledCard = styled.div`
 `;
 
 export const Card: FC = ({ children }) => {
-    const props = useSpring({
-        opacity: 1,
-        from: { opacity: 0 },
-    });
-
-    return <animated.div style={props}>
-        <StyledCard>
-            <CardContent>
-                { children }
-            </CardContent>
-        </StyledCard>
-    </animated.div>;
+    return <StyledCard>
+        <CardContent>
+            { children }
+        </CardContent>
+    </StyledCard>;
 };
