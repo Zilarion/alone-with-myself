@@ -1,5 +1,5 @@
 export enum PrintableType {
-    printer,
-    miner,
-    foundry,
+    printer = 'printer',
+    miner = 'miner',
+    foundry = 'foundry',
 }

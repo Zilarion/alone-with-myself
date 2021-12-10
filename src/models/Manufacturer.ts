@@ -34,12 +34,12 @@ export class Manufacturer extends Printable {
     }
 
     @computed
-    public get produces() {
+    get produces() {
         return multiplyResources(this._produces, this.amount);
     }
 
     @computed
-    public get consumes() {
+    get consumes() {
         return multiplyResources(this._consumes, this.amount);
     }
 }
