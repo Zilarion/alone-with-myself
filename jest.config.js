@@ -14,7 +14,5 @@ module.exports = {
         '**/?(*.)+(spec).[jt]s?(x)',
     ],
     moduleNameMapper: { '^src/(.*)$': '<rootDir>/src/$1' },
-    setupFilesAfterEnv: [ 'jest-enzyme' ],
-    testEnvironment: 'enzyme',
-    testEnvironmentOptions: { enzymeAdapter: 'react17' },
+    testEnvironment: 'node',
 };
