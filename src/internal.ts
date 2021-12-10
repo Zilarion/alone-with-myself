@@ -3,6 +3,8 @@ export * from './models/types/PrintableType';
 export * from './models/types/ResourceSet';
 export * from './models/types/ResourceType';
 
+export * from './components/IconButton';
+
 export * from './models/core/Entity';
 export * from './models/Printable';
 export * from './models/Harvester';
