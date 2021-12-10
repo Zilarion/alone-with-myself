@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { CardContent } from '@material-ui/core';
+import { CardContent } from '@mui/material';
 import { FC } from 'react';
 import {
     animated,

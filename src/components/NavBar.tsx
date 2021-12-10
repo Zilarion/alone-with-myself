@@ -1,15 +1,15 @@
 import styled from '@emotion/styled';
 import {
-    Tab,
-    Tabs,
-} from '@material-ui/core';
-import {
     AllInclusive,
     AllOut,
     AttachMoney,
     BlurOn,
     Explore,
-} from '@material-ui/icons';
+} from '@mui/icons-material';
+import {
+    Tab,
+    Tabs,
+} from '@mui/material';
 import {
     useLocation,
     useNavigate,

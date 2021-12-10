@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Button as MuiButton } from '@material-ui/core';
+import { Button as MuiButton } from '@mui/material';
 import Tippy from '@tippyjs/react';
 import { PropsWithChildren } from 'react';
 

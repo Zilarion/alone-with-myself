@@ -1,11 +1,9 @@
 import {
     Grid,
     Input,
-} from '@material-ui/core';
-import {
     ToggleButton,
     ToggleButtonGroup,
-} from '@material-ui/lab';
+} from '@mui/material';
 import { observer } from 'mobx-react-lite';
 import {
     useEffect,

@@ -1,7 +1,7 @@
 import {
     LinearProgress,
     Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 
 import { CurrentMaxValue } from './CurrentMaxValue';
 

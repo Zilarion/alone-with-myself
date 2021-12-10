@@ -1,8 +1,8 @@
-import { IconButton } from '@material-ui/core';
 import {
     Add,
     Remove,
-} from '@material-ui/icons';
+} from '@mui/icons-material';
+import { IconButton } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 
 import {
