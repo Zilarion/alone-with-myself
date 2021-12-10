@@ -53,10 +53,8 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
-    "@ctrl/tinycolor": "^3.4.0",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
-    "@formatjs/intl": "^1.13.5",
     "@mui/icons-material": "^5.2.1",
     "@mui/material": "^5.2.3",
     "@mui/styles": "^5.2.3",
