@@ -1,4 +1,3 @@
-export * from './models/types/Vector';
 export * from './models/types/PrintableType';
 export * from './models/types/ResourceSet';
 export * from './models/types/ResourceType';
