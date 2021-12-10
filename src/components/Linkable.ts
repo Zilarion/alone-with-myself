@@ -1,7 +1,9 @@
-// eslint-disable-next-line no-restricted-imports
-import { Link } from 'react-router-dom';
+import {
+    Link,
+    NavLink,
+} from 'react-router-dom';
 
 export interface Linkable {
-    component?: typeof Link;
+    component?: typeof Link | typeof NavLink;
     to?: string;
 }
