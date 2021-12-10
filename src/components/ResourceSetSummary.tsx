@@ -28,14 +28,14 @@ export const ResourceSetSummary = observer(({
             type={resource}
             compact={compact}
         />,
-        ... delta ? [
+        ... (delta ? [
             <FormattedNumber
                 key={resource}
                 value={delta[idx].amount}
                 notation="compact"
                 signDisplay="always"
             />,
-        ] : [],
+        ] : []),
     ]);
 
     return <Table

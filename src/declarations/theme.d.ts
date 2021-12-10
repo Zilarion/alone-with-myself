@@ -1,4 +1,4 @@
-import { Theme as MuiTheme } from '@material-ui/core';
+import { Theme as MuiTheme } from '@mui/material';
 
 declare module '@emotion/react' {
     export interface Theme extends MuiTheme {}
