@@ -11,8 +11,8 @@ import {
     Explore,
 } from '@material-ui/icons';
 import {
-    useHistory,
     useLocation,
+    useNavigate,
 } from 'react-router-dom';
 
 const StyledTabs = styled(Tabs)`
@@ -20,7 +20,7 @@ const StyledTabs = styled(Tabs)`
 `;
 
 export const NavBar = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const location = useLocation();
 
     const activeTab = location.pathname.substr(1);
@@ -28,7 +28,7 @@ export const NavBar = () => {
     return <StyledTabs
         value={activeTab === '' ? 'system' : activeTab}
         onChange={(_, value) => {
-            history.push(value);
+            navigate(value);
         }}
         indicatorColor="primary"
         textColor="primary"

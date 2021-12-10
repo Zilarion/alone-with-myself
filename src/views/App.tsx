@@ -4,7 +4,7 @@ import {
     ThemeProvider,
 } from '@material-ui/core/styles';
 import { IntlProvider } from 'react-intl';
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import { theme } from '../theme';
 import { View } from './View';
@@ -15,9 +15,9 @@ export const App = () => {
             <StylesProvider injectFirst>
                 <StyledThemeProvider theme={theme}>
                     <IntlProvider locale="en-US">
-                        <HashRouter>
+                        <BrowserRouter>
                             <View />
-                        </HashRouter>
+                        </BrowserRouter>
                     </IntlProvider>
                 </StyledThemeProvider>
             </StylesProvider>
