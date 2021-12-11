@@ -10,13 +10,14 @@ import { IconButton } from '../internal';
 const Container = styled.div`
     display: flex;
     flex-direction: column;
-    border-right: 1px solid ${p => p.theme.palette.divider};
-    padding: ${p => p.theme.spacing(2)};
+    padding: ${p => p.theme.spacing(1)};
     align-items: center;
     .active > svg {
-        color: ${p => p.theme.palette.primary.main};
-        fill: ${p => p.theme.palette.primary.main};
+        color: ${p => p.theme.palette.secondary.main};
+        fill: ${p => p.theme.palette.secondary.main};
     }
+    margin-top: 56px;
+    flex: auto;
 `;
 
 export const NavigationRail = () => {
@@ -31,8 +32,8 @@ export const NavigationRail = () => {
         </IconButton>
 
         <IconButton
-            to='system'
-            label="System"
+            to='satellite'
+            label="Location"
             component={NavLink}
             size="large"
         >

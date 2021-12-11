@@ -1,6 +1,5 @@
 import {
     Grid,
-    Input,
     ToggleButton,
     ToggleButtonGroup,
 } from '@mui/material';
@@ -9,8 +8,6 @@ import {
     useEffect,
     useState,
 } from 'react';
-
-import { assert } from '../internal';
 
 interface MultipleSelector {
     value: number;
@@ -22,7 +19,6 @@ export const MultipleSelector = observer(({
     onChange,
 }: MultipleSelector) => {
     const [ value, setValue ] = useState(initialValue);
-    const [ customValue, setCustomValue ] = useState<undefined | number>();
     const [ type, setType ] = useState('1');
 
     useEffect(() => {
@@ -42,20 +38,6 @@ export const MultipleSelector = observer(({
         } else if (newAlignment === '1k') {
             setValue(1000);
             setType('1k');
-        } else if (newAlignment === 'custom') {
-            assert(customValue != null, 'Expected custom value to exist.');
-            setValue(customValue);
-            setType('custom');
-        }
-    };
-
-    const handleCustomChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newValue = Number.parseInt(event.target.value);
-        setCustomValue(newValue);
-        setType('custom');
-
-        if (type === 'custom') {
-            setValue(newValue);
         }
     };
 
@@ -88,16 +70,6 @@ export const MultipleSelector = observer(({
                 size='small'
                 value="1k">
                 1K
-            </ToggleButton>
-            <ToggleButton
-                size='small'
-                value="custom">
-                <Input
-                    type='number'
-                    fullWidth
-                    value={customValue}
-                    onChange={handleCustomChange}
-                />
             </ToggleButton>
         </ToggleButtonGroup>
     </Grid>;

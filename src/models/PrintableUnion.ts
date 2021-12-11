@@ -7,15 +7,16 @@ import {
     Manufacturer,
     ManufacturerModel,
     ManufacturerSnapshot,
-    Printers,
-    PrintersModel,
-    PrintersSnapshot,
+    Printer,
+    PrinterModel,
+    PrinterSnapshot,
 } from '../internal';
+import { } from './Printer';
 
 export const PrintableUnion = types.union(
     HarvesterModel,
-    PrintersModel,
+    PrinterModel,
     ManufacturerModel,
 );
-export type Printable = Harvester | Printers | Manufacturer;
-export type PrintableSnapshot = HarvesterSnapshot | PrintersSnapshot | ManufacturerSnapshot;
+export type Printable = Harvester | Printer | Manufacturer;
+export type PrintableSnapshot = HarvesterSnapshot | PrinterSnapshot | ManufacturerSnapshot;

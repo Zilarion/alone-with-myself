@@ -1,33 +1,27 @@
 import {
     Instance,
-    SnapshotIn,
     types,
 } from 'mobx-state-tree';
 
 import {
-    PrintableType,
     printCapacity,
-    PrintTask,
+    PrinterModel,
     PrintTaskModel,
+    PrintTaskSnapshot,
 } from '../internal';
-import { PrintableModel } from './Printable';
 
 export const PrintersModel = types
-    .compose(
-        PrintableModel,
-        types.model({
-            type: types.literal(PrintableType.printer),
-            tasks: types.array(PrintTaskModel),
-        })
-    )
-    .named('Printers')
+    .model('Printers', {
+        printers: types.reference(PrinterModel),
+        tasks: types.array(PrintTaskModel),
+    })
     .views(self => ({
         get capacityPerMs() {
-            return self.amount / 1000;
+            return self.printers.capacityPerMs;
         },
     }))
     .actions(self => ({
-        addPrintOption(task: PrintTask) {
+        addPrintTask(task: PrintTaskSnapshot) {
             self.tasks.push(task);
         },
         update(delta: number) {
@@ -38,22 +32,20 @@ export const PrintersModel = types
                 const {
                     capacityLeft,
                     numberFinished,
-                    numberStarted,
                     progress,
                 } = printCapacity(remainingCapacity, task);
 
                 remainingCapacity = capacityLeft;
-                task.startPrint(numberStarted);
                 task.printable.add(numberFinished);
                 task.progress = progress;
                 task.count -= numberFinished;
 
                 if (task.count === 0) {
                     task.progress = 0;
+                    self.tasks.remove(task);
                 }
             });
         },
     }));
 
 export interface Printers extends Instance<typeof PrintersModel> {}
-export interface PrintersSnapshot extends SnapshotIn<typeof PrintersModel> {}

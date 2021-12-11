@@ -5,18 +5,21 @@ import {
 
 import {
     multiplyResources,
-    PrintableModel,
+    PrintersModel,
 } from '../internal';
-import { PrintersModel } from './Printers';
+import { PrintableUnion } from './PrintableUnion';
 import { ProducerModel } from './Producer';
+import { ResourceStorageModel } from './ResourceStorage';
 
 export const SatelliteModel = types
     .model('Satellite', {
         printers: PrintersModel,
         producer: ProducerModel,
-        printables: types.array(PrintableModel),
+        storage: ResourceStorageModel,
+        printables: types.array(PrintableUnion),
         exploredArea: types.optional(types.number, 0),
         totalArea: types.optional(types.number, 10000),
+        name: types.identifier,
     })
     .views(self => ({
         get fullyExplored() {

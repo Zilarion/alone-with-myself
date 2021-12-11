@@ -1,14 +1,14 @@
 import {
     Printable,
     PrintableType,
-    PrintersModel,
+    PrinterModel,
     ResourceType,
 } from '../internal';
 
 describe('model: Printable', () => {
     let printable: Printable;
     beforeEach(() => {
-        printable = PrintersModel.create({
+        printable = PrinterModel.create({
             type: PrintableType.printer,
             duration: 1000,
             id: 'printer',

@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
+import { Card } from '@mui/material';
 import { createContext } from 'react';
 
+import { HeaderNavigation } from '../components/HeaderNavigation';
 import { NavigationRail } from '../components/NavigationRail';
-import { Sidebar } from '../components/Sidebar';
 import { Game } from '../models/Game';
 import { Routes } from './Routes';
 
@@ -12,16 +13,21 @@ export const GameContext = createContext(game);
 const Wrapper = styled.div`
     display: grid;
     grid-template-columns: auto 1fr;
-    gap: ${p => p.theme.spacing(4)}px;
-    padding: ${p => p.theme.spacing(4)}px;
+    grid-template-rows: 100%;
     box-sizing: border-box;
+    height: 100%;
 `;
 
 const Content = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
-    gap: ${p => p.theme.spacing(4)}px;
+`;
+
+const ContentCard = styled(Card)`
+    height: 100%;
+    border-radius: 4px 0 0 4px;
+    flex: 1;
 `;
 
 export const View = () => {
@@ -29,8 +35,10 @@ export const View = () => {
         <Wrapper>
             <NavigationRail />
             <Content>
-                <Sidebar />
-                <Routes />
+                <HeaderNavigation />
+                <ContentCard>
+                    <Routes />
+                </ContentCard>
             </Content>
         </Wrapper>
     </GameContext.Provider>;

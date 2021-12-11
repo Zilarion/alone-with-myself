@@ -5,7 +5,6 @@ import {
 
 import {
     PRINTABLES,
-    printerSnapshot,
     Satellite,
     SatelliteModel,
 } from '../internal';
@@ -24,7 +23,8 @@ export class Game {
         this.start();
 
         this._satellite = SatelliteModel.create({
-            printers: printerSnapshot,
+            name: 'Small asteroid',
+            printers: { printers: 'Printer' },
             producer: {
                 consumables: {
                     resources: [
@@ -35,8 +35,20 @@ export class Game {
                     ],
                 },
             },
+            storage: {
+                resources: [
+                    {
+                        amount: 100000,
+                        type: ResourceType.minerals,
+                    },
+                ],
+            },
             printables: PRINTABLES,
         });
+        const { printers } = this._satellite.printers;
+        if (printers.amount === 0) {
+            printers.add(1);
+        }
 
         makeAutoObservable(this);
     }

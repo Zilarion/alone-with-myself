@@ -1,17 +1,37 @@
 import styled from '@emotion/styled';
-import { CardContent } from '@mui/material';
+import {
+    Card as MuiCard,
+    CardContent,
+    Typography,
+} from '@mui/material';
 import { FC } from 'react';
 
-const StyledCard = styled.div`
-    background: ${p => p.theme.palette.background.default};
-    box-shadow: 0 0 1px ${p => p.theme.palette.primary.main};
-    padding: ${p => p.theme.spacing(2)}px;
+const StyledCard = styled(MuiCard)`
+    background: ${p => p.theme.palette.background.paper};
 `;
 
-export const Card: FC = ({ children }) => {
-    return <StyledCard>
-        <CardContent>
-            { children }
-        </CardContent>
+const StyledContent = styled(CardContent)`
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+`;
+
+const ScrollContent = styled.div`
+    overflow: scroll;
+`;
+
+export const Card: FC<{ title: string }> = ({
+    children,
+    title,
+}) => {
+    return <StyledCard variant="outlined">
+        <StyledContent>
+            <Typography variant="h6">
+                {title}
+            </Typography>
+            <ScrollContent>
+                { children }
+            </ScrollContent>
+        </StyledContent>
     </StyledCard>;
 };
