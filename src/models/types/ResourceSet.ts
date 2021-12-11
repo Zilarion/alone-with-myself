@@ -5,7 +5,7 @@ import {
 
 import { ResourceType } from '../../internal';
 
-export const ResourceModel = types
+const ResourceModel = types
     .model({
         type: types.enumeration(Object.values(ResourceType)),
         amount: types.number,
