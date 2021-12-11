@@ -61,11 +61,7 @@ export const PrintableItem = observer(({
             tooltip={<PrintableTooltip printable={printable} />}
             progress={task.progressPercentage}
         >
-            { task.name }
-            {' '}
-(
-            { printable.amount }
-)
+            {`${task.id} (${printable.amount})`}
         </ProgressButton>
         <QueueWrapper>
             <QueueStatus>

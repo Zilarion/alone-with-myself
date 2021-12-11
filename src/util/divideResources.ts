@@ -1,6 +1,11 @@
+import { SnapshotIn } from 'mobx-state-tree';
+
 import { ResourceSet } from '../internal';
 
-export function divideResources(numerator: ResourceSet, denominator: ResourceSet) {
+export function divideResources(
+    numerator: ResourceSet | SnapshotIn<ResourceSet> = [],
+    denominator: ResourceSet | SnapshotIn<ResourceSet> = []
+) {
     if (denominator.length === 0) {
         return 0;
     }

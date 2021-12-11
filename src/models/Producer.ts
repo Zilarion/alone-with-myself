@@ -1,59 +1,52 @@
 import {
-    action,
-    computed,
-    makeObservable,
-    observable,
-} from 'mobx';
+    Instance,
+    SnapshotIn,
+    types,
+} from 'mobx-state-tree';
 
 import {
     Harvester,
     ResourceSet,
-    ResourceStorage,
+    ResourceSetModel,
+    ResourceStorageModel,
     ResourceType,
 } from '../internal';
 
-export class Producer {
-    @observable
-    private _consumables: ResourceStorage;
+export const ProducerModel = types
+    .model('Producer', { consumables: ResourceStorageModel })
+    .views(self => ({
+        productionOver(
+            delta: number,
+            harvesters: Harvester[],
+        ): ResourceSet {
+            const production = new Map<ResourceType, number>();
 
-    constructor(consumables: ResourceSet) {
-        this._consumables = new ResourceStorage(consumables);
-        makeObservable(this);
-    }
+            harvesters.forEach((harvester) => {
+                harvester.totalProduction.forEach(({
+                    type,
+                    amount,
+                }) => {
+                    const currentOfResource = production.get(type) ?? 0;
+                    const productionForResource = amount * delta;
+                    const available = self.consumables.numberOf(type);
+                    const additionToResource = Math.min(productionForResource, available);
 
-    @computed
-    get consumables() {
-        return this._consumables;
-    }
-
-    productionOver(
-        delta: number,
-        harvesters: Harvester[],
-    ): ResourceSet {
-        const production = new Map<ResourceType, number>();
-
-        harvesters.forEach((harvester) => {
-            harvester.produces.forEach(({
-                type,
-                amount,
-            }) => {
-                const currentOfResource = production.get(type) ?? 0;
-                const productionForResource = amount * delta;
-                const available = this._consumables.numberOf(type);
-                const additionToResource = Math.min(productionForResource, available);
-
-                production.set(type, currentOfResource + additionToResource);
+                    production.set(type, currentOfResource + additionToResource);
+                });
             });
-        });
 
-        return Array.from(production.entries()).map(([ type, amount ]) => ({
-            type,
-            amount,
-        }));
-    }
+            return ResourceSetModel.create(
+                Array.from(production.entries()).map(([ type, amount ]) => ({
+                    type,
+                    amount,
+                }))
+            );
+        },
+    }))
+    .actions(self => ({
+        consume(resources: ResourceSet | SnapshotIn<ResourceSet> = []) {
+            self.consumables.decrement(resources);
+        },
+    }));
 
-    @action.bound
-    consume(resources: ResourceSet) {
-        this._consumables.decrement(resources);
-    }
-}
+export interface Producer extends Instance<typeof ProducerModel> {}

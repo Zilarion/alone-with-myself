@@ -22,13 +22,13 @@ const TooltipHeader = styled.span`
 
 export const PrintableTooltip = observer(({
     printable: {
-        name,
+        id,
         cost,
     },
 }: PrintableTooltipProps) => {
     return <TooltipWrapper>
         <TooltipHeader>
-            {name}
+            {id}
         </TooltipHeader>
         <ResourceSetSummary resources={cost} />
     </TooltipWrapper>;

@@ -1,25 +1,29 @@
 import {
-    findHarvesterSchema,
     Harvester,
-    PrintableType,
+    HarvesterModel,
+    harvesterSnapshots,
     Producer,
+    ProducerModel,
     ResourceType,
 } from '../internal';
 
 describe('model: Producer', () => {
     const MAX_RESOURCES = 100;
+    const [ snapshot ] = harvesterSnapshots;
 
     let producer: Producer;
-    let miner: Harvester;
+    let harvester: Harvester;
     beforeEach(() => {
-        producer = new Producer([ {
-            amount: MAX_RESOURCES,
-            type: ResourceType.minerals,
-        } ]);
+        producer = ProducerModel.create({
+            consumables: {
+                resources: [ {
+                    amount: MAX_RESOURCES,
+                    type: ResourceType.minerals,
+                } ],
+            },
+        });
 
-        miner = new Harvester(
-            findHarvesterSchema(PrintableType.miner),
-        );
+        harvester = HarvesterModel.create(snapshot);
     });
 
     it('should have set the consumables', () => {
@@ -39,10 +43,10 @@ describe('model: Producer', () => {
         const NUMER_OF_MINERS = 5;
         const DELTA = 50;
 
-        miner.add(NUMER_OF_MINERS);
+        harvester.add(NUMER_OF_MINERS);
         const production = producer.productionOver(
             DELTA,
-            [ miner ],
+            [ harvester ],
         );
         expect(production.length).toEqual(1);
         expect(production[0]).toEqual({
@@ -55,9 +59,9 @@ describe('model: Producer', () => {
         const NUMER_OF_MINERS = 100;
         const DELTA = 1000;
 
-        miner.add(NUMER_OF_MINERS);
+        harvester.add(NUMER_OF_MINERS);
 
-        const production = producer.productionOver(DELTA, [ miner ]);
+        const production = producer.productionOver(DELTA, [ harvester ]);
         expect(production.length).toEqual(1);
         expect(production[0]).toEqual({
             type: ResourceType.minerals,

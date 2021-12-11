@@ -1,90 +1,65 @@
-import { makeAutoObservable } from 'mobx';
+import {
+    Instance,
+    types,
+} from 'mobx-state-tree';
 
 import {
     assert,
     multiplyResources,
-    Printable,
-    resourcesForPrintable,
-    ResourceStorage,
+    PrintableModel,
+    resourcesInStorage,
+    ResourceStorageModel,
 } from '../internal';
 
-interface PrintTaskProps {
-    printable: Printable;
-    storage: ResourceStorage;
-}
+export const PrintTaskModel = types
+    .model('PrintTask', {
+        count: types.optional(types.number, 0),
+        progress: types.optional(types.number, 0),
+        storage: ResourceStorageModel,
+        printable: PrintableModel,
+    })
+    .views(self => ({
+        get durationPerItem() {
+            return self.printable.duration;
+        },
+        get maxAffordable() {
+            return Math.floor(
+                resourcesInStorage(
+                    self.storage,
+                    self.printable.cost,
+                ),
+            );
+        },
+        get active() {
+            return self.count > 0 && self.progress > 0;
+        },
+        get id() {
+            return self.printable.id;
+        },
+        get progressPercentage() {
+            if (self.count === 0) {
+                return 0;
+            }
 
-export class PrintTask {
-    private _count: number = 0;
-    private _progress: number = 0;
-    private _storage: ResourceStorage;
-    private _printable: Printable;
+            return self.progress / this.durationPerItem;
+        },
+    }))
+    .actions(self => ({
+        startPrint(amount: number) {
+            assert(self.maxAffordable >= amount, 'Attempting to print more than affordable.');
+            self.storage.decrement(
+                multiplyResources(
+                    self.printable.cost,
+                    amount,
+                ),
+            );
+        },
+        setCount(newValue: number) {
+            self.count = newValue;
+        },
+        setProgress(newValue: number) {
+            self.progress = newValue;
+        },
+    }));
 
-    constructor({
-        printable,
-        storage,
-    }: PrintTaskProps) {
-        this._storage = storage;
-        this._printable = printable;
-
-        makeAutoObservable(this);
-    }
-
-    get printable() {
-        return this._printable;
-    }
-
-    get durationPerItem() {
-        return this._printable.duration;
-    }
-
-    get maxAffordable() {
-        return Math.floor(
-            resourcesForPrintable(
-                this._storage,
-                this._printable,
-            ),
-        );
-    }
-
-    startPrint = (amount: number) => {
-        assert(this.maxAffordable >= amount, 'Attempting to print more than affordable.');
-        this._storage.decrement(
-            multiplyResources(
-                this._printable.cost,
-                amount,
-            ),
-        );
-    };
-
-    get active() {
-        return this.count > 0 && this.progress > 0;
-    }
-
-    get name() {
-        return this._printable.name;
-    }
-
-    get count() {
-        return this._count;
-    }
-
-    set count(newValue: number) {
-        this._count = newValue;
-    }
-
-    get progressPercentage() {
-        if (this.count === 0) {
-            return 0;
-        }
-
-        return this._progress / this.durationPerItem;
-    }
-
-    get progress() {
-        return this._progress;
-    }
-
-    set progress(newValue: number) {
-        this._progress = newValue;
-    }
-}
+export interface PrintTask extends Instance<typeof PrintTaskModel> {}

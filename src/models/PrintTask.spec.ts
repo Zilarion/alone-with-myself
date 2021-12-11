@@ -1,35 +1,36 @@
 import {
-    findPrintableSchema,
     Printable,
-    PrintableType,
+    printerSnapshot,
     PrintTask,
+    PrintTaskModel,
     ResourceStorage,
+    ResourceStorageModel,
     ResourceType,
 } from '../internal';
 
 describe('model: PrintTask', () => {
-
+    const snapshot = printerSnapshot;
     let printable: Printable;
     let storage: ResourceStorage;
     let task: PrintTask;
     beforeEach(() => {
-        printable = new Printable({ type: PrintableType.printer });
-        storage = new ResourceStorage();
-        task = new PrintTask({
-            printable,
+        storage = ResourceStorageModel.create();
+        task = PrintTaskModel.create({
+            printable: snapshot,
             storage,
         });
+        printable = task.printable as Printable;
     });
 
     it('should initialize correctly', () => {
         const {
             duration,
-            name,
-        } = findPrintableSchema(PrintableType.printer);
+            id,
+        } = snapshot;
         expect(task.count).toEqual(0);
         expect(task.durationPerItem).toEqual(duration);
         expect(task.maxAffordable).toEqual(0);
-        expect(task.name).toEqual(name);
+        expect(task.id).toEqual(id);
         expect(task.printable).toEqual(printable);
         expect(task.progress).toEqual(0);
         expect(task.progressPercentage).toEqual(0);
@@ -37,7 +38,7 @@ describe('model: PrintTask', () => {
     });
 
     it('should correctly calculate max affordable', () => {
-        const { cost } = findPrintableSchema(PrintableType.printer);
+        const { cost = [] } = snapshot;
 
         expect(cost[0]).toEqual({
             type: ResourceType.minerals,
@@ -54,25 +55,25 @@ describe('model: PrintTask', () => {
     });
 
     it('should calculate progress correctly', () => {
-        const { duration } = findPrintableSchema(PrintableType.printer);
+        const { duration } = snapshot;
         const progress = 50;
 
-        task.progress = progress;
-        task.count = 1;
+        task.setProgress(progress);
+        task.setCount(1);
         expect(task.progressPercentage).toEqual(progress / duration);
 
-        task.count = 10;
+        task.setCount(10);
         expect(task.progressPercentage).toEqual(progress / duration);
     });
 
     it('should return active correctly', () => {
-        task.count = 1;
+        task.setCount(task.count + 1);
         expect(task.active).toEqual(false);
 
-        task.progress = 1;
+        task.setProgress(1);
         expect(task.active).toEqual(true);
 
-        task.count = 0;
+        task.setCount(0);
         expect(task.active).toEqual(false);
     });
 

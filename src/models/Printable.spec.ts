@@ -1,30 +1,33 @@
 import {
-    EntityType,
-    findPrintableSchema,
     Printable,
     PrintableType,
+    PrintersModel,
+    ResourceType,
 } from '../internal';
 
 describe('model: Printable', () => {
-
     let printable: Printable;
     beforeEach(() => {
-        printable = new Printable({ type: PrintableType.printer });
+        printable = PrintersModel.create({
+            type: PrintableType.printer,
+            duration: 1000,
+            id: 'printer',
+            cost: [ {
+                amount: 10,
+                type: ResourceType.minerals,
+            } ],
+        });
     });
 
     it('should initialize correctly', () => {
-        const {
-            name,
-            cost,
-            duration,
-        } = findPrintableSchema(PrintableType.printer);
         expect(printable.amount).toEqual(0);
-        expect(printable.children).toEqual([]);
-        expect(printable.cost).toEqual(cost);
-        expect(printable.duration).toEqual(duration);
-        expect(printable.name).toEqual(name);
-        expect(printable.printableType).toEqual(PrintableType.printer);
-        expect(printable.type).toEqual(EntityType.Printable);
+        expect(printable.cost).toEqual([ {
+            amount: 10,
+            type: ResourceType.minerals,
+        } ]);
+        expect(printable.duration).toEqual(1000);
+        expect(printable.id).toEqual('printer');
+        expect(printable.type).toEqual(PrintableType.printer);
     });
 
     it('should add new printables', () => {

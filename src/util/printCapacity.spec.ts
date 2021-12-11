@@ -1,34 +1,44 @@
 import {
-    findPrintableSchema,
     PrintableType,
     printCapacity,
-    Printers,
     PrintTask,
+    PrintTaskModel,
+    ResourceSet,
+    ResourceSetModel,
     ResourceStorage,
+    ResourceStorageModel,
+    ResourceType,
 } from '../internal';
 
 describe('util: printCapacity', () => {
-    const {
-        cost: printerCost,
-        duration,
-    } = findPrintableSchema(PrintableType.printer);
+    const duration = 20;
+
     let task: PrintTask;
     let storage: ResourceStorage;
-
+    let printerCost: ResourceSet;
     beforeEach(() => {
-        storage = new ResourceStorage();
-        task = new PrintTask({
-            printable: new Printers(),
+        storage = ResourceStorageModel.create();
+        task = PrintTaskModel.create({
+            printable: {
+                cost: printerCost,
+                id: 'printer',
+                duration,
+                type: PrintableType.printer,
+            },
             storage,
         });
+        printerCost = ResourceSetModel.create([ {
+            amount: 10,
+            type: ResourceType.minerals,
+        } ]);
     });
 
     it('should use existing progress', () => {
-        task.progress = 19.009602000000044;
+        task.setProgress(19.009602000000044);
         const capacity = 1.000140000000014;
         storage.increment(printerCost);
         storage.increment(printerCost);
-        task.count += 1;
+        task.setCount(task.count + 1);
 
         expect(printCapacity(capacity, task)).toEqual({
             capacityLeft: 0.009742000000057649,
@@ -49,7 +59,7 @@ describe('util: printCapacity', () => {
     });
 
     it('should return empty when resources are empty', () => {
-        task.count++;
+        task.setCount(task.count + 1);
         expect(printCapacity(1000, task)).toEqual({
             capacityLeft: 1000,
             numberFinished: 0,
@@ -59,7 +69,7 @@ describe('util: printCapacity', () => {
     });
 
     it('should return empty when capacity passed is zero', () => {
-        task.count++;
+        task.setCount(task.count + 1);
         storage.increment(printerCost);
         expect(printCapacity(0, task)).toEqual({
             capacityLeft: 0,
@@ -70,7 +80,7 @@ describe('util: printCapacity', () => {
     });
 
     it('should return the correct result when exactly finished', () => {
-        task.count++;
+        task.setCount(task.count + 1);
         storage.increment(printerCost);
         expect(printCapacity(duration, task)).toEqual({
             capacityLeft: 0,
@@ -87,7 +97,7 @@ describe('util: printCapacity', () => {
     });
 
     it('should return the correct result when partially finished', () => {
-        task.count++;
+        task.setCount(task.count + 1);
         storage.increment(printerCost);
         const delta = 10;
         const capacity = duration - delta;
@@ -100,7 +110,7 @@ describe('util: printCapacity', () => {
     });
 
     it('should return the correct result when there is capacity left', () => {
-        task.count++;
+        task.setCount(task.count + 1);
         storage.increment(printerCost);
         const delta = 10;
         const capacity = duration + delta;
@@ -113,7 +123,7 @@ describe('util: printCapacity', () => {
     });
 
     it('should return the correct result when the second is partially finished', () => {
-        task.count += 2;
+        task.setCount(task.count + 2);
         storage.increment(printerCost);
         storage.increment(printerCost);
         const delta = 10;
@@ -127,7 +137,7 @@ describe('util: printCapacity', () => {
     });
 
     it('should return the correct result when the second cannot be afforded', () => {
-        task.count += 2;
+        task.setCount(task.count + 2);
         storage.increment(printerCost);
         const delta = 10;
         const capacity = duration + delta;
@@ -140,7 +150,7 @@ describe('util: printCapacity', () => {
     });
 
     it('should return the correct result when one to much can be afforded', () => {
-        task.count++;
+        task.setCount(task.count + 1);
         storage.increment(printerCost);
         storage.increment(printerCost);
         const delta = 10;
