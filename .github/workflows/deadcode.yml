@@ -1,0 +1,23 @@
+name: I see dead code 💀
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  deadcode:
+    runs-on: ubuntu-latest
+    env:
+      GH_NPM_REGISTRY_TOKEN: ${{ secrets.GH_NPM_REGISTRY_TOKEN }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install packages
+        run: npm ci
+
+      - name: Detect dead code
+        run: npm run test:unused-exports
