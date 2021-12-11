@@ -33,3 +33,10 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - uses: codecov/codecov-action@v2
+        with:
+          directory: ./coverage
+          flags: unittests
+          name: codecov
+          fail_ci_if_error: true # optional (default = false)
