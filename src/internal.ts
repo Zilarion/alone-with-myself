@@ -18,12 +18,9 @@ export * from './models/PrintableUnion';
 export * from './models/ResourceUnits';
 
 export * from './util/assert';
-export * from './util/emptyArray';
 export * from './util/multiplyResources';
 export * from './util/printCapacity';
 export * from './util/resourcesInStorage';
-export * from './util/procedural/random';
-export * from './util/procedural/randomStarName';
 
 export * from './data/Harvesters';
 export * from './data/Manufacturers';
