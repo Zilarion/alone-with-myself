@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 import { useGame } from '../hooks/useGame';
 import { Card } from './Card';
-import { SystemSummary } from './composites/SystemSummary';
+import { SatelliteSummary } from './composites/SatelliteSummary';
 
 const StyledCard = styled(Card)`
     color: ${p => p.theme.palette.primary.main};
@@ -10,9 +10,9 @@ const StyledCard = styled(Card)`
 `;
 
 export const Sidebar = () => {
-    const { system } = useGame();
+    const { satellite } = useGame();
 
     return <StyledCard>
-        <SystemSummary system={system} />
+        <SatelliteSummary satellite={satellite} />
     </StyledCard>;
 };

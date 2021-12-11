@@ -1,5 +1,6 @@
 import {
     ResourceStorage,
+    ResourceStorageModel,
     ResourceType,
 } from '../internal';
 
@@ -18,7 +19,7 @@ describe('model: ResourceStorage', () => {
     ];
 
     beforeEach(() => {
-        storage = new ResourceStorage(initialResources);
+        storage = ResourceStorageModel.create({ resources: initialResources });
     });
 
     it('should initialize correctly', () => {

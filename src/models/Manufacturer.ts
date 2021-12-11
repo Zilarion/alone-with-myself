@@ -1,45 +1,34 @@
 import {
-    computed,
-    makeObservable,
-    observable,
-} from 'mobx';
+    Instance,
+    SnapshotIn,
+    types,
+} from 'mobx-state-tree';
 
 import {
     multiplyResources,
-    Printable,
-    PrintableProps,
-    ResourceSet,
+    PrintableType,
+    ResourceSetModel,
 } from '../internal';
+import { PrintableModel } from './Printable';
 
-export type ManufacturerSchema = {
-    produces: ResourceSet;
-    consumes: ResourceSet;
-};
+export const ManufacturerModel = types
+    .compose(
+        PrintableModel,
+        types.model({
+            type: types.literal(PrintableType.manufacturer),
+            produces: ResourceSetModel,
+            consumes: ResourceSetModel,
+        })
+    )
+    .views(self => ({
+        get produces() {
+            return multiplyResources(self.produces, self.amount);
+        },
+        get consumes() {
+            return multiplyResources(self.consumes, self.amount);
+        },
+    }))
+    .named('Manufacturer');
 
-export type ManufacturerProps = ManufacturerSchema & PrintableProps;
-
-export class Manufacturer extends Printable {
-    @observable
-    private _produces: ResourceSet;
-
-    @observable
-    private _consumes: ResourceSet;
-
-    constructor(props: ManufacturerProps) {
-        super(props);
-        this._produces = props.produces;
-        this._consumes = props.consumes;
-
-        makeObservable(this);
-    }
-
-    @computed
-    get produces() {
-        return multiplyResources(this._produces, this.amount);
-    }
-
-    @computed
-    get consumes() {
-        return multiplyResources(this._consumes, this.amount);
-    }
-}
+export interface Manufacturer extends Instance<typeof ManufacturerModel> {}
+export interface ManufacturerSnapshot extends SnapshotIn<typeof ManufacturerModel> {}

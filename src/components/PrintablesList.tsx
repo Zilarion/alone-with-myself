@@ -31,7 +31,7 @@ export const PrintablesList = observer(({
                 const taskPrintable = printables.find((printable) => task.printable === printable);
                 assert(taskPrintable != null, 'Failed to find related printable of a print task.');
                 return <PrintableItem
-                    key={taskPrintable.name}
+                    key={taskPrintable.id}
                     printableCount={printableCount}
                     task={task}
                     printable={taskPrintable}

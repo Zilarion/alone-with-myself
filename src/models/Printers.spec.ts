@@ -1,9 +1,10 @@
 import {
-    findPrintableSchema,
-    PrintableType,
     Printers,
-    PrintTask,
+    PrintersModel,
+    printerSnapshot,
+    PrintTaskModel,
     ResourceStorage,
+    ResourceStorageModel,
     ResourceType,
 } from '../internal';
 
@@ -11,8 +12,8 @@ describe('model: Printer', () => {
     let printers: Printers;
     let storage: ResourceStorage;
     beforeEach(() => {
-        printers = new Printers();
-        storage = new ResourceStorage();
+        printers = PrintersModel.create(printerSnapshot);
+        storage = ResourceStorageModel.create();
     });
 
     it('should initialize correctly', () => {
@@ -27,8 +28,8 @@ describe('model: Printer', () => {
     });
 
     it('should add print options correctly', () => {
-        const task = new PrintTask({
-            printable: new Printers(),
+        const task = PrintTaskModel.create({
+            printable: printerSnapshot,
             storage,
         });
         printers.addPrintOption(task);
@@ -37,11 +38,11 @@ describe('model: Printer', () => {
     });
 
     it('should not update when there are no resources', () => {
-        const task = new PrintTask({
-            printable: new Printers(),
+        const task = PrintTaskModel.create({
+            printable: printerSnapshot,
             storage,
         });
-        task.count++;
+        task.setCount(task.count + 1);
         printers.add(1);
         printers.addPrintOption(task);
 
@@ -50,8 +51,8 @@ describe('model: Printer', () => {
     });
 
     it('should update when there are resources', () => {
-        const task = new PrintTask({
-            printable: new Printers(),
+        const task = PrintTaskModel.create({
+            printable: printerSnapshot,
             storage,
         });
         storage.increment([
@@ -60,13 +61,13 @@ describe('model: Printer', () => {
                 amount: 1000,
             },
         ]);
-        task.count++;
+        task.setCount(task.count + 1);
         printers.add(1);
         printers.addPrintOption(task);
 
         const DELTA = 500;
         printers.update(DELTA);
-        const { duration } = findPrintableSchema(PrintableType.printer);
+        const { duration } = printerSnapshot;
         expect(task.progress).toEqual(DELTA * printers.capacityPerMs);
         expect(task.progressPercentage).toEqual(task.progress / duration);
     });

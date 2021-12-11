@@ -1,34 +1,30 @@
 import {
-    EntityType,
-    findHarvesterSchema,
-    findPrintableSchema,
     Harvester,
+    HarvesterModel,
+    harvesterSnapshots,
     multiplyResources,
     PrintableType,
     ResourceType,
 } from '../internal';
 
 describe('model: Harvester', () => {
+    const snapshot = harvesterSnapshots[0];
     let miner: Harvester;
     beforeEach(() => {
-        miner = new Harvester(
-            findHarvesterSchema(PrintableType.miner),
-        );
+        miner = HarvesterModel.create(snapshot);
     });
 
     it('should initialize correctly', () => {
         const {
-            name,
+            id,
             duration,
             cost,
-        } = findPrintableSchema(PrintableType.miner);
-        expect(miner.printableType).toEqual(PrintableType.miner);
+        } = snapshot;
+        expect(miner.type).toEqual(PrintableType.harvester);
         expect(miner.cost).toEqual(cost);
         expect(miner.duration).toEqual(duration);
-        expect(miner.name).toEqual(name);
-        expect(miner.children).toEqual([]);
+        expect(miner.id).toEqual(id);
         expect(miner.amount).toEqual(0);
-        expect(miner.type).toEqual(EntityType.Printable);
     });
 
     it('should add to the amount', () => {
@@ -68,7 +64,7 @@ describe('model: Harvester', () => {
     });
 
     it('should produce nothing without miners', () => {
-        expect(miner.produces).toEqual([ {
+        expect(miner.totalProduction).toEqual([ {
             type: ResourceType.minerals,
             amount: 0,
         } ]);
@@ -77,11 +73,11 @@ describe('model: Harvester', () => {
     it('should produce a multiple of the amount based on the amount of miners', () => {
         miner.add(1);
 
-        const production = findHarvesterSchema(PrintableType.miner).produces;
-        expect(miner.produces).toEqual(production);
+        const production = snapshot.produces;
+        expect(miner.totalProduction).toEqual(production);
 
         miner.add(4);
 
-        expect(miner.produces).toEqual(multiplyResources(production, 5));
+        expect(miner.totalProduction).toEqual(multiplyResources(production, 5));
     });
 });

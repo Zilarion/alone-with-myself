@@ -1,53 +1,26 @@
 import {
-    assert,
-    PrintableSchema,
+    manufacturerSnapshots,
+    PrintableSnapshot,
     PrintableType,
+    PrintersSnapshot,
     ResourceType,
 } from '../internal';
+import { harvesterSnapshots } from './Harvesters';
 
-export const PRINTABLES = new Map<PrintableType, PrintableSchema>([
-    [
-        PrintableType.miner, {
-            name: 'Miner',
-            cost: [
-                {
-                    type: ResourceType.minerals,
-                    amount: 10,
-                },
-            ],
-            duration: 5,
+export const printerSnapshot: PrintersSnapshot = {
+    type: PrintableType.printer,
+    id: 'Printer',
+    cost: [
+        {
+            type: ResourceType.minerals,
+            amount: 100,
         },
     ],
-    [
-        PrintableType.printer, {
-            name: 'Printer',
-            cost: [
-                {
-                    type: ResourceType.minerals,
-                    amount: 100,
-                },
-            ],
-            duration: 20,
-        },
-    ],
-    [
-        PrintableType.foundry, {
-            name: 'Foundry',
-            cost: [
-                {
-                    type: ResourceType.minerals,
-                    amount: 50,
-                },
-            ],
-            duration: 10,
-        },
-    ],
-]);
+    duration: 20,
+};
 
-export function findPrintableSchema(type: PrintableType): PrintableSchema {
-    const printable = PRINTABLES.get(type);
-    assert(printable != null, `Could not find printable ${type}`);
-
-    return printable;
-}
-
+export const PRINTABLES: PrintableSnapshot[] = [
+    ...harvesterSnapshots,
+    ...manufacturerSnapshots,
+    printerSnapshot,
+];

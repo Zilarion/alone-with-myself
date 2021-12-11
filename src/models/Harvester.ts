@@ -1,35 +1,29 @@
 import {
-    computed,
-    makeObservable,
-    observable,
-} from 'mobx';
+    Instance,
+    SnapshotIn,
+    types,
+} from 'mobx-state-tree';
 
 import {
     multiplyResources,
-    Printable,
-    PrintableProps,
-    ResourceSet,
+    PrintableModel,
+    PrintableType,
+    ResourceSetModel,
 } from '../internal';
 
-export type HarvesterSchema = {
-    produces: ResourceSet;
-};
-
-export type HarvesterProps = HarvesterSchema & PrintableProps;
-
-export class Harvester extends Printable {
-    @observable
-    private _produces: ResourceSet;
-
-    constructor(props: HarvesterProps) {
-        super(props);
-        this._produces = props.produces;
-
-        makeObservable(this);
-    }
-
-    @computed
-    get produces() {
-        return multiplyResources(this._produces, this.amount);
-    }
-}
+export const HarvesterModel = types
+    .compose(
+        PrintableModel,
+        types.model({
+            type: types.literal(PrintableType.harvester),
+            produces: ResourceSetModel,
+        })
+    )
+    .named('Harvester')
+    .views(self => ({
+        get totalProduction() {
+            return multiplyResources(self.produces, self.amount);
+        },
+    }));
+export interface Harvester extends Instance<typeof HarvesterModel> {}
+export interface HarvesterSnapshot extends SnapshotIn<typeof HarvesterModel> {}

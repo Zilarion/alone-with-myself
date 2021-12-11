@@ -1,9 +1,9 @@
 import {
-    Printable,
+    ResourceSet,
     ResourceStorage,
 } from '../internal';
 
-export function resourcesForPrintable({ numberOf }: ResourceStorage, { cost }: Printable) {
+export function resourcesInStorage({ numberOf }: ResourceStorage, cost: ResourceSet) {
     return cost.reduce((minimum, {
         type, amount,
     }) => {

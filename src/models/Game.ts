@@ -4,16 +4,17 @@ import {
 } from 'mobx';
 
 import {
-    childrenOfEntity,
-    Entity,
-    System,
+    PRINTABLES,
+    printerSnapshot,
+    Satellite,
+    SatelliteModel,
 } from '../internal';
-import { assertDefined } from '../util/assertDefined';
+import { ResourceType } from './types/ResourceType';
 
 const WORLD_DELTA_MINIMUM = 1000;
 
 export class Game {
-    private _entities: Entity[] = [];
+    private _satellite: Satellite;
     private _animationFrameId: number | null = null;
     private _lastFrame: number | null = null;
     private _gameSpeed: number = 1;
@@ -22,17 +23,27 @@ export class Game {
     constructor() {
         this.start();
 
-        this.addEntity(new System());
+        this._satellite = SatelliteModel.create({
+            printers: printerSnapshot,
+            producer: {
+                consumables: {
+                    resources: [
+                        {
+                            amount: 1000,
+                            type: ResourceType.minerals,
+                        },
+                    ],
+                },
+            },
+            printables: PRINTABLES,
+        });
+
         makeAutoObservable(this);
     }
 
-    addEntity = (entity: Entity) => {
-        this._entities.push(entity);
-    };
-
-    addEntities = (entities: Entity[]) => {
-        entities.forEach(this.addEntity);
-    };
+    get satellite() {
+        return this._satellite;
+    }
 
     destroy() {
         if (this._animationFrameId != null) {
@@ -44,22 +55,8 @@ export class Game {
         this._animationFrameId = window.requestAnimationFrame(this._tick);
     }
 
-    get system(): System {
-        return assertDefined(
-            this.entities.find((entity): entity is System => entity instanceof System)
-        );
-    }
-
-    get entities() {
-        return this._entities.reduce<Entity[]>((prev, current) => {
-            return prev.concat(
-                childrenOfEntity(current),
-            );
-        }, []);
-    }
-
     private _worldUpdate(dialatedDelta: number) {
-        this.entities.forEach((entity) => {
+        [ this._satellite ].forEach((entity) => {
             const start = performance.now();
             entity.update(dialatedDelta);
 
