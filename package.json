@@ -10,7 +10,8 @@
     "build": "webpack --mode production",
     "build:analyze": "webpack --mode production --env analyze=true",
     "test": "jest --coverage --no-cache",
-    "test:debug": "jest --watch --runInBand"
+    "test:debug": "jest --watch --runInBand",
+    "test:unused-exports": "ts-unused-exports tsconfig.json"
   },
   "repository": {
     "type": "git",
@@ -45,6 +46,7 @@
     "terser-webpack-plugin": "^5.1.4",
     "ts-jest": "^27.1.1",
     "ts-loader": "^9.2.6",
+    "ts-unused-exports": "^7.0.3",
     "typescript": "^4.3.5",
     "webpack": "^5.50.0",
     "webpack-bundle-analyzer": "^4.4.2",
