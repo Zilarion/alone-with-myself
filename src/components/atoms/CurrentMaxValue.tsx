@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 
 interface LabelValueProps {
     value: number;
-    max: number;
+    max?: number;
 }
 
 const StyledWrapper = styled.div`
@@ -28,8 +28,8 @@ export const CurrentMaxValue = ({
         <StyledValue color="primary">
             {value}
         </StyledValue>
-        <StyledMax color="primary">
+        {max && <StyledMax color="primary">
             {max}
-        </StyledMax>
+        </StyledMax>}
     </StyledWrapper>);
 };

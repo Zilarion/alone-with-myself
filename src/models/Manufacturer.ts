@@ -21,10 +21,10 @@ export const ManufacturerModel = types
         })
     )
     .views(self => ({
-        get produces() {
+        get totalProduction() {
             return multiplyResources(self.produces, self.amount);
         },
-        get consumes() {
+        get totalConsumption() {
             return multiplyResources(self.consumes, self.amount);
         },
     }))

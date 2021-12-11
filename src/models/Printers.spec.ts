@@ -1,19 +1,22 @@
 import {
     Printers,
-    PrintersModel,
     printerSnapshot,
-    PrintTaskModel,
-    ResourceStorage,
-    ResourceStorageModel,
-    ResourceType,
+    Satellite,
+    SatelliteModel,
 } from '../internal';
 
 describe('model: Printer', () => {
     let printers: Printers;
-    let storage: ResourceStorage;
+    let satellite: Satellite;
     beforeEach(() => {
-        printers = PrintersModel.create(printerSnapshot);
-        storage = ResourceStorageModel.create();
+        satellite = SatelliteModel.create({
+            name: 'satellite',
+            storage: {},
+            producer: { consumables: {} },
+            printers: { printers: printerSnapshot.id },
+            printables: [ printerSnapshot ],
+        });
+        printers = satellite.printers;
     });
 
     it('should initialize correctly', () => {
@@ -23,47 +26,29 @@ describe('model: Printer', () => {
 
     it('should compute capacity correctly', () => {
         const amount = 50;
-        printers.add(amount);
+        printers.printers.add(amount);
         expect(printers.capacityPerMs).toEqual(amount / 1000);
     });
 
-    it('should add print options correctly', () => {
-        const task = PrintTaskModel.create({
-            printable: printerSnapshot,
-            storage,
+    it('should add print tasks correctly', () => {
+        printers.addPrintTask({
+            printable: printerSnapshot.id,
+            count: 5,
         });
-        printers.addPrintOption(task);
+        printers.printers.add(1);
 
-        expect(printers.tasks).toEqual([ task ]);
+        expect(printers.tasks.length).toEqual(1);
+        expect(printers.tasks[0].count).toEqual(5);
+        expect(printers.tasks[0].printable).toEqual(satellite.printables[0]);
     });
 
-    it('should not update when there are no resources', () => {
-        const task = PrintTaskModel.create({
-            printable: printerSnapshot,
-            storage,
+    it('should update correctly', () => {
+        printers.printers.add(1);
+        printers.addPrintTask({
+            printable: printerSnapshot.id,
+            count: 1,
         });
-        task.setCount(task.count + 1);
-        printers.add(1);
-        printers.addPrintOption(task);
-
-        printers.update(500);
-        expect(task.progress).toEqual(0);
-    });
-
-    it('should update when there are resources', () => {
-        const task = PrintTaskModel.create({
-            printable: printerSnapshot,
-            storage,
-        });
-        storage.increment([
-            {
-                type: ResourceType.minerals,
-                amount: 1000,
-            },
-        ]);
-        task.setCount(task.count + 1);
-        printers.add(1);
-        printers.addPrintOption(task);
+        const [ task ] = printers.tasks;
 
         const DELTA = 500;
         printers.update(DELTA);

@@ -1,34 +1,20 @@
 import {
     Instance,
+    SnapshotIn,
     types,
 } from 'mobx-state-tree';
 
-import {
-    assert,
-    multiplyResources,
-    PrintableModel,
-    resourcesInStorage,
-    ResourceStorageModel,
-} from '../internal';
+import { PrintableUnion } from '../internal';
 
 export const PrintTaskModel = types
     .model('PrintTask', {
         count: types.optional(types.number, 0),
         progress: types.optional(types.number, 0),
-        storage: ResourceStorageModel,
-        printable: PrintableModel,
+        printable: types.reference(PrintableUnion),
     })
     .views(self => ({
         get durationPerItem() {
             return self.printable.duration;
-        },
-        get maxAffordable() {
-            return Math.floor(
-                resourcesInStorage(
-                    self.storage,
-                    self.printable.cost,
-                ),
-            );
         },
         get active() {
             return self.count > 0 && self.progress > 0;
@@ -45,15 +31,6 @@ export const PrintTaskModel = types
         },
     }))
     .actions(self => ({
-        startPrint(amount: number) {
-            assert(self.maxAffordable >= amount, 'Attempting to print more than affordable.');
-            self.storage.decrement(
-                multiplyResources(
-                    self.printable.cost,
-                    amount,
-                ),
-            );
-        },
         setCount(newValue: number) {
             self.count = newValue;
         },
@@ -63,3 +40,4 @@ export const PrintTaskModel = types
     }));
 
 export interface PrintTask extends Instance<typeof PrintTaskModel> {}
+export interface PrintTaskSnapshot extends SnapshotIn<typeof PrintTaskModel> {}

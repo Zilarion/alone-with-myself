@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { observer } from 'mobx-react-lite';
 
-import { Satellite } from '../../internal';
-import { ValueIndicator } from '../atoms/ValueIndicator';
+import { ValueIndicator } from '../../../components/atoms/ValueIndicator';
+import { Satellite } from '../../../internal';
 
 interface LocationSummaryProps {
     satellite: Satellite;
@@ -21,11 +21,10 @@ export const SatelliteSummary = observer(({ satellite }: LocationSummaryProps) =
             max={satellite.totalArea}
             label="Area"
         />
-        {satellite.resources.map(resource => {
+        {satellite.storage.resources.map(resource => {
             return <ValueIndicator
                 key={resource.type}
                 value={resource.amount}
-                max={resource.amount}
                 label={resource.type}
             />;
         })}

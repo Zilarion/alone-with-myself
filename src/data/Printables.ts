@@ -2,12 +2,12 @@ import {
     manufacturerSnapshots,
     PrintableSnapshot,
     PrintableType,
-    PrintersSnapshot,
+    PrinterSnapshot,
     ResourceType,
 } from '../internal';
 import { harvesterSnapshots } from './Harvesters';
 
-export const printerSnapshot: PrintersSnapshot = {
+export const printerSnapshot: PrinterSnapshot = {
     type: PrintableType.printer,
     id: 'Printer',
     cost: [
