@@ -18,7 +18,7 @@ export const harvesterSnapshots: HarvesterSnapshot[] = [
         produces: [
             {
                 type: ResourceType.minerals,
-                amount: 0.01,
+                amount: 0.001,
             },
         ],
     },
