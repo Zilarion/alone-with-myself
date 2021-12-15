@@ -5,7 +5,7 @@ import {
     Producer,
     ProducerModel,
     ResourceType,
-} from '../internal';
+} from 'src/internal';
 
 describe('model: Producer', () => {
     const MAX_RESOURCES = 100;

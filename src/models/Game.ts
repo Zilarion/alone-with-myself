@@ -2,12 +2,12 @@ import {
     makeAutoObservable,
     runInAction,
 } from 'mobx';
-
 import {
     PRINTABLES,
     Satellite,
     SatelliteModel,
-} from '../internal';
+} from 'src/internal';
+
 import { ResourceType } from './types/ResourceType';
 
 const WORLD_DELTA_MINIMUM = 1000;

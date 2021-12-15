@@ -3,7 +3,7 @@ import {
     printerSnapshot,
     Satellite,
     SatelliteModel,
-} from '../internal';
+} from 'src/internal';
 
 describe('model: Printer', () => {
     let printers: Printers;

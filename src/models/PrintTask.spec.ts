@@ -3,7 +3,7 @@ import {
     printerSnapshot,
     PrintTask,
     SatelliteModel,
-} from '../internal';
+} from 'src/internal';
 
 describe('model: PrintTask', () => {
     const snapshot = printerSnapshot;

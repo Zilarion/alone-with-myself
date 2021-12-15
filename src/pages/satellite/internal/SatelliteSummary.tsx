@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { observer } from 'mobx-react-lite';
+import { Satellite } from 'src/internal';
 
 import { ValueIndicator } from '../../../components/atoms/ValueIndicator';
-import { Satellite } from '../../../internal';
 
 interface LocationSummaryProps {
     satellite: Satellite;

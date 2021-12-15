@@ -2,7 +2,7 @@ import {
     HarvesterSnapshot,
     PrintableType,
     ResourceType,
-} from '../internal';
+} from 'src/internal';
 
 export const harvesterSnapshots: HarvesterSnapshot[] = [
     {

@@ -5,11 +5,10 @@ import {
     styled,
 } from '@mui/material';
 import { observer } from 'mobx-react-lite';
-
 import {
     CircularProgressWithLabel,
     Printers,
-} from '../../../internal';
+} from 'src/internal';
 
 interface PrintQueueProps {
     printers: Printers;

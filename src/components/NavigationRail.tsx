@@ -4,8 +4,7 @@ import {
     Explore,
 } from '@mui/icons-material';
 import { NavLink } from 'react-router-dom';
-
-import { IconButton } from '../internal';
+import { IconButton } from 'src/internal';
 
 const Container = styled.div`
     display: flex;

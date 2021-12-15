@@ -2,8 +2,7 @@ import {
     Instance,
     types,
 } from 'mobx-state-tree';
-
-import { ResourceType } from '../../internal';
+import { ResourceType } from 'src/internal';
 
 const ResourceModel = types
     .model({

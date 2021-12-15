@@ -3,14 +3,13 @@ import {
     SnapshotIn,
     types,
 } from 'mobx-state-tree';
-
 import {
     Harvester,
     ResourceSet,
     ResourceSetModel,
     ResourceStorageModel,
     ResourceType,
-} from '../internal';
+} from 'src/internal';
 
 export const ProducerModel = types
     .model('Producer', { consumables: ResourceStorageModel })

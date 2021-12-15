@@ -19,6 +19,8 @@ export * from './models/PrintTask';
 export * from './models/Printers';
 export * from './models/Satellite';
 
+export * from './models/Game';
+
 export * from './util/assert';
 export * from './util/multiplyResources';
 export * from './util/printCapacity';

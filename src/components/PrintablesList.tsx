@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import { observer } from 'mobx-react-lite';
-
 import {
     Printable,
     Printers,
     ResourceStorage,
-} from '../internal';
+} from 'src/internal';
+
 import { PrintableItem } from './PrintableItem';
 
 interface PrintableSummaryProps {

@@ -1,12 +1,12 @@
 import { action } from 'mobx';
 import { observer } from 'mobx-react-lite';
-
 import {
     multiplyResources,
     Printable,
     Printers,
     ResourceStorage,
-} from '../internal';
+} from 'src/internal';
+
 import { PrintableTooltip } from './PrintableTooltip';
 import { ProgressButton } from './ProgressButton';
 
