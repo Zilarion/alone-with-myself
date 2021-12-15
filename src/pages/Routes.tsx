@@ -5,11 +5,12 @@ import {
 } from 'react-router-dom';
 
 import { useGame } from '../hooks/useGame';
-import { SatellitePage } from './satellite/SatellitePage';
+import { SatellitePage } from '../pages/satellite/SatellitePage';
 import { Scanner } from './Scanner';
 
 export const Routes = observer(() => {
     const { satellite } = useGame();
+
     return <RouterRoutes>
         <Route
             path="satellite"

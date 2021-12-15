@@ -4,7 +4,7 @@ import 'tippy.js/dist/tippy.css';
 import { configure } from 'mobx';
 import { render } from 'react-dom';
 
-import { App } from './views/App';
+import { App } from './pages/App';
 
 configure({
     enforceActions: 'always',
