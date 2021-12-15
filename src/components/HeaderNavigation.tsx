@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
+import { observer } from 'mobx-react-lite';
 
 import { useGame } from '../hooks/useGame';
 
@@ -11,7 +12,7 @@ const Wrapper = styled.div`
     height: 60px;
 `;
 
-export const HeaderNavigation = () => {
+export const HeaderNavigation = observer(() => {
     const { satellite } = useGame();
 
     return <Wrapper>
@@ -19,4 +20,4 @@ export const HeaderNavigation = () => {
             {satellite.name}
         </Typography>
     </Wrapper>;
-};
+});
