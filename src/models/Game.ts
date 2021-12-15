@@ -6,11 +6,10 @@ import {
 } from 'mobx';
 import {
     PRINTABLES,
+    ResourceType,
     Satellite,
     SatelliteModel,
 } from 'src/internal';
-
-import { ResourceType } from './types/ResourceType';
 
 const WORLD_DELTA_MINIMUM = 1000;
 
@@ -27,20 +26,18 @@ export class Game {
         this._satellite = SatelliteModel.create({
             name: 'Small asteroid',
             printers: { printers: 'Printer' },
-            producer: {
-                consumables: {
-                    resources: [
-                        {
-                            amount: 1000,
-                            type: ResourceType.minerals,
-                        },
-                    ],
-                },
+            totalSatelliteResources: {
+                resources: [
+                    {
+                        amount: 50000,
+                        type: ResourceType.minerals,
+                    },
+                ],
             },
             storage: {
                 resources: [
                     {
-                        amount: 100000,
+                        amount: 10,
                         type: ResourceType.minerals,
                     },
                 ],

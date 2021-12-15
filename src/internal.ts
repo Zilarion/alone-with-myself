@@ -10,7 +10,6 @@ export * from './models/ResourceStorage';
 
 export * from './models/Harvester';
 export * from './models/Manufacturer';
-export * from './models/Producer';
 export * from './models/Printer';
 
 export * from './models/PrintableUnion';
