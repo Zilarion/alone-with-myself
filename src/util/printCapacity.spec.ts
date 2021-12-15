@@ -17,7 +17,7 @@ describe('util: printCapacity', () => {
         const satellite = SatelliteModel.create({
             name: 'satellite',
             storage: {},
-            producer: { consumables: {} },
+            totalSatelliteResources: {},
             printers: {
                 printers: 'printer',
                 tasks: [ { printable: 'printer' } ],

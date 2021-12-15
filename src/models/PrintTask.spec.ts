@@ -13,7 +13,7 @@ describe('model: PrintTask', () => {
         const satellite = SatelliteModel.create({
             name: 'satellite',
             storage: {},
-            producer: { consumables: {} },
+            totalSatelliteResources: {},
             printers: {
                 printers: printerSnapshot.id,
                 tasks: [ { printable: printerSnapshot.id } ],

@@ -3,18 +3,17 @@ import {
     types,
 } from 'mobx-state-tree';
 import {
-    multiplyResources,
+    Harvester,
+    PrintableType,
+    PrintableUnion,
     PrintersModel,
+    ResourceStorageModel,
 } from 'src/internal';
-
-import { PrintableUnion } from './PrintableUnion';
-import { ProducerModel } from './Producer';
-import { ResourceStorageModel } from './ResourceStorage';
 
 export const SatelliteModel = types
     .model('Satellite', {
         printers: PrintersModel,
-        producer: ProducerModel,
+        totalSatelliteResources: ResourceStorageModel,
         storage: ResourceStorageModel,
         printables: types.array(PrintableUnion),
         exploredArea: types.optional(types.number, 0),
@@ -25,17 +24,27 @@ export const SatelliteModel = types
         get fullyExplored() {
             return self.exploredArea === self.totalArea;
         },
-        get resources() {
-            const percentExplored = self.exploredArea / self.totalArea;
-            return multiplyResources(
-                self.producer.consumables.resources,
-                percentExplored
+        get harvesters(): Harvester[] {
+            return self.printables.filter((printable): printable is Harvester =>
+                printable.type === PrintableType.harvester
             );
         },
     }))
     .actions(self => ({
+        updateHarvesters(delta: number) {
+            self.harvesters.forEach(harvester => {
+                const harvestedResources = harvester.harvestingOver(
+                    delta,
+                    self.totalSatelliteResources
+                );
+
+                self.totalSatelliteResources.decrement(harvestedResources);
+                self.storage.increment(harvestedResources);
+            });
+        },
         update(delta: number) {
             self.printers.update(delta);
+            this.updateHarvesters(delta);
         },
     }));
 export interface Satellite extends Instance<typeof SatelliteModel> {}

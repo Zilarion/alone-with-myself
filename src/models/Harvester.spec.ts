@@ -7,6 +7,8 @@ import {
     ResourceType,
 } from 'src/internal';
 
+import { ResourceStorageModel } from './ResourceStorage';
+
 describe('model: Harvester', () => {
     const snapshot = harvesterSnapshots[0];
     let miner: Harvester;
@@ -67,6 +69,46 @@ describe('model: Harvester', () => {
         expect(miner.totalProduction).toEqual([ {
             type: ResourceType.minerals,
             amount: 0,
+        } ]);
+    });
+
+    it('should harvest the maximum amount if it is available', () => {
+        const storage = ResourceStorageModel.create({
+            resources: [ {
+                type: ResourceType.minerals,
+                amount: 10,
+            } ],
+        });
+        miner.add(1);
+        const production = miner.harvestingOver(1000, storage);
+
+        expect(production).toEqual([ {
+            type: ResourceType.minerals,
+            amount: 1,
+        } ]);
+    });
+
+    it('should harvest nothing if the storage is empty', () => {
+        const storage = ResourceStorageModel.create({});
+        miner.add(1);
+        const production = miner.harvestingOver(1000, storage);
+
+        expect(production).toEqual([]);
+    });
+
+    it('should harvest part of the storage up to the max', () => {
+        const storage = ResourceStorageModel.create({
+            resources: [ {
+                type: ResourceType.minerals,
+                amount: 0.5,
+            } ],
+        });
+        miner.add(1);
+        const production = miner.harvestingOver(1000, storage);
+
+        expect(production).toEqual([ {
+            type: ResourceType.minerals,
+            amount: 0.5,
         } ]);
     });
 
