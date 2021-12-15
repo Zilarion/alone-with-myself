@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { observer } from 'mobx-react-lite';
 import { Satellite } from 'src/internal';
 
-import { ValueIndicator } from '../../../components/atoms/ValueIndicator';
+import { ResourceIndicator } from '../../../components/ResourceIndicator';
 
 interface LocationSummaryProps {
     satellite: Satellite;
@@ -17,10 +17,9 @@ const Wrapper = styled.div`
 export const SatelliteSummary = observer(({ satellite }: LocationSummaryProps) => {
     return <Wrapper>
         {satellite.storage.resources.map(resource => {
-            return <ValueIndicator
+            return <ResourceIndicator
                 key={resource.type}
-                value={resource.amount}
-                label={resource.type}
+                resource={resource}
             />;
         })}
     </Wrapper>;

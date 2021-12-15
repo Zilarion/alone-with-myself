@@ -9,6 +9,7 @@ const ResourceModel = types
         type: types.enumeration(Object.values(ResourceType)),
         amount: types.number,
     });
+export interface Resource extends Instance<typeof ResourceModel>{}
 
 export const ResourceSetModel = types.array(ResourceModel);
 export interface ResourceSet extends Instance<typeof ResourceSetModel> {}
