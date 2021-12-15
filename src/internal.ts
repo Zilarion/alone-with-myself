@@ -18,7 +18,9 @@ export * from './models/PrintTask';
 export * from './models/Printers';
 export * from './models/Satellite';
 
-export * from './models/Game';
+export * from './pages/Route';
+export * from './pages/ApplicationRoutes';
+export * from './pages/routes';
 
 export * from './util/assert';
 export * from './util/multiplyResources';
@@ -28,3 +30,6 @@ export * from './util/resourcesInStorage';
 export * from './data/Harvesters';
 export * from './data/Manufacturers';
 export * from './data/Printables';
+
+export * from './models/Game';
+export * from './hooks/useGame';
