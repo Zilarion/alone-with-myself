@@ -3,12 +3,12 @@ import {
     SnapshotIn,
     types,
 } from 'mobx-state-tree';
-
 import {
     multiplyResources,
     PrintableType,
     ResourceSetModel,
-} from '../internal';
+} from 'src/internal';
+
 import { PrintableModel } from './Printable';
 
 export const ManufacturerModel = types

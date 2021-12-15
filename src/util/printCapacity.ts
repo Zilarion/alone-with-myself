@@ -1,7 +1,7 @@
 import {
     assert,
     PrintTask,
-} from '../internal';
+} from 'src/internal';
 
 export function printCapacity(
     capacity: number,

@@ -2,7 +2,7 @@ import {
     ManufacturerSnapshot,
     PrintableType,
     ResourceType,
-} from '../internal';
+} from 'src/internal';
 
 export const manufacturerSnapshots: ManufacturerSnapshot[] = [
     {

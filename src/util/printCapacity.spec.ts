@@ -6,7 +6,7 @@ import {
     ResourceSetModel,
     ResourceType,
     SatelliteModel,
-} from '../internal';
+} from 'src/internal';
 
 describe('util: printCapacity', () => {
     const duration = 20;

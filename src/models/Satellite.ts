@@ -2,11 +2,11 @@ import {
     Instance,
     types,
 } from 'mobx-state-tree';
-
 import {
     multiplyResources,
     PrintersModel,
-} from '../internal';
+} from 'src/internal';
+
 import { PrintableUnion } from './PrintableUnion';
 import { ProducerModel } from './Producer';
 import { ResourceStorageModel } from './ResourceStorage';

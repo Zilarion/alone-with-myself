@@ -3,7 +3,7 @@ import {
     PrintableType,
     PrinterModel,
     ResourceType,
-} from '../internal';
+} from 'src/internal';
 
 describe('model: Printable', () => {
     let printable: Printable;

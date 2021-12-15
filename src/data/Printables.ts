@@ -4,7 +4,8 @@ import {
     PrintableType,
     PrinterSnapshot,
     ResourceType,
-} from '../internal';
+} from 'src/internal';
+
 import { harvesterSnapshots } from './Harvesters';
 
 export const printerSnapshot: PrinterSnapshot = {

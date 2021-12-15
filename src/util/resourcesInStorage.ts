@@ -1,7 +1,7 @@
 import {
     ResourceSet,
     ResourceStorage,
-} from '../internal';
+} from 'src/internal';
 
 export function resourcesInStorage({ numberOf }: ResourceStorage, cost: ResourceSet) {
     return cost.reduce((minimum, {

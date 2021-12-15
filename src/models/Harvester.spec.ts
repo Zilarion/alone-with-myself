@@ -5,7 +5,7 @@ import {
     multiplyResources,
     PrintableType,
     ResourceType,
-} from '../internal';
+} from 'src/internal';
 
 describe('model: Harvester', () => {
     const snapshot = harvesterSnapshots[0];

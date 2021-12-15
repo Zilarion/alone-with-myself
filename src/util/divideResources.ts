@@ -1,6 +1,5 @@
 import { SnapshotIn } from 'mobx-state-tree';
-
-import { ResourceSet } from '../internal';
+import { ResourceSet } from 'src/internal';
 
 export function divideResources(
     numerator: ResourceSet | SnapshotIn<ResourceSet> = [],

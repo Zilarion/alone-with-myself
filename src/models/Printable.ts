@@ -1,11 +1,11 @@
 import { types } from 'mobx-state-tree';
-
 import {
     assert,
     PrintableType,
     ResourceSetModel,
     resourcesInStorage,
-} from '../internal';
+} from 'src/internal';
+
 import { ResourceStorage } from './ResourceStorage';
 
 export const PrintableModel = types

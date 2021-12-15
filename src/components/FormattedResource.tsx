@@ -1,10 +1,9 @@
 import { FormattedNumber } from 'react-intl';
-
 import {
     assert,
     RESOURCE_TO_UNIT,
     ResourceType,
-} from '../internal';
+} from 'src/internal';
 
 interface FormattedResourceProps {
     value: number;

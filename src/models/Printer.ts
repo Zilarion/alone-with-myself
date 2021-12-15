@@ -3,8 +3,8 @@ import {
     SnapshotIn,
     types,
 } from 'mobx-state-tree';
+import { PrintableType } from 'src/internal';
 
-import { PrintableType } from '../internal';
 import { PrintableModel } from './Printable';
 
 export const PrinterModel = types

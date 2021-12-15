@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { Card } from '@mui/material';
 import { createContext } from 'react';
+import { Game } from 'src/internal';
 
 import { HeaderNavigation } from '../components/HeaderNavigation';
 import { NavigationRail } from '../components/NavigationRail';
-import { Game } from '../models/Game';
 import { Routes } from './Routes';
 
 const game = new Game();

@@ -3,13 +3,13 @@ import {
     SnapshotIn,
     types,
 } from 'mobx-state-tree';
-
 import {
     assert,
     ResourceSet,
     ResourceSetModel,
     ResourceType,
-} from '../internal';
+} from 'src/internal';
+
 import { assertDefined } from '../util/assertDefined';
 
 export const ResourceStorageModel = types
