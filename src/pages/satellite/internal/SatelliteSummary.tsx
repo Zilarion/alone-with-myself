@@ -16,11 +16,6 @@ const Wrapper = styled.div`
 
 export const SatelliteSummary = observer(({ satellite }: LocationSummaryProps) => {
     return <Wrapper>
-        <ValueIndicator
-            value={satellite.exploredArea}
-            max={satellite.totalArea}
-            label="Area"
-        />
         {satellite.storage.resources.map(resource => {
             return <ValueIndicator
                 key={resource.type}
