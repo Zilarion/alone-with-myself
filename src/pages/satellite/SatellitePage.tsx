@@ -1,17 +1,13 @@
 import styled from '@emotion/styled';
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
-import { Satellite } from 'src/internal';
+import { useGame } from 'src/internal';
 
 import { Card } from '../../components/Card';
 import { MultipleSelector } from '../../components/MultipleSelector';
 import { PrintablesList } from '../../components/PrintablesList';
 import { PrintQueue } from './internal/PrintQueue';
 import { SatelliteSummary } from './internal/SatelliteSummary';
-
-interface SatelliteProps {
-    satellite: Satellite;
-}
 
 const Wrapper = styled.div`
     display: grid;
@@ -30,7 +26,8 @@ const CardContent = styled.div`
     gap: ${p => p.theme.spacing(2)};
 `;
 
-export const SatellitePage = observer(({ satellite }: SatelliteProps) => {
+export const SatellitePage = observer(() => {
+    const { satellite } = useGame();
     const [ printableCount, setPrintableCount ] = useState(1);
     const {
         printables,

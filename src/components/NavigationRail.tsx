@@ -4,7 +4,10 @@ import {
     Explore,
 } from '@mui/icons-material';
 import { NavLink } from 'react-router-dom';
-import { IconButton } from 'src/internal';
+import {
+    IconButton,
+    routes,
+} from 'src/internal';
 
 const Container = styled.div`
     display: flex;
@@ -22,7 +25,7 @@ const Container = styled.div`
 export const NavigationRail = () => {
     return <Container>
         <IconButton
-            to='scanner'
+            to={routes.scanner.createPath()}
             label="Scanner"
             component={NavLink}
             size="large"
@@ -31,7 +34,7 @@ export const NavigationRail = () => {
         </IconButton>
 
         <IconButton
-            to='satellite'
+            to={routes.satellite.createPath()}
             label="Location"
             component={NavLink}
             size="large"

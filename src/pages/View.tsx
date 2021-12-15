@@ -1,11 +1,13 @@
 import styled from '@emotion/styled';
 import { Card } from '@mui/material';
 import { createContext } from 'react';
-import { Game } from 'src/internal';
+import {
+    ApplicationRoutes,
+    Game,
+} from 'src/internal';
 
 import { HeaderNavigation } from '../components/HeaderNavigation';
 import { NavigationRail } from '../components/NavigationRail';
-import { Routes } from './Routes';
 
 const game = new Game();
 export const GameContext = createContext(game);
@@ -37,7 +39,7 @@ export const View = () => {
             <Content>
                 <HeaderNavigation />
                 <ContentCard>
-                    <Routes />
+                    <ApplicationRoutes />
                 </ContentCard>
             </Content>
         </Wrapper>
