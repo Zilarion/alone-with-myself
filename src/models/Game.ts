@@ -1,5 +1,7 @@
 import {
-    makeAutoObservable,
+    action,
+    computed,
+    makeObservable,
     runInAction,
 } from 'mobx';
 import {
@@ -50,9 +52,10 @@ export class Game {
             printers.add(1);
         }
 
-        makeAutoObservable(this);
+        makeObservable(this);
     }
 
+    @computed
     get satellite() {
         return this._satellite;
     }
@@ -63,6 +66,7 @@ export class Game {
         }
     }
 
+    @action
     start() {
         this._animationFrameId = window.requestAnimationFrame(this._tick);
     }
@@ -79,6 +83,7 @@ export class Game {
         });
     }
 
+    @action
     private _update(delta: number) {
         const dialatedDelta = delta * this._gameSpeed;
         this._gameDelta += dialatedDelta;
@@ -89,14 +94,15 @@ export class Game {
         }
     }
 
+    @action
     private _tick = (time: number) => {
-        const delta = this._lastFrame ? time - this._lastFrame : 0;
+            const delta = this._lastFrame ? time - this._lastFrame : 0;
 
-        runInAction(() => {
-            this._update(delta);
-        });
+            runInAction(() => {
+                this._update(delta);
+            });
 
-        this._lastFrame = time;
-        this._animationFrameId = window.requestAnimationFrame(this._tick);
-    };
+            this._lastFrame = time;
+            this._animationFrameId = window.requestAnimationFrame(this._tick);
+        };
 }
