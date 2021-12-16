@@ -14,5 +14,5 @@ module.exports = {
         '**/?(*.)+(spec).[jt]s?(x)',
     ],
     moduleNameMapper: { '^src/(.*)$': '<rootDir>/src/$1' },
-    testEnvironment: 'node',
+    testEnvironment: 'jsdom',
 };
