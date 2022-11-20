@@ -1,12 +1,12 @@
+import { PrintTask } from '../models/PrintTask';
+import { SatelliteModel } from '../models/Satellite';
+import { PrintableType } from '../models/types/PrintableType';
 import {
-    PrintableType,
-    printCapacity,
-    PrintTask,
     ResourceSet,
     ResourceSetModel,
-    ResourceType,
-    SatelliteModel,
-} from 'src/internal';
+} from '../models/types/ResourceSet';
+import { ResourceType } from '../models/types/ResourceType';
+import { printCapacity } from './printCapacity';
 
 describe('util: printCapacity', () => {
     const duration = 20;

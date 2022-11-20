@@ -1,17 +1,20 @@
 import { types } from 'mobx-state-tree';
+
 import {
     Harvester,
     HarvesterModel,
     HarvesterSnapshot,
+} from './Harvester';
+import {
     Manufacturer,
     ManufacturerModel,
     ManufacturerSnapshot,
+} from './Manufacturer';
+import {
     Printer,
     PrinterModel,
     PrinterSnapshot,
-} from 'src/internal';
-
-import { } from './Printer';
+} from './Printer';
 
 export const PrintableUnion = types.union(
     HarvesterModel,

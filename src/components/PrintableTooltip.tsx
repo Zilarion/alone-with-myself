@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { observer } from 'mobx-react-lite';
-import { Printable } from 'src/internal';
 
+import { Printable } from '../models/PrintableUnion';
 import { ResourceSetSummary } from './ResourceSetSummary';
 
 interface PrintableTooltipProps {

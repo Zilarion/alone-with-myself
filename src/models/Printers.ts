@@ -2,12 +2,13 @@ import {
     Instance,
     types,
 } from 'mobx-state-tree';
+
+import { printCapacity } from '../util/printCapacity';
+import { PrinterModel } from './Printer';
 import {
-    printCapacity,
-    PrinterModel,
     PrintTaskModel,
     PrintTaskSnapshot,
-} from 'src/internal';
+} from './PrintTask';
 
 export const PrintersModel = types
     .model('Printers', {

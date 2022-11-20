@@ -1,11 +1,9 @@
 import styled from '@emotion/styled';
 import { observer } from 'mobx-react-lite';
-import {
-    Printable,
-    Printers,
-    ResourceStorage,
-} from 'src/internal';
 
+import { Printable } from '../models/PrintableUnion';
+import { Printers } from '../models/Printers';
+import { ResourceStorage } from '../models/ResourceStorage';
 import { PrintableItem } from './PrintableItem';
 
 interface PrintableSummaryProps {

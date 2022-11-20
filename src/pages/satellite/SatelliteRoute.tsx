@@ -1,5 +1,4 @@
-import { Route } from 'src/internal';
-
+import { Route } from '../Route';
 import { SatellitePage } from './SatellitePage';
 
 const path = '/satellite';

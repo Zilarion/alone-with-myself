@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
 import { observer } from 'mobx-react-lite';
-import { Resource } from 'src/internal';
 
+import { Resource } from '../models/types/ResourceSet';
 import { FormattedResource } from './FormattedResource';
 
 interface ResourceIndicatorProps {

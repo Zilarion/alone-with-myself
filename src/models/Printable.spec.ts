@@ -1,9 +1,7 @@
-import {
-    Printable,
-    PrintableType,
-    PrinterModel,
-    ResourceType,
-} from 'src/internal';
+import { Printable } from './PrintableUnion';
+import { PrinterModel } from './Printer';
+import { PrintableType } from './types/PrintableType';
+import { ResourceType } from './types/ResourceType';
 
 describe('model: Printable', () => {
     let printable: Printable;

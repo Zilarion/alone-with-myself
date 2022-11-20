@@ -1,9 +1,7 @@
-import {
-    Printable,
-    printerSnapshot,
-    PrintTask,
-    SatelliteModel,
-} from 'src/internal';
+import { printerSnapshot } from '../data/Printables';
+import { Printable } from './PrintableUnion';
+import { PrintTask } from './PrintTask';
+import { SatelliteModel } from './Satellite';
 
 describe('model: PrintTask', () => {
     const snapshot = printerSnapshot;
