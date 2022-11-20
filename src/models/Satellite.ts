@@ -1,49 +1,89 @@
-import {
-    Instance,
-    types,
-} from 'mobx-state-tree';
+import { createStore } from 'solid-js/store';
 
+import { assertDefined } from '../util/assertDefined';
 import { Harvester } from './Harvester';
-import { PrintableUnion } from './PrintableUnion';
-import { PrintersModel } from './Printers';
-import { ResourceStorageModel } from './ResourceStorage';
+import {
+    createPrintableInstance,
+    PrintableInstance,
+    PrintableSnapshot,
+} from './PrintableUnion';
+import { Printer } from './Printer';
+import { createPrinters } from './Printers';
+import { PrintTaskSnapshot } from './PrintTask';
+import {
+    createResourceStorage,
+    ResourceStorageSnapshot,
+} from './ResourceStorage';
 import { PrintableType } from './types/PrintableType';
 
-export const SatelliteModel = types
-    .model('Satellite', {
-        printers: PrintersModel,
-        totalSatelliteResources: ResourceStorageModel,
-        storage: ResourceStorageModel,
-        printables: types.array(PrintableUnion),
-        exploredArea: types.optional(types.number, 0),
-        totalArea: types.optional(types.number, 10000),
-        name: types.identifier,
-    })
-    .views(self => ({
+interface SatelliteSnapshot {
+    printTasks?: PrintTaskSnapshot[];
+    storage: ResourceStorageSnapshot;
+    totalSatelliteResources: ResourceStorageSnapshot;
+    printables: PrintableSnapshot[];
+    name: string;
+    totalArea?: number;
+    exploredArea?: number;
+}
+
+export interface Satellite extends ReturnType<typeof createSatellite> {}
+
+export function createSatellite({
+    name,
+    printTasks = [],
+    totalArea = 1000,
+    exploredArea = 0,
+    printables,
+    storage,
+    totalSatelliteResources,
+}: SatelliteSnapshot) {
+    function updateHarvesters(state: typeof store, delta: number) {
+        store.harvesters.forEach(harvester => {
+            const harvestedResources = harvester.harvestingOver(
+                delta,
+                state.totalSatelliteResources
+            );
+
+            state.totalSatelliteResources.decrement(harvestedResources);
+            state.storage.increment(harvestedResources);
+        });
+    }
+
+    const printableInstances = printables.map(createPrintableInstance);
+
+    const printer = assertDefined(
+        printableInstances.find((p: PrintableInstance): p is Printer =>
+            p.type === PrintableType.printer
+        )
+    );
+
+    const printers = createPrinters({
+        printers: printer,
+        tasks: printTasks,
+    });
+
+    const [ store ] = createStore({
+        totalArea,
+        exploredArea,
+        name,
+        printables: printableInstances,
+        storage: createResourceStorage(storage),
+        totalSatelliteResources: createResourceStorage(totalSatelliteResources),
+        printers,
+
         get fullyExplored() {
-            return self.exploredArea === self.totalArea;
+            return this.exploredArea === this.totalArea;
         },
         get harvesters(): Harvester[] {
-            return self.printables.filter((printable): printable is Harvester =>
+            return this.printables.filter((printable): printable is Harvester =>
                 printable.type === PrintableType.harvester
             );
         },
-    }))
-    .actions(self => ({
-        updateHarvesters(delta: number) {
-            self.harvesters.forEach(harvester => {
-                const harvestedResources = harvester.harvestingOver(
-                    delta,
-                    self.totalSatelliteResources
-                );
-
-                self.totalSatelliteResources.decrement(harvestedResources);
-                self.storage.increment(harvestedResources);
-            });
-        },
         update(delta: number) {
-            self.printers.update(delta);
-            this.updateHarvesters(delta);
+            store.printers.update(delta);
+            updateHarvesters(store, delta);
         },
-    }));
-export interface Satellite extends Instance<typeof SatelliteModel> {}
+    });
+
+    return store;
+}

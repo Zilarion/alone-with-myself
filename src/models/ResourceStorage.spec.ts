@@ -1,6 +1,6 @@
 import {
+    createResourceStorage,
     ResourceStorage,
-    ResourceStorageModel,
 } from './ResourceStorage';
 import { ResourceType } from './types/ResourceType';
 
@@ -19,69 +19,13 @@ describe('model: ResourceStorage', () => {
     ];
 
     beforeEach(() => {
-        storage = ResourceStorageModel.create({ resources: initialResources });
+        storage = createResourceStorage({ resources: initialResources });
     });
 
     it('should initialize correctly', () => {
         expect(storage.resources).toEqual(initialResources);
         expect(storage.numberOf(ResourceType.minerals)).toEqual(100);
         expect(storage.numberOf(ResourceType.power)).toEqual(10);
-    });
-
-    it('should correctly state whether it has certain resources', () => {
-        expect(storage.has([
-            {
-                type: ResourceType.minerals,
-                amount: 10,
-            },
-        ])).toEqual(true);
-
-        expect(storage.has([
-            {
-                type: ResourceType.minerals,
-                amount: 101,
-            },
-        ])).toEqual(false);
-
-        expect(storage.has([
-            {
-                type: ResourceType.minerals,
-                amount: 101,
-            },
-            {
-                type: ResourceType.power,
-                amount: 5,
-            },
-        ])).toEqual(false);
-
-        expect(storage.has([
-            {
-                type: ResourceType.minerals,
-                amount: 100,
-            },
-            {
-                type: ResourceType.power,
-                amount: 10,
-            },
-        ])).toEqual(true);
-
-        expect(storage.has([
-            {
-                type: ResourceType.minerals,
-                amount: 101,
-            },
-            {
-                type: ResourceType.power,
-                amount: 11,
-            },
-        ])).toEqual(false);
-
-        expect(storage.has([
-            {
-                type: ResourceType.power,
-                amount: 10,
-            },
-        ])).toEqual(true);
     });
 
     it('should not change resources when incrementing or decrementing an empty array', () => {

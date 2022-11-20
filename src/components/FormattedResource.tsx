@@ -9,21 +9,21 @@ interface FormattedResourceProps {
     compact?: boolean;
 }
 
-export const FormattedResource = ({
-    value,
-    type,
-    compact = false,
-}: FormattedResourceProps) => {
+export const FormattedResource = (props: FormattedResourceProps) => {
     const { formatNumber } = useFormatting();
 
-    const unit = RESOURCE_TO_UNIT.get(type);
-    assert(unit != null, `Expected ${type} to have a unit.`);
+    const unit = () => {
+        const result = RESOURCE_TO_UNIT.get(props.type);
+        assert(result != null, `Expected ${props.type} to have a unit.`);
+        return result;
+    };
+
     return formatNumber(
-        value,
+        props.value,
         {
-            notation: compact ? 'compact' : 'standard',
+            notation: props.compact ? 'compact' : 'standard',
             compactDisplay: 'short',
-            unit,
+            unit: unit(),
             style: 'unit',
             maximumFractionDigits: 0,
         },

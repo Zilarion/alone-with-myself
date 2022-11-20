@@ -1,6 +1,4 @@
-import { action } from 'mobx';
-
-import { Printable } from '../models/PrintableUnion';
+import { PrintableInstance } from '../models/PrintableUnion';
 import { Printers } from '../models/Printers';
 import { ResourceStorage } from '../models/ResourceStorage';
 import { multiplyResources } from '../util/multiplyResources';
@@ -8,38 +6,33 @@ import { Button } from './Button';
 import { PrintableTooltip } from './PrintableTooltip';
 
 interface PrintableItemProps {
-    printable: Printable;
+    printable: PrintableInstance;
     printableCount: number;
     storage: ResourceStorage;
     printers: Printers;
 }
 
-export const PrintableItem = ({
-    printable,
-    printableCount,
-    printers,
-    storage,
-}: PrintableItemProps) => {
-    const disabled = printable.maxAffordable(storage) < printableCount;
+export const PrintableItem = (props: PrintableItemProps) => {
+    const disabled = () => props.printable.maxAffordable(props.storage) < props.printableCount;
 
     return <Button
-        disabled={disabled}
+        disabled={disabled()}
         fullWidth
-        onClick={action(() => {
-            storage.decrement(
+        onClick={() => {
+            props.storage.decrement(
                 multiplyResources(
-                    printable.cost,
-                    printableCount,
+                    props.printable.cost,
+                    props.printableCount,
                 ),
             );
 
-            printers.addPrintTask({
-                printable: printable.id,
-                count: printableCount,
+            props.printers.addPrintTask({
+                printable: props.printable,
+                count: props.printableCount,
             });
-        })}
-        tooltip={<PrintableTooltip printable={printable} />}
+        }}
+        tooltip={<PrintableTooltip printable={props.printable} />}
     >
-        {`${printable.id} (${printable.amount})`}
+        {`${props.printable.id} (${props.printable.amount})`}
     </Button>;
 };

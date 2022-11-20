@@ -14,11 +14,6 @@ import { SatelliteSummary } from './internal/SatelliteSummary';
 export const SatellitePage = () => {
     const { satellite } = useGame();
     const [ printableCount, setPrintableCount ] = createSignal(1);
-    const {
-        printables,
-        storage,
-        printers,
-    } = satellite;
 
     return <Grid
         gap="$2"
@@ -35,18 +30,18 @@ export const SatellitePage = () => {
             >
                 <MultipleSelector
                     onChange={setPrintableCount}
-                    value={printableCount}
+                    value={printableCount()}
                 />
                 <PrintablesList
-                    printables={printables}
+                    printables={satellite.printables}
                     printableCount={printableCount()}
-                    storage={storage}
-                    printers={printers}
+                    storage={satellite.storage}
+                    printers={satellite.printers}
                 />
             </Flex>
         </Card>
         <Card title="Print queue">
-            <PrintQueue printers={printers} />
+            <PrintQueue printers={satellite.printers} />
         </Card>
         <Card title="Resources">
             <SatelliteSummary satellite={satellite} />

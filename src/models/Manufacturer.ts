@@ -1,32 +1,58 @@
-import {
-    Instance,
-    SnapshotIn,
-    types,
-} from 'mobx-state-tree';
+import { createStore } from 'solid-js/store';
 
+import { assert } from '../util/assert';
 import { multiplyResources } from '../util/multiplyResources';
-import { PrintableModel } from './Printable';
+import { resourcesInStorage } from '../util/resourcesInStorage';
+import { IPrintable } from './IPrintable';
+import { ResourceStorage } from './ResourceStorage';
 import { PrintableType } from './types/PrintableType';
-import { ResourceSetModel } from './types/ResourceSet';
+import { ResourceSet } from './types/ResourceSet';
 
-export const ManufacturerModel = types
-    .compose(
-        PrintableModel,
-        types.model({
-            type: types.literal(PrintableType.manufacturer),
-            produces: ResourceSetModel,
-            consumes: ResourceSetModel,
-        })
-    )
-    .views(self => ({
+export interface ManufacturerSnapshot extends IPrintable {
+    type: PrintableType.manufacturer;
+    produces: ResourceSet;
+    consumes: ResourceSet;
+}
+
+export interface Manufacturer extends ReturnType<typeof createManufacturer> {}
+
+export function createManufacturer({
+    type,
+    cost,
+    id,
+    duration,
+    amount = 0,
+    produces,
+    consumes,
+}: ManufacturerSnapshot) {
+    const [ store, setStore ] = createStore({
+        type,
+        cost,
+        id,
+        duration,
+        amount,
+        produces,
+        consumes,
         get totalProduction() {
-            return multiplyResources(self.produces, self.amount);
+            return multiplyResources(this.produces, this.amount);
         },
         get totalConsumption() {
-            return multiplyResources(self.consumes, self.amount);
+            return multiplyResources(this.consumes, this.amount);
         },
-    }))
-    .named('Manufacturer');
 
-export interface Manufacturer extends Instance<typeof ManufacturerModel> {}
-export interface ManufacturerSnapshot extends SnapshotIn<typeof ManufacturerModel> {}
+        maxAffordable(storage: ResourceStorage) {
+            return Math.floor(
+                resourcesInStorage(
+                    storage,
+                    store.cost,
+                ),
+            );
+        },
+        add(increment: number) {
+            assert(this.amount + increment >= 0, 'An attempt was made to decrease a printable below zero.');
+            setStore('amount', this.amount + increment);
+        },
+    });
+
+    return store;
+}

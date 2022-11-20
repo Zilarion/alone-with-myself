@@ -8,12 +8,12 @@ interface LocationSummaryProps {
     satellite: Satellite;
 }
 
-export const SatelliteSummary = ({ satellite }: LocationSummaryProps) => {
+export const SatelliteSummary = (props: LocationSummaryProps) => {
     return <Flex
         direction='column'
         gap='$2'
     >
-        <For each={satellite.storage.resources}>
+        <For each={props.satellite.storage.resources}>
             {resource => <ResourceIndicator resource={resource} />}
         </For>
     </Flex>;

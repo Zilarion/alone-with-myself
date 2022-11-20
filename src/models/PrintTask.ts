@@ -1,43 +1,47 @@
-import {
-    Instance,
-    SnapshotIn,
-    types,
-} from 'mobx-state-tree';
+import { createStore } from 'solid-js/store';
 
-import { PrintableUnion } from './PrintableUnion';
+import { PrintableInstance } from './PrintableUnion';
 
-export const PrintTaskModel = types
-    .model('PrintTask', {
-        count: types.optional(types.number, 0),
-        progress: types.optional(types.number, 0),
-        printable: types.reference(PrintableUnion),
-    })
-    .views(self => ({
+export interface PrintTaskSnapshot {
+    count?: number;
+    progress?: number;
+    printable: PrintableInstance;
+}
+
+export interface PrintTask extends ReturnType<typeof createPrintTask> {}
+
+export function createPrintTask({
+    count = 0,
+    progress = 0,
+    printable,
+}: PrintTaskSnapshot) {
+    const [ store, setStore ] = createStore({
+        count,
+        progress,
+        printable,
         get durationPerItem() {
-            return self.printable.duration;
+            return this.printable.duration;
         },
         get active() {
-            return self.count > 0 && self.progress > 0;
+            return this.count > 0 && this.progress > 0;
         },
         get id() {
-            return self.printable.id;
+            return this.printable.id;
         },
         get progressPercentage() {
-            if (self.count === 0) {
+            if (this.count === 0) {
                 return 0;
             }
 
-            return self.progress / this.durationPerItem;
+            return this.progress / this.durationPerItem;
         },
-    }))
-    .actions(self => ({
         setCount(newValue: number) {
-            self.count = newValue;
+            setStore('count', newValue);
         },
         setProgress(newValue: number) {
-            self.progress = newValue;
+            setStore('progress', newValue);
         },
-    }));
+    });
 
-export interface PrintTask extends Instance<typeof PrintTaskModel> {}
-export interface PrintTaskSnapshot extends SnapshotIn<typeof PrintTaskModel> {}
+    return store;
+}
