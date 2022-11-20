@@ -1,37 +1,36 @@
-import styled from '@emotion/styled';
 import {
-    Card as MuiCard,
-    CardContent,
-    Typography,
-} from '@mui/material';
-import { FC } from 'react';
+    Box,
+    Flex,
+    Heading,
+} from '@hope-ui/solid';
+import { JSX } from 'solid-js';
 
-const StyledCard = styled(MuiCard)`
-    background: ${p => p.theme.palette.background.paper};
-`;
+interface CardProps {
+    children: JSX.Element;
+    title: string;
+}
 
-const StyledContent = styled(CardContent)`
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-`;
-
-const ScrollContent = styled.div`
-    overflow: scroll;
-`;
-
-export const Card: FC<{ title: string }> = ({
+export const Card = ({
     children,
     title,
-}) => {
-    return <StyledCard variant="outlined">
-        <StyledContent>
-            <Typography variant="h6">
+}: CardProps) => {
+    return <Box
+        maxW="$sm"
+        borderWidth="1px"
+        borderColor="$neutral6"
+        borderRadius="$lg"
+        overflow="hidden"
+    >
+        <Flex
+            direction={'column'}
+            padding="$2"
+        >
+            <Heading level="6">
                 {title}
-            </Typography>
-            <ScrollContent>
-                { children }
-            </ScrollContent>
-        </StyledContent>
-    </StyledCard>;
+            </Heading>
+            <Box overflow='scroll'>
+                {children}
+            </Box>
+        </Flex>
+    </Box>;
 };

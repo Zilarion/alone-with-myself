@@ -1,12 +1,11 @@
 import { action } from 'mobx';
-import { observer } from 'mobx-react-lite';
 
 import { Printable } from '../models/PrintableUnion';
 import { Printers } from '../models/Printers';
 import { ResourceStorage } from '../models/ResourceStorage';
 import { multiplyResources } from '../util/multiplyResources';
+import { Button } from './Button';
 import { PrintableTooltip } from './PrintableTooltip';
-import { ProgressButton } from './ProgressButton';
 
 interface PrintableItemProps {
     printable: Printable;
@@ -15,7 +14,7 @@ interface PrintableItemProps {
     printers: Printers;
 }
 
-export const PrintableItem = observer(({
+export const PrintableItem = ({
     printable,
     printableCount,
     printers,
@@ -23,7 +22,7 @@ export const PrintableItem = observer(({
 }: PrintableItemProps) => {
     const disabled = printable.maxAffordable(storage) < printableCount;
 
-    return <ProgressButton
+    return <Button
         disabled={disabled}
         fullWidth
         onClick={action(() => {
@@ -42,5 +41,5 @@ export const PrintableItem = observer(({
         tooltip={<PrintableTooltip printable={printable} />}
     >
         {`${printable.id} (${printable.amount})`}
-    </ProgressButton>;
-});
+    </Button>;
+};

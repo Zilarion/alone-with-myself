@@ -1,7 +1,7 @@
-import { useContext } from 'react';
+import { Game } from '../models/Game';
 
-import { GameContext } from '../pages/View';
+const game = new Game();
 
 export function useGame() {
-    return useContext(GameContext);
+    return game;
 }

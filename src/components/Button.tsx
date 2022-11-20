@@ -1,20 +1,17 @@
-import styled from '@emotion/styled';
-import { Button as MuiButton } from '@mui/material';
-import Tippy from '@tippyjs/react';
-import { PropsWithChildren } from 'react';
+import {
+    Button as HopeUiButton,
+    Tooltip,
+} from '@hope-ui/solid';
+import { JSX } from 'solid-js';
 
-export type ButtonProps = PropsWithChildren<{
-    onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+type ButtonProps = {
+    onClick?: (e: MouseEvent) => void;
     disabled?: boolean;
-    tooltip?: string | JSX.Element;
+    tooltip?: JSX.Element;
     progress?: number;
     fullWidth?: boolean;
-}>;
-
-const TippyWrapper = styled.div<{ fullWidth: boolean }>`
-    width: ${p => p.fullWidth ? '100%' : 'auto'};
-    display: ${p => p.fullWidth ? 'block' : 'inline'};
-`;
+    children?: JSX.Element;
+};
 
 export const Button = ({
     onClick,
@@ -23,20 +20,17 @@ export const Button = ({
     tooltip,
     fullWidth = false,
 }: ButtonProps) => {
-    return <Tippy
-        theme="scifi"
-        content={tooltip ?? children}>
-        <TippyWrapper fullWidth={fullWidth}>
-            <MuiButton
-                variant="outlined"
-                onClick={onClick}
-                color="primary"
-                size="medium"
-                disabled={disabled}
-                fullWidth={fullWidth}
-            >
-                {children}
-            </MuiButton>
-        </TippyWrapper>
-    </Tippy>;
+    return <Tooltip
+        label={tooltip ?? children}
+    >
+        <HopeUiButton
+            variant={'outline'}
+            onClick={onClick}
+            color="primary"
+            disabled={disabled}
+            fullWidth={fullWidth}
+        >
+            {children}
+        </HopeUiButton>
+    </Tooltip>;
 };

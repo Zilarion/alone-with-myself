@@ -1,8 +1,7 @@
 import 'normalize.css';
-import 'tippy.js/dist/tippy.css';
 
 import { configure } from 'mobx';
-import { render } from 'react-dom';
+import { render } from 'solid-js/web';
 
 import { App } from './pages/App';
 
@@ -12,7 +11,4 @@ configure({
     observableRequiresReaction: true,
 });
 
-render(
-    <App />,
-    document.getElementById('root'),
-);
+render(() => <App />, document.body);

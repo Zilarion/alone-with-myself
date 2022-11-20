@@ -1,5 +1,4 @@
-import { FormattedNumber } from 'react-intl';
-
+import { useFormatting } from '../hooks/useFormatting';
 import { RESOURCE_TO_UNIT } from '../models/ResourceUnits';
 import { ResourceType } from '../models/types/ResourceType';
 import { assert } from '../util/assert';
@@ -15,13 +14,18 @@ export const FormattedResource = ({
     type,
     compact = false,
 }: FormattedResourceProps) => {
+    const { formatNumber } = useFormatting();
+
     const unit = RESOURCE_TO_UNIT.get(type);
     assert(unit != null, `Expected ${type} to have a unit.`);
-    return <FormattedNumber
-        value={value}
-        style="unit"
-        unit={unit}
-        notation={compact ? 'compact' : 'standard'}
-        maximumFractionDigits={0}
-    />;
+    return formatNumber(
+        value,
+        {
+            notation: compact ? 'compact' : 'standard',
+            compactDisplay: 'short',
+            unit,
+            style: 'unit',
+            maximumFractionDigits: 0,
+        },
+    );
 };

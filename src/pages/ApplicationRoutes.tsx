@@ -1,17 +1,25 @@
 import {
     Route,
-    Routes as RouterRoutes,
-} from 'react-router-dom';
+    Routes,
+} from '@solidjs/router';
 
 import { routes } from './routes';
+import { SatellitePage } from './satellite/SatellitePage';
+import { ScannerPage } from './scanner/ScannerPage';
 
 export const ApplicationRoutes = () => {
-    return <RouterRoutes>
-        <Route {...routes.satellite} />
-        <Route {...routes.scanner} />
+    return <Routes>
+        <Route
+            path={routes.satellite.path()}
+            element={<SatellitePage />}
+        />
+        <Route
+            path={routes.scanner.path()}
+            element={<ScannerPage />}
+        />
         <Route
             path="*"
-            element={routes.scanner.element}
+            element={<ScannerPage />}
         />
-    </RouterRoutes>;
+    </Routes>;
 };

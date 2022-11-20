@@ -1,5 +1,4 @@
-import { Typography } from '@mui/material';
-import { observer } from 'mobx-react-lite';
+import { Text } from '@hope-ui/solid';
 
 import { Resource } from '../models/types/ResourceSet';
 import { FormattedResource } from './FormattedResource';
@@ -8,19 +7,19 @@ interface ResourceIndicatorProps {
     resource: Resource;
 }
 
-export const ResourceIndicator = observer(({
+export const ResourceIndicator = ({
     resource: {
         amount,
         type,
     },
 }: ResourceIndicatorProps) => {
     return <>
-        <Typography color="primary">
+        <Text color="$primary">
             {type}
-        </Typography>
+        </Text>
         <FormattedResource
             value={amount}
             type={type}
         />
     </>;
-});
+};

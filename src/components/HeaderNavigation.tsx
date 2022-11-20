@@ -1,42 +1,39 @@
-import styled from '@emotion/styled';
-import { Typography } from '@mui/material';
-import { observer } from 'mobx-react-lite';
+import {
+    Box,
+    Flex,
+    Heading,
+    Text,
+} from '@hope-ui/solid';
 
 import { useGame } from '../hooks/useGame';
 import { CircularProgressWithLabel } from './CircularProgressWithLabel';
 
-const Wrapper = styled.div`
-    display: flex;
-    padding: ${p => p.theme.spacing(2)};
-    align-items: center;
-    vertical-align: center;
-    gap: ${p => p.theme.spacing(2)};
-    height: 60px;
-`;
-
-const Splitter = styled.div`
-    background: ${p => p.theme.palette.primary.main};
-    width: 1px;
-    height: 30px;
-    margin: ${p => p.theme.spacing(2)};
-`;
-
-export const HeaderNavigation = observer(() => {
+export const HeaderNavigation = () => {
     const { satellite } = useGame();
 
-    return <Wrapper>
-        <Typography variant='h6'>
+    return <Flex
+        padding="$2"
+        gap="$2"
+        verticalAlign={'center'}
+        alignItems={'center'}
+        height={'60px'}
+    >
+        <Heading level='6'>
             {satellite.name}
-        </Typography>
+        </Heading>
 
-        <Splitter />
-        <Typography>
+        <Box
+            width={'1px'}
+            height={'30px'}
+            background={'$primary11'}
+            margin="$2"
+        />
+        <Text>
             Explored area
-        </Typography>
+        </Text>
         <CircularProgressWithLabel
-            variant="determinate"
             size={30}
             value={satellite.exploredArea / satellite.totalArea}
         />
-    </Wrapper>;
-});
+    </Flex>;
+};
