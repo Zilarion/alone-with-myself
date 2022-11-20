@@ -1,8 +1,9 @@
 import { SnapshotIn } from 'mobx-state-tree';
+
 import {
     ResourceSet,
     ResourceSetModel,
-} from 'src/internal';
+} from '../models/types/ResourceSet';
 
 export function multiplyResources(
     resources: ResourceSet | SnapshotIn<ResourceSet> = [],

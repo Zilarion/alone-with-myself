@@ -1,5 +1,4 @@
-import { ResourceType } from 'src/internal';
-
+import { ResourceType } from '../models/types/ResourceType';
 import { divideResources } from './divideResources';
 
 describe('util: divideResources', () => {

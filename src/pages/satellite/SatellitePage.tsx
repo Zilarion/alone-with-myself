@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
-import { useGame } from 'src/internal';
 
 import { Card } from '../../components/Card';
 import { MultipleSelector } from '../../components/MultipleSelector';
 import { PrintablesList } from '../../components/PrintablesList';
+import { useGame } from '../../hooks/useGame';
 import { PrintQueue } from './internal/PrintQueue';
 import { SatelliteSummary } from './internal/SatelliteSummary';
 

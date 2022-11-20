@@ -3,13 +3,11 @@ import {
     SnapshotIn,
     types,
 } from 'mobx-state-tree';
-import {
-    multiplyResources,
-    PrintableType,
-    ResourceSetModel,
-} from 'src/internal';
 
+import { multiplyResources } from '../util/multiplyResources';
 import { PrintableModel } from './Printable';
+import { PrintableType } from './types/PrintableType';
+import { ResourceSetModel } from './types/ResourceSet';
 
 export const ManufacturerModel = types
     .compose(

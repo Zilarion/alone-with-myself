@@ -3,14 +3,13 @@ import {
     SnapshotIn,
     types,
 } from 'mobx-state-tree';
-import {
-    multiplyResources,
-    PrintableModel,
-    PrintableType,
-    ResourceSetModel,
-    ResourceStorage,
-    ResourceType,
-} from 'src/internal';
+
+import { multiplyResources } from '../util/multiplyResources';
+import { PrintableModel } from './Printable';
+import { ResourceStorage } from './ResourceStorage';
+import { PrintableType } from './types/PrintableType';
+import { ResourceSetModel } from './types/ResourceSet';
+import { ResourceType } from './types/ResourceType';
 
 export const HarvesterModel = types
     .compose(

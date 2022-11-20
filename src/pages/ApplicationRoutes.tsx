@@ -2,7 +2,8 @@ import {
     Route,
     Routes as RouterRoutes,
 } from 'react-router-dom';
-import { routes } from 'src/internal';
+
+import { routes } from './routes';
 
 export const ApplicationRoutes = () => {
     return <RouterRoutes>

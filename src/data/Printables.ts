@@ -1,12 +1,9 @@
-import {
-    manufacturerSnapshots,
-    PrintableSnapshot,
-    PrintableType,
-    PrinterSnapshot,
-    ResourceType,
-} from 'src/internal';
-
+import { PrintableSnapshot } from '../models/PrintableUnion';
+import { PrinterSnapshot } from '../models/Printer';
+import { PrintableType } from '../models/types/PrintableType';
+import { ResourceType } from '../models/types/ResourceType';
 import { harvesterSnapshots } from './Harvesters';
+import { manufacturerSnapshots } from './Manufacturers';
 
 export const printerSnapshot: PrinterSnapshot = {
     type: PrintableType.printer,

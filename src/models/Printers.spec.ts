@@ -1,9 +1,9 @@
+import { printerSnapshot } from '../data/Printables';
+import { Printers } from './Printers';
 import {
-    Printers,
-    printerSnapshot,
     Satellite,
     SatelliteModel,
-} from 'src/internal';
+} from './Satellite';
 
 describe('model: Printer', () => {
     let printers: Printers;

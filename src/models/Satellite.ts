@@ -2,13 +2,12 @@ import {
     Instance,
     types,
 } from 'mobx-state-tree';
-import {
-    Harvester,
-    PrintableType,
-    PrintableUnion,
-    PrintersModel,
-    ResourceStorageModel,
-} from 'src/internal';
+
+import { Harvester } from './Harvester';
+import { PrintableUnion } from './PrintableUnion';
+import { PrintersModel } from './Printers';
+import { ResourceStorageModel } from './ResourceStorage';
+import { PrintableType } from './types/PrintableType';
 
 export const SatelliteModel = types
     .model('Satellite', {

@@ -3,9 +3,9 @@ import {
     SnapshotIn,
     types,
 } from 'mobx-state-tree';
-import { PrintableType } from 'src/internal';
 
 import { PrintableModel } from './Printable';
+import { PrintableType } from './types/PrintableType';
 
 export const PrinterModel = types
     .compose(

@@ -3,7 +3,8 @@ import {
     SnapshotIn,
     types,
 } from 'mobx-state-tree';
-import { PrintableUnion } from 'src/internal';
+
+import { PrintableUnion } from './PrintableUnion';
 
 export const PrintTaskModel = types
     .model('PrintTask', {

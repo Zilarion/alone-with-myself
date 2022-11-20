@@ -1,13 +1,12 @@
+import { harvesterSnapshots } from '../data/Harvesters';
+import { multiplyResources } from '../util/multiplyResources';
 import {
     Harvester,
     HarvesterModel,
-    harvesterSnapshots,
-    multiplyResources,
-    PrintableType,
-    ResourceType,
-} from 'src/internal';
-
+} from './Harvester';
 import { ResourceStorageModel } from './ResourceStorage';
+import { PrintableType } from './types/PrintableType';
+import { ResourceType } from './types/ResourceType';
 
 describe('model: Harvester', () => {
     const snapshot = harvesterSnapshots[0];

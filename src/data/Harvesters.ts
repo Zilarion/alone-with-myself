@@ -1,8 +1,6 @@
-import {
-    HarvesterSnapshot,
-    PrintableType,
-    ResourceType,
-} from 'src/internal';
+import { HarvesterSnapshot } from '../models/Harvester';
+import { PrintableType } from '../models/types/PrintableType';
+import { ResourceType } from '../models/types/ResourceType';
 
 export const harvesterSnapshots: HarvesterSnapshot[] = [
     {

@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { FormattedNumber } from 'react-intl';
-import { ResourceSet } from 'src/internal';
 
+import { ResourceSet } from '../models/types/ResourceSet';
 import { FormattedResource } from './FormattedResource';
 import { Table } from './Table';
 

@@ -1,8 +1,8 @@
 import {
     ResourceStorage,
     ResourceStorageModel,
-    ResourceType,
-} from 'src/internal';
+} from './ResourceStorage';
+import { ResourceType } from './types/ResourceType';
 
 describe('model: ResourceStorage', () => {
     let storage: ResourceStorage;

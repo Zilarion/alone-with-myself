@@ -4,12 +4,13 @@ import {
     makeObservable,
     runInAction,
 } from 'mobx';
+
+import { PRINTABLES } from '../data/Printables';
 import {
-    PRINTABLES,
-    ResourceType,
     Satellite,
     SatelliteModel,
-} from 'src/internal';
+} from './Satellite';
+import { ResourceType } from './types/ResourceType';
 
 const WORLD_DELTA_MINIMUM = 1000;
 

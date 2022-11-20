@@ -1,8 +1,6 @@
-import {
-    ManufacturerSnapshot,
-    PrintableType,
-    ResourceType,
-} from 'src/internal';
+import { ManufacturerSnapshot } from '../models/Manufacturer';
+import { PrintableType } from '../models/types/PrintableType';
+import { ResourceType } from '../models/types/ResourceType';
 
 export const manufacturerSnapshots: ManufacturerSnapshot[] = [
     {
