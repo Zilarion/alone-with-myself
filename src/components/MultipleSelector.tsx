@@ -1,77 +1,47 @@
 import {
+    Button,
+    ButtonGroup,
     Grid,
-    ToggleButton,
-    ToggleButtonGroup,
-} from '@mui/material';
-import { observer } from 'mobx-react-lite';
-import {
-    useEffect,
-    useState,
-} from 'react';
+} from '@hope-ui/solid';
+import { Accessor } from 'solid-js';
 
 interface MultipleSelector {
-    value: number;
+    value: Accessor<number>;
     onChange: (value: number) => void;
 }
 
-export const MultipleSelector = observer(({
-    value: initialValue,
+export const MultipleSelector = ({
+    value,
     onChange,
 }: MultipleSelector) => {
-    const [ value, setValue ] = useState(initialValue);
-    const [ type, setType ] = useState('1');
-
-    useEffect(() => {
-        onChange(value);
-    }, [ value, onChange ]);
-
-    const handleChange = (_: React.MouseEvent<HTMLElement>, newAlignment: string) => {
-        if (newAlignment === '1') {
-            setValue(1);
-            setType('1');
-        } else if (newAlignment === '10') {
-            setValue(10);
-            setType('10');
-        } else if (newAlignment === '100') {
-            setValue(100);
-            setType('100');
-        } else if (newAlignment === '1k') {
-            setValue(1000);
-            setType('1k');
-        }
-    };
-
     return <Grid
-        container
         alignItems="center"
     >
-        <ToggleButtonGroup
-            size="small"
-            value={type}
-            exclusive
-            onChange={handleChange}
-        >
-            <ToggleButton
-                size='small'
-                value="1">
+        <ButtonGroup>
+            <Button
+                variant={value() === 1 ? 'solid' : 'outline'}
+                onClick={() => onChange(1)}
+            >
                 1
-            </ToggleButton>
-            <ToggleButton
-                size='small'
-                value="10">
+            </Button>
+            <Button
+                variant={value() === 10 ? 'solid' : 'outline'}
+                onClick={() => onChange(10)}
+            >
                 10
-            </ToggleButton>
-            <ToggleButton
-                size='small'
-                value="100">
+            </Button>
+            <Button
+                variant={value() === 100 ? 'solid' : 'outline'}
+                onClick={() => onChange(100)}
+            >
                 100
-            </ToggleButton>
-            <ToggleButton
-                size='small'
-                value="1k">
+            </Button>
+            <Button
+                variant={value() === 1000 ? 'solid' : 'outline'}
+                onClick={() => onChange(1000)}
+            >
                 1K
-            </ToggleButton>
-        </ToggleButtonGroup>
-    </Grid>;
-})
-;
+            </Button>
+        </ButtonGroup>
+    </Grid >;
+};

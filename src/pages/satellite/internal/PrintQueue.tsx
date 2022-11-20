@@ -1,10 +1,9 @@
 import {
     List,
     ListItem,
-    ListItemText,
-    styled,
-} from '@mui/material';
-import { observer } from 'mobx-react-lite';
+    Text,
+} from '@hope-ui/solid';
+import { For } from 'solid-js';
 
 import { CircularProgressWithLabel } from '../../../components/CircularProgressWithLabel';
 import { Printers } from '../../../models/Printers';
@@ -13,30 +12,24 @@ interface PrintQueueProps {
     printers: Printers;
 }
 
-const StyledListItem = styled(ListItem)`
-    display: flex;
-    gap: ${p => p.theme.spacing(2)};
-`;
-
-const StyledList = styled(List)`
-    overflow: scroll;
-`;
-
-export const PrintQueue = observer(({ printers: { tasks } }: PrintQueueProps) => {
-    return <StyledList>
-        {tasks.map((task, idx) =>
-            <StyledListItem
-                disableGutters
-                key={idx}
-            >
+export const PrintQueue = ({ printers: { tasks } }: PrintQueueProps) => {
+    return <List
+        display='flex'
+        gap='$2'
+        overflow='scroll'
+    >
+        <For each={tasks}>
+            {task => <ListItem>
                 <CircularProgressWithLabel
-                    variant="determinate"
                     value={task.progressPercentage * 100}
                 />
-                <ListItemText
-                    primary={task.printable.id}
-                    secondary={`Printing ${task.count}`}
-                />
-            </StyledListItem>)}
-    </StyledList>;
-});
+                <Text>
+                    {task.printable.id}
+                </Text>
+                <Text>
+                    {`Printing ${task.count}`}
+                </Text>
+            </ListItem>}
+        </For>
+    </List>;
+};

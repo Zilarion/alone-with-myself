@@ -1,6 +1,8 @@
-import styled from '@emotion/styled';
-import { observer } from 'mobx-react-lite';
-import { useState } from 'react';
+import {
+    Flex,
+    Grid,
+} from '@hope-ui/solid';
+import { createSignal } from 'solid-js';
 
 import { Card } from '../../components/Card';
 import { MultipleSelector } from '../../components/MultipleSelector';
@@ -9,46 +11,39 @@ import { useGame } from '../../hooks/useGame';
 import { PrintQueue } from './internal/PrintQueue';
 import { SatelliteSummary } from './internal/SatelliteSummary';
 
-const Wrapper = styled.div`
-    display: grid;
-    gap: ${p => p.theme.spacing(2)};
-    padding: ${p => p.theme.spacing(2)};
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
-    max-height: 100%;
-    width: 100%;
-    max-height: 100%;
-`;
-
-const CardContent = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: ${p => p.theme.spacing(2)};
-`;
-
-export const SatellitePage = observer(() => {
+export const SatellitePage = () => {
     const { satellite } = useGame();
-    const [ printableCount, setPrintableCount ] = useState(1);
+    const [ printableCount, setPrintableCount ] = createSignal(1);
     const {
         printables,
         storage,
         printers,
     } = satellite;
 
-    return <Wrapper>
+    return <Grid
+        gap="$2"
+        padding="$2"
+        templateColumns="repeat(3, 1fr)"
+        templateRows="1fr"
+        maxH="100%"
+        width="100%"
+    >
         <Card title="Printer control">
-            <CardContent>
+            <Flex
+                direction='column'
+                gap='$2'
+            >
                 <MultipleSelector
                     onChange={setPrintableCount}
                     value={printableCount}
                 />
                 <PrintablesList
                     printables={printables}
-                    printableCount={printableCount}
+                    printableCount={printableCount()}
                     storage={storage}
                     printers={printers}
                 />
-            </CardContent>
+            </Flex>
         </Card>
         <Card title="Print queue">
             <PrintQueue printers={printers} />
@@ -56,5 +51,5 @@ export const SatellitePage = observer(() => {
         <Card title="Resources">
             <SatelliteSummary satellite={satellite} />
         </Card>
-    </Wrapper>;
-});
+    </Grid>;
+};

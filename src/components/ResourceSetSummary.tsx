@@ -1,6 +1,4 @@
-import { observer } from 'mobx-react-lite';
-import { FormattedNumber } from 'react-intl';
-
+import { useFormatting } from '../hooks/useFormatting';
 import { ResourceSet } from '../models/types/ResourceSet';
 import { FormattedResource } from './FormattedResource';
 import { Table } from './Table';
@@ -12,29 +10,28 @@ interface ResourceSetSummaryProps {
     compact?: boolean;
 }
 
-export const ResourceSetSummary = observer(({
+export const ResourceSetSummary = ({
     resources,
     delta,
     compact = false,
     showHeader = false,
 }: ResourceSetSummaryProps) => {
+    const { formatNumber } = useFormatting();
+
     const data = resources.map(({
         type: resource, amount,
     }, idx) => [
         resource,
         <FormattedResource
-            key={resource}
             value={amount}
             type={resource}
             compact={compact}
         />,
         ... (delta ? [
-            <FormattedNumber
-                key={resource}
-                value={delta[idx].amount}
-                notation="compact"
-                signDisplay="always"
-            />,
+            formatNumber(delta[idx].amount, {
+                notation: 'compact',
+                signDisplay: 'always',
+            }),
         ] : []),
     ]);
 
@@ -42,4 +39,4 @@ export const ResourceSetSummary = observer(({
         headers={showHeader ? [ 'Resource', 'Amount', 'Production' ] : []}
         data={data}
     />;
-});
+};

@@ -1,5 +1,7 @@
-import styled from '@emotion/styled';
-import { observer } from 'mobx-react-lite';
+import {
+    Flex,
+    Text,
+} from '@hope-ui/solid';
 
 import { Printable } from '../models/PrintableUnion';
 import { ResourceSetSummary } from './ResourceSetSummary';
@@ -8,28 +10,23 @@ interface PrintableTooltipProps {
     printable: Printable;
 }
 
-const TooltipWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: ${p => p.theme.spacing(2)}px;
-`;
-
-const TooltipHeader = styled.span`
-    font-weight: bold;
-    text-align: center;
-    border-bottom: 1px solid ${p => p.theme.palette.text.disabled};
-`;
-
-export const PrintableTooltip = observer(({
+export const PrintableTooltip = ({
     printable: {
         id,
         cost,
     },
 }: PrintableTooltipProps) => {
-    return <TooltipWrapper>
-        <TooltipHeader>
+    return <Flex
+        direction='column'
+        gap='$2'
+    >
+        <Text
+            fontWeight={'bold'}
+            textAlign={'center'}
+            borderBottom={'1px solid $neutral6'}
+        >
             {id}
-        </TooltipHeader>
+        </Text>
         <ResourceSetSummary resources={cost} />
-    </TooltipWrapper>;
-});
+    </Flex>;
+};

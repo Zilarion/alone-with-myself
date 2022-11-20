@@ -7,15 +7,11 @@ module.exports = {
     extends: [
         'eslint:recommended',
         'plugin:@typescript-eslint/eslint-recommended',
-        'plugin:react/recommended',
-        'plugin:react-hooks/recommended',
     ],
-    settings: { react: { version: 'detect' } },
     parser: '@typescript-eslint/parser',
     parserOptions: { 'project': './tsconfig.json' },
     plugins: [
         '@typescript-eslint',
-        'react',
         'modules-newlines',
         'simple-import-sort',
         'import',
@@ -301,45 +297,5 @@ module.exports = {
                 'after': true,
             },
         ],
-
-        // React rules
-        'react/prop-types': 'off',
-        'react/react-in-jsx-scope': 'off',
-        'react/self-closing-comp': 'error',
-        'react/void-dom-elements-no-children': 'error',
-        'react/jsx-props-no-multi-spaces': 'error',
-        'react/jsx-child-element-spacing': 'error',
-        'react/jsx-curly-brace-presence': 'error',
-        'react/jsx-curly-newline': 'error',
-        'react/jsx-curly-spacing': 'error',
-        'react/jsx-equals-spacing': 'error',
-        'react/jsx-first-prop-new-line': 'error',
-        'react/jsx-fragments': 'error',
-        'react/jsx-max-props-per-line': 'error',
-        'react/jsx-one-expression-per-line': 'error',
-        'react/jsx-pascal-case': 'error',
-        'react/jsx-tag-spacing': 'error',
-        'react-hooks/exhaustive-deps': 'error',
-        'react/function-component-definition': [ 'error', {
-            'namedComponents': 'arrow-function',
-            'unnamedComponents': 'arrow-function',
-        } ],
-        'react/no-danger': 'error',
-        'react/no-unstable-nested-components': 'error',
-        'no-restricted-imports': [ 'error', {
-            paths: [
-                {
-                    name: '@mui/material',
-                    importNames: [ 'IconButton' ],
-                    message: 'Use MUI wrappers instead.',
-                },
-            ],
-            patterns: [
-                {
-                    'group': [ '../**/internal/**', 'src/**/internal', '!src/internal' ],
-                    'message': 'You can only import from relative internal modules, i.e. \'./internal/**\'',
-                },
-            ],
-        } ],
     },
 };

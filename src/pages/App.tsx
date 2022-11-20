@@ -1,23 +1,22 @@
-import { CssBaseline } from '@mui/material';
-import { ThemeProvider } from '@mui/material/styles';
-import { StylesProvider } from '@mui/styles';
-import { IntlProvider } from 'react-intl';
-import { BrowserRouter } from 'react-router-dom';
+import {
+    HopeProvider,
+    HopeThemeConfig,
+} from '@hope-ui/solid';
+import { Router } from '@solidjs/router';
 
-import { theme } from '../theme';
+import { IntlProvider } from './IntlProvider';
 import { View } from './View';
+
+const config: HopeThemeConfig = { initialColorMode: 'system' };
 
 export const App = () => {
     return (
-        <ThemeProvider theme={theme}>
-            <StylesProvider injectFirst>
-                <CssBaseline />
-                <IntlProvider locale="en-US">
-                    <BrowserRouter>
-                        <View />
-                    </BrowserRouter>
-                </IntlProvider>
-            </StylesProvider>
-        </ThemeProvider>
+        <HopeProvider config={config}>
+            <IntlProvider locale="en-US">
+                <Router>
+                    <View />
+                </Router>
+            </IntlProvider>
+        </HopeProvider>
     );
 };
