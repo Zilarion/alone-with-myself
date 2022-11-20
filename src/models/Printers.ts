@@ -1,34 +1,38 @@
-import {
-    Instance,
-    types,
-} from 'mobx-state-tree';
+import { createStore } from 'solid-js/store';
 
 import { printCapacity } from '../util/printCapacity';
-import { PrinterModel } from './Printer';
+import { Printer } from './Printer';
 import {
-    PrintTaskModel,
+    createPrintTask,
     PrintTaskSnapshot,
 } from './PrintTask';
 
-export const PrintersModel = types
-    .model('Printers', {
-        printers: types.reference(PrinterModel),
-        tasks: types.array(PrintTaskModel),
-    })
-    .views(self => ({
+interface PrintersSnapshot {
+    printers: Printer;
+    tasks: PrintTaskSnapshot[];
+}
+
+export type Printers = ReturnType<typeof createPrinters>;
+
+export function createPrinters({
+    printers,
+    tasks,
+}: PrintersSnapshot) {
+    const [ store, setStore ] = createStore({
+        printers,
+        tasks: tasks.map(createPrintTask),
         get capacityPerMs() {
-            return self.printers.capacityPerMs;
+            return this.printers.capacityPerMs;
         },
-    }))
-    .actions(self => ({
+
         addPrintTask(task: PrintTaskSnapshot) {
-            self.tasks.push(task);
+            setStore('tasks', [ ...store.tasks, createPrintTask(task) ]);
         },
         update(delta: number) {
-            const capacity = self.capacityPerMs * delta;
+            const capacity = store.capacityPerMs * delta;
             let remainingCapacity = capacity;
 
-            self.tasks.forEach((task) => {
+            store.tasks.forEach((task) => {
                 const {
                     capacityLeft,
                     numberFinished,
@@ -37,15 +41,15 @@ export const PrintersModel = types
 
                 remainingCapacity = capacityLeft;
                 task.printable.add(numberFinished);
-                task.progress = progress;
-                task.count -= numberFinished;
+                task.setProgress(progress);
+                task.setCount(task.count - numberFinished);
 
                 if (task.count === 0) {
-                    task.progress = 0;
-                    self.tasks.remove(task);
+                    setStore('tasks', store.tasks.filter(t => t !== task));
                 }
             });
         },
-    }));
+    });
 
-export interface Printers extends Instance<typeof PrintersModel> {}
+    return store;
+}

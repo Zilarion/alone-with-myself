@@ -1,10 +1,10 @@
-import { PrintTask } from '../models/PrintTask';
-import { SatelliteModel } from '../models/Satellite';
-import { PrintableType } from '../models/types/PrintableType';
+import { createPrintableInstance } from '../models/PrintableUnion';
+import { PrinterSnapshot } from '../models/Printer';
 import {
-    ResourceSet,
-    ResourceSetModel,
-} from '../models/types/ResourceSet';
+    createPrintTask,
+    PrintTask,
+} from '../models/PrintTask';
+import { PrintableType } from '../models/types/PrintableType';
 import { ResourceType } from '../models/types/ResourceType';
 import { printCapacity } from './printCapacity';
 
@@ -12,28 +12,22 @@ describe('util: printCapacity', () => {
     const duration = 20;
 
     let task: PrintTask;
-    let printerCost: ResourceSet;
     beforeEach(() => {
-        const satellite = SatelliteModel.create({
-            name: 'satellite',
-            storage: {},
-            totalSatelliteResources: {},
-            printers: {
-                printers: 'printer',
-                tasks: [ { printable: 'printer' } ],
-            },
-            printables: [ {
-                cost: printerCost,
-                id: 'printer',
-                duration,
-                type: PrintableType.printer,
+        const printer: PrinterSnapshot = {
+            cost: [ {
+                amount: 10,
+                type: ResourceType.minerals,
             } ],
+            id: 'printer',
+            duration,
+            type: PrintableType.printer,
+        };
+
+        task = createPrintTask({
+            count: 0,
+            printable: createPrintableInstance(printer),
+            progress: 0,
         });
-        task = satellite.printers.tasks[0];
-        printerCost = ResourceSetModel.create([ {
-            amount: 10,
-            type: ResourceType.minerals,
-        } ]);
     });
 
     it('should use existing progress', () => {

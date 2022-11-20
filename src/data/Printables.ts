@@ -15,6 +15,7 @@ export const printerSnapshot: PrinterSnapshot = {
         },
     ],
     duration: 20,
+    amount: 1,
 };
 
 export const PRINTABLES: PrintableSnapshot[] = [

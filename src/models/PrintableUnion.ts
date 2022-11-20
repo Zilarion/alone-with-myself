@@ -1,25 +1,30 @@
-import { types } from 'mobx-state-tree';
-
 import {
+    createHarvester,
     Harvester,
-    HarvesterModel,
     HarvesterSnapshot,
 } from './Harvester';
 import {
+    createManufacturer,
     Manufacturer,
-    ManufacturerModel,
     ManufacturerSnapshot,
 } from './Manufacturer';
 import {
+    createPrinter,
     Printer,
-    PrinterModel,
     PrinterSnapshot,
 } from './Printer';
+import { PrintableType } from './types/PrintableType';
 
-export const PrintableUnion = types.union(
-    HarvesterModel,
-    PrinterModel,
-    ManufacturerModel,
-);
-export type Printable = Harvester | Printer | Manufacturer;
+export function createPrintableInstance(props: PrintableSnapshot) {
+    switch (props.type) {
+        case PrintableType.harvester:
+            return createHarvester(props);
+        case PrintableType.printer:
+            return createPrinter(props);
+        case PrintableType.manufacturer:
+            return createManufacturer(props);
+    }
+}
+
 export type PrintableSnapshot = HarvesterSnapshot | PrinterSnapshot | ManufacturerSnapshot;
+export type PrintableInstance = Harvester | Printer | Manufacturer;

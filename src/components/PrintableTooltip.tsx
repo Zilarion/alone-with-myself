@@ -3,19 +3,14 @@ import {
     Text,
 } from '@hope-ui/solid';
 
-import { Printable } from '../models/PrintableUnion';
+import { PrintableInstance } from '../models/PrintableUnion';
 import { ResourceSetSummary } from './ResourceSetSummary';
 
 interface PrintableTooltipProps {
-    printable: Printable;
+    printable: PrintableInstance;
 }
 
-export const PrintableTooltip = ({
-    printable: {
-        id,
-        cost,
-    },
-}: PrintableTooltipProps) => {
+export const PrintableTooltip = (props: PrintableTooltipProps) => {
     return <Flex
         direction='column'
         gap='$2'
@@ -25,8 +20,8 @@ export const PrintableTooltip = ({
             textAlign={'center'}
             borderBottom={'1px solid $neutral6'}
         >
-            {id}
+            {props.printable.id}
         </Text>
-        <ResourceSetSummary resources={cost} />
+        <ResourceSetSummary resources={props.printable.cost} />
     </Flex>;
 };

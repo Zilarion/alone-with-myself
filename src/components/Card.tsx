@@ -10,10 +10,7 @@ interface CardProps {
     title: string;
 }
 
-export const Card = ({
-    children,
-    title,
-}: CardProps) => {
+export const Card = (props: CardProps) => {
     return <Box
         maxW="$sm"
         borderWidth="1px"
@@ -26,10 +23,10 @@ export const Card = ({
             padding="$2"
         >
             <Heading level="6">
-                {title}
+                {props.title}
             </Heading>
             <Box overflow='scroll'>
-                {children}
+                {props.children}
             </Box>
         </Flex>
     </Box>;

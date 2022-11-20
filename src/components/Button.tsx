@@ -13,24 +13,18 @@ type ButtonProps = {
     children?: JSX.Element;
 };
 
-export const Button = ({
-    onClick,
-    disabled,
-    children,
-    tooltip,
-    fullWidth = false,
-}: ButtonProps) => {
+export const Button = (props: ButtonProps) => {
     return <Tooltip
-        label={tooltip ?? children}
+        label={props.tooltip ?? props.children}
     >
         <HopeUiButton
             variant={'outline'}
-            onClick={onClick}
+            onClick={props.onClick}
             color="primary"
-            disabled={disabled}
-            fullWidth={fullWidth}
+            disabled={props.disabled}
+            fullWidth={props.fullWidth}
         >
-            {children}
+            {props.children}
         </HopeUiButton>
     </Tooltip>;
 };

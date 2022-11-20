@@ -1,72 +1,68 @@
 import {
-    Instance,
-    SnapshotIn,
-    types,
-} from 'mobx-state-tree';
+    createStore,
+    produce,
+} from 'solid-js/store';
 
 import { assert } from '../util/assert';
-import { assertDefined } from '../util/assertDefined';
-import {
-    ResourceSet,
-    ResourceSetModel,
-} from './types/ResourceSet';
+import { ResourceSet } from './types/ResourceSet';
 import { ResourceType } from './types/ResourceType';
 
-export const ResourceStorageModel = types
-    .model('ResourceStorage', { resources: ResourceSetModel })
-    .views(self => ({
+export interface ResourceStorageSnapshot {
+    resources?: ResourceSet;
+}
+
+export type ResourceStorage = ReturnType<typeof createResourceStorage>;
+
+export function createResourceStorage({ resources: initialResources = [] }: ResourceStorageSnapshot) {
+    const [ store, setStore ] = createStore({
+        resources: initialResources,
         findOrNull(type: ResourceType) {
-            return self.resources.find(resource => resource.type === type);
+            return this.resources.find(resource => resource.type === type);
         },
-    }))
-    .views(self => ({
-        find(type: ResourceType) {
-            return assertDefined(self.findOrNull(type));
-        },
-        has(resources: ResourceSet | SnapshotIn<ResourceSet> = []) {
-            return resources.every(({
+        numberOf: (type: ResourceType) => store.findOrNull(type)?.amount ?? 0,
+
+        decrement(resources: ResourceSet) {
+            resources.forEach(({
                 type,
                 amount,
-            }) => {
-                const currentValue = this.numberOf(type);
-                return amount <= currentValue;
-            });
+            }) => incrementType(type, -amount));
         },
-        numberOf(type: ResourceType) {
-            return self.findOrNull(type)?.amount ?? 0;
-        },
-    }))
-    .actions(self => {
-        function incrementType(type: ResourceType, amount: number) {
-            const currentValue = self.numberOf(type);
-            const newValue = amount + currentValue;
-            assert(newValue >= 0, `Attempted to decrease ${type} below zero.`);
-            const entry = self.findOrNull(type);
-            if (entry) {
-                entry.amount = newValue;
-                return;
-            }
-
-            self.resources.push({
+        increment(resources: ResourceSet) {
+            resources.forEach(({
                 type,
-                amount: newValue,
-            });
-        }
-
-        return ({
-            decrement(resources: ResourceSet | SnapshotIn<ResourceSet> = []) {
-                resources.forEach(({
-                    type,
-                    amount,
-                }) => incrementType(type, -amount));
-            },
-            increment(resources: ResourceSet | SnapshotIn<ResourceSet> = []) {
-                resources.forEach(({
-                    type,
-                    amount,
-                }) => incrementType(type, amount));
-            },
-        });
+                amount,
+            }) => incrementType(type, amount));
+        },
     });
 
-export interface ResourceStorage extends Instance<typeof ResourceStorageModel> {}
+    function incrementType(
+        type: ResourceType,
+        amount: number
+    ) {
+        const currentValue = store.numberOf(type);
+        const newValue = amount + currentValue;
+        assert(newValue >= 0, `Attempted to decrease ${type} below zero.`);
+        const entry = store.findOrNull(type);
+        if (entry) {
+            setStore(
+                'resources',
+                store.resources.map(r => r === entry ? {
+                    ...entry,
+                    amount: newValue,
+                } : r)
+            );
+            return;
+        }
+
+        setStore(
+            produce(state => {
+                state.resources.push({
+                    type,
+                    amount: newValue,
+                });
+            })
+        );
+    }
+
+    return store;
+}

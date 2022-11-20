@@ -7,19 +7,14 @@ interface ResourceIndicatorProps {
     resource: Resource;
 }
 
-export const ResourceIndicator = ({
-    resource: {
-        amount,
-        type,
-    },
-}: ResourceIndicatorProps) => {
+export const ResourceIndicator = (props: ResourceIndicatorProps) => {
     return <>
         <Text color="$primary">
-            {type}
+            {props.resource.type}
         </Text>
         <FormattedResource
-            value={amount}
-            type={type}
+            value={props.resource.amount}
+            type={props.resource.type}
         />
     </>;
 };

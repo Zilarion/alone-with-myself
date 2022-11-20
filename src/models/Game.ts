@@ -1,12 +1,7 @@
-import {
-    makeObservable,
-    runInAction,
-} from 'mobx';
-
 import { PRINTABLES } from '../data/Printables';
 import {
+    createSatellite,
     Satellite,
-    SatelliteModel,
 } from './Satellite';
 import { ResourceType } from './types/ResourceType';
 
@@ -22,9 +17,8 @@ export class Game {
     constructor() {
         this.start();
 
-        this._satellite = SatelliteModel.create({
+        this._satellite = createSatellite({
             name: 'Small asteroid',
-            printers: { printers: 'Printer' },
             totalSatelliteResources: {
                 resources: [
                     {
@@ -43,15 +37,8 @@ export class Game {
             },
             printables: PRINTABLES,
         });
-        const { printers } = this._satellite.printers;
-        if (printers.amount === 0) {
-            printers.add(1);
-        }
-
-        makeObservable(this);
     }
 
-    @computed
     get satellite() {
         return this._satellite;
     }
@@ -62,7 +49,6 @@ export class Game {
         }
     }
 
-    @action
     start() {
         this._animationFrameId = window.requestAnimationFrame(this._tick);
     }
@@ -79,7 +65,6 @@ export class Game {
         });
     }
 
-    @action
     private _update(delta: number) {
         const dialatedDelta = delta * this._gameSpeed;
         this._gameDelta += dialatedDelta;
@@ -90,15 +75,12 @@ export class Game {
         }
     }
 
-    @action
     private _tick = (time: number) => {
-            const delta = this._lastFrame ? time - this._lastFrame : 0;
+        const delta = this._lastFrame ? time - this._lastFrame : 0;
 
-            runInAction(() => {
-                this._update(delta);
-            });
+        this._update(delta);
 
-            this._lastFrame = time;
-            this._animationFrameId = window.requestAnimationFrame(this._tick);
-        };
+        this._lastFrame = time;
+        this._animationFrameId = window.requestAnimationFrame(this._tick);
+    };
 }

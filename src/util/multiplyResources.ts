@@ -1,15 +1,10 @@
-import { SnapshotIn } from 'mobx-state-tree';
-
-import {
-    ResourceSet,
-    ResourceSetModel,
-} from '../models/types/ResourceSet';
+import { ResourceSet } from '../models/types/ResourceSet';
 
 export function multiplyResources(
-    resources: ResourceSet | SnapshotIn<ResourceSet> = [],
+    resources: ResourceSet,
     increment: number
 ): ResourceSet {
-    return ResourceSetModel.create(
+    return (
         resources.map((resource) => ({
             ... resource,
             amount: resource.amount * increment,

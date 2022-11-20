@@ -1,26 +1,22 @@
 import { printerSnapshot } from '../data/Printables';
-import { Printable } from './PrintableUnion';
-import { PrintTask } from './PrintTask';
-import { SatelliteModel } from './Satellite';
+import { PrintableInstance } from './PrintableUnion';
+import { createPrinter } from './Printer';
+import {
+    createPrintTask,
+    PrintTask,
+} from './PrintTask';
 
 describe('model: PrintTask', () => {
     const snapshot = printerSnapshot;
-    let printable: Printable;
+    let printable: PrintableInstance;
     let task: PrintTask;
     beforeEach(() => {
-        const satellite = SatelliteModel.create({
-            name: 'satellite',
-            storage: {},
-            totalSatelliteResources: {},
-            printers: {
-                printers: printerSnapshot.id,
-                tasks: [ { printable: printerSnapshot.id } ],
-            },
-            printables: [ snapshot ],
+        printable = createPrinter(printerSnapshot);
+        task = createPrintTask({
+            printable,
+            count: 0,
+            progress: 0,
         });
-
-        task = satellite.printers.tasks[0];
-        printable = task.printable as Printable;
     });
 
     it('should initialize correctly', () => {
