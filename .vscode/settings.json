@@ -17,30 +17,7 @@
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
     "typescript.tsdk": "node_modules\\typescript\\lib",
-    "importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.type": "words",
-    "importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.count": 1,
-    "importSorter.importStringConfiguration.trailingComma": "multiLine",
-    "importSorter.generalConfiguration.sortOnBeforeSave": true,
-    "importSorter.importStringConfiguration.tabType": "space",
-    "importSorter.sortConfiguration.customOrderingRules.rules": [
-        {
-            "type": "importMember",
-            "regex": "^$",
-            "orderLevel": 5,
-            "disableSort": true
-        },
-        {
-            "regex": "^[@]",
-            "orderLevel": 10
-        },
-        {
-            "regex": "^[^.@]",
-            "orderLevel": 15
-        },
-        {
-            "regex": "^[.]",
-            "orderLevel": 30
-        }
-    ],
+    "vitest.enable": true,
+    "vitest.commandLine": "npm run test --",
     "files.insertFinalNewline": true
 }
