@@ -5,14 +5,11 @@ import {
 } from './Satellite';
 import { ResourceType } from './types/ResourceType';
 
-const WORLD_DELTA_MINIMUM = 1000;
-
 export class Game {
     private _satellite: Satellite;
     private _animationFrameId: number | null = null;
     private _lastFrame: number | null = null;
     private _gameSpeed: number = 1;
-    private _gameDelta: number = 0;
 
     constructor() {
         this.start();
@@ -67,12 +64,7 @@ export class Game {
 
     private _update(delta: number) {
         const dialatedDelta = delta * this._gameSpeed;
-        this._gameDelta += dialatedDelta;
-
-        if (this._gameDelta > WORLD_DELTA_MINIMUM) {
-            this._worldUpdate(this._gameDelta);
-            this._gameDelta = 0;
-        }
+        this._worldUpdate(dialatedDelta);
     }
 
     private _tick = (time: number) => {
