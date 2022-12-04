@@ -1,11 +1,16 @@
 import {
+    Flex,
     List,
     ListItem,
+    Progress,
+    ProgressIndicator,
     Text,
 } from '@hope-ui/solid';
-import { For } from 'solid-js';
+import {
+    For,
+    Show,
+} from 'solid-js';
 
-import { CircularProgressWithLabel } from '../../../components/CircularProgressWithLabel';
 import { Printers } from '../../../models/Printers';
 
 interface PrintQueueProps {
@@ -14,21 +19,27 @@ interface PrintQueueProps {
 
 export const PrintQueue = (props: PrintQueueProps) => {
     return <List
-        display='flex'
         gap='$2'
         overflow='scroll'
     >
         <For each={props.printers.tasks}>
             {task => <ListItem>
-                <CircularProgressWithLabel
-                    value={task.progressPercentage * 100}
-                />
-                <Text>
-                    {task.printable.id}
-                </Text>
-                <Text>
-                    {`Printing ${task.count}`}
-                </Text>
+                <Flex gap='$2' >
+                    <Text color='$info9'>
+                        {task.count}
+                    </Text>
+                    <Text>
+                        {task.printable.id}
+                    </Text>
+                </Flex>
+                <Show when={task.progressPercentage > 0}>
+                    <Progress
+                        size="xs"
+                        value={task.progressPercentage * 100}
+                    >
+                        <ProgressIndicator />
+                    </Progress>
+                </Show>
             </ListItem>}
         </For>
     </List>;
