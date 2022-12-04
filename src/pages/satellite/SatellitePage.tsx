@@ -26,7 +26,7 @@ export const SatellitePage = () => {
         <Card title="Printer control">
             <Flex
                 direction='column'
-                gap='$2'
+                gap='$3'
             >
                 <MultipleSelector
                     onChange={setPrintableCount}

@@ -11,23 +11,21 @@ interface CardProps {
 }
 
 export const Card = (props: CardProps) => {
-    return <Box
+    return <Flex
+        direction={'column'}
+        gap='$2'
         maxW="$sm"
         borderWidth="1px"
         borderColor="$neutral6"
         borderRadius="$lg"
+        padding='$4'
         overflow="hidden"
     >
-        <Flex
-            direction={'column'}
-            padding="$2"
-        >
-            <Heading level="6">
-                {props.title}
-            </Heading>
-            <Box overflow='scroll'>
-                {props.children}
-            </Box>
-        </Flex>
-    </Box>;
+        <Heading level="6">
+            {props.title}
+        </Heading>
+        <Box overflow='scroll'>
+            {props.children}
+        </Box>
+    </Flex>;
 };

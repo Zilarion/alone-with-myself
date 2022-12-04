@@ -21,15 +21,15 @@ export function createPrinters({
     const [ store, setStore ] = createStore({
         printers,
         tasks: tasks.map(createPrintTask),
-        get capacityPerMs() {
-            return this.printers.capacityPerMs;
+        get capacityPerSecond() {
+            return this.printers.capacityPerSecond;
         },
 
         addPrintTask(task: PrintTaskSnapshot) {
             setStore('tasks', [ ...store.tasks, createPrintTask(task) ]);
         },
         update(delta: number) {
-            const capacity = store.capacityPerMs * delta;
+            const capacity = store.capacityPerSecond * delta;
             let remainingCapacity = capacity;
 
             store.tasks.forEach((task) => {

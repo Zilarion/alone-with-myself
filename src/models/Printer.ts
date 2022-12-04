@@ -25,8 +25,8 @@ export function createPrinter({
         id,
         duration,
         amount,
-        get capacityPerMs() {
-            return this.amount / 1000;
+        get capacityPerSecond() {
+            return this.amount;
         },
 
         maxAffordable(storage: ResourceStorage) {
