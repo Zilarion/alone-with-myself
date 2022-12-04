@@ -64,7 +64,8 @@ export class Game {
 
     private _update(delta: number) {
         const dialatedDelta = delta * this._gameSpeed;
-        this._worldUpdate(dialatedDelta);
+        const deltaInSeconds = dialatedDelta / 1000;
+        this._worldUpdate(deltaInSeconds);
     }
 
     private _tick = (time: number) => {

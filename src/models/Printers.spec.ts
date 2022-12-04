@@ -20,7 +20,7 @@ describe('model: Printer', () => {
     });
 
     it('should initialize correctly', () => {
-        expect(printers.capacityPerMs).toEqual(1 / 1000);
+        expect(printers.capacityPerSecond).toEqual(1);
         expect(printers.tasks).toEqual([]);
     });
 
@@ -29,7 +29,7 @@ describe('model: Printer', () => {
         printers.printers.add(amount);
         expect(printer.amount).toEqual(51);
         expect(printers.printers.amount).toEqual(51);
-        expect(printers.capacityPerMs).toEqual((amount + 1) / 1000);
+        expect(printers.capacityPerSecond).toEqual((amount + 1));
     });
 
     it('should add print tasks correctly', () => {
@@ -51,10 +51,9 @@ describe('model: Printer', () => {
         });
         const [ task ] = printers.tasks;
 
-        const DELTA = 500;
-        printers.update(DELTA);
+        printers.update(0.5);
         const { duration } = printerSnapshot;
-        expect(task.progress).toEqual(DELTA * printers.capacityPerMs);
+        expect(task.progress).toEqual(0.5 * printers.capacityPerSecond);
         expect(task.progressPercentage).toEqual(task.progress / duration);
     });
 });
