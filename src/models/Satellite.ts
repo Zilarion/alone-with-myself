@@ -2,6 +2,7 @@ import { createStore } from 'solid-js/store';
 
 import { assertDefined } from '../util/assertDefined';
 import { Harvester } from './Harvester';
+import { Manufacturer } from './Manufacturer';
 import {
     createPrintableInstance,
     PrintableInstance,
@@ -37,18 +38,6 @@ export function createSatellite({
     storage,
     totalSatelliteResources,
 }: SatelliteSnapshot) {
-    function updateHarvesters(state: typeof store, delta: number) {
-        store.harvesters.forEach(harvester => {
-            const harvestedResources = harvester.harvestingOver(
-                delta,
-                state.totalSatelliteResources
-            );
-
-            state.totalSatelliteResources.decrement(harvestedResources);
-            state.storage.increment(harvestedResources);
-        });
-    }
-
     const printableInstances = printables.map(createPrintableInstance);
 
     const printer = assertDefined(
@@ -62,7 +51,7 @@ export function createSatellite({
         tasks: printTasks,
     });
 
-    const [ store ] = createStore({
+    const [ store, setStore ] = createStore({
         totalArea,
         exploredArea,
         name,
@@ -70,7 +59,13 @@ export function createSatellite({
         storage: createResourceStorage(storage),
         totalSatelliteResources: createResourceStorage(totalSatelliteResources),
         printers,
-
+        scanStatus: {
+            scanning: false,
+            progress: 0,
+        },
+        startScan() {
+            setStore('scanStatus', 'scanning', true);
+        },
         get fullyExplored() {
             return this.exploredArea === this.totalArea;
         },
@@ -79,11 +74,59 @@ export function createSatellite({
                 printable.type === PrintableType.harvester
             );
         },
+        get manufacters(): Manufacturer[] {
+            return this.printables.filter((printable): printable is Manufacturer =>
+                printable.type === PrintableType.manufacturer
+            );
+        },
         update(delta: number) {
             store.printers.update(delta);
-            updateHarvesters(store, delta);
+            updateHarvesters(delta);
+            updateManufacturers(delta);
+            updateScanner(delta);
         },
     });
+
+    function updateHarvesters(delta: number) {
+        store.harvesters.forEach(harvester => {
+            const harvestedResources = harvester.harvestingOver(
+                delta,
+                store.totalSatelliteResources
+            );
+
+            store.totalSatelliteResources.decrement(harvestedResources);
+            store.storage.increment(harvestedResources);
+        });
+    }
+
+    function updateManufacturers(delta: number) {
+        store.manufacters.forEach(manufacturer => {
+            const {
+                consumedResources,
+                producedResources,
+            } = manufacturer.manufactureOver(
+                delta,
+                store.storage
+            );
+
+            store.storage.decrement(consumedResources);
+            store.storage.increment(producedResources);
+        });
+    }
+
+    function updateScanner(delta: number) {
+        if (store.scanStatus.scanning) {
+            const progress = store.scanStatus.progress + delta;
+
+            if (progress > 10000) {
+                setStore('scanStatus', 'scanning', false);
+                setStore('scanStatus', 'progress', 0);
+                setStore('exploredArea', store.exploredArea + 1000);
+            } else {
+                setStore('scanStatus', 'progress', progress);
+            }
+        }
+    }
 
     return store;
 }

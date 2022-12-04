@@ -40,6 +40,32 @@ export function createManufacturer({
             return multiplyResources(this.consumes, this.amount);
         },
 
+        manufactureOver(
+            delta: number,
+            storage: ResourceStorage,
+        ) {
+            const consumedResources = multiplyResources(
+                this.consumes,
+                this.amount * delta
+            );
+            const producedResources = multiplyResources(
+                this.produces,
+                this.amount * delta
+            );
+
+            if (!resourcesInStorage(storage, consumedResources)) {
+                return {
+                    consumedResources: [],
+                    producedResources: [],
+                };
+            }
+
+            return {
+                consumedResources,
+                producedResources,
+            };
+        },
+
         maxAffordable(storage: ResourceStorage) {
             return Math.floor(
                 resourcesInStorage(
