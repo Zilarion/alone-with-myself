@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "vite",
-    "build": "vite build",
+    "build": "vite build --base=/alone-with-myself/",
     "test": "vitest",
     "test:ci": "vitest run --coverage",
     "lint": "eslint ./src/**/* --ext .ts,.tsx",
