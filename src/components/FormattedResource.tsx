@@ -18,7 +18,7 @@ export const FormattedResource = (props: FormattedResourceProps) => {
         return result;
     };
 
-    const formattedNumber = formatNumber(
+    const formattedNumber = () => formatNumber(
         props.value,
         {
             notation: props.compact ? 'compact' : 'standard',
@@ -26,5 +26,5 @@ export const FormattedResource = (props: FormattedResourceProps) => {
             maximumFractionDigits: 0,
         },
     );
-    return <>{formattedNumber} {icon()}</>;
+    return <>{formattedNumber()} {icon()}</>;
 };
