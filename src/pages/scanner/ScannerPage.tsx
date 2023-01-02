@@ -23,7 +23,7 @@ export const ScannerPage = () => {
             <Button
                 loading={satellite.scanStatus.scanning}
                 onClick={satellite.startScan}
-                loadingText={'Scanning...'}
+                loadingText={`Scanning... (${Math.round(satellite.scanStatus.progress)}%)`}
                 variant="outline"
             >
             Scan area

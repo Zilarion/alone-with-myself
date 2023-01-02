@@ -17,7 +17,7 @@ export function createResourceStorage({ resources: initialResources = [] }: Reso
     const [ store, setStore ] = createStore({
         resources: initialResources,
         findOrNull(type: ResourceType) {
-            return this.resources.find(resource => resource.type === type);
+            return store.resources.find(resource => resource.type === type);
         },
         numberOf: (type: ResourceType) => store.findOrNull(type)?.amount ?? 0,
 
