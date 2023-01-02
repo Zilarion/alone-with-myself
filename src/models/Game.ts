@@ -30,6 +30,10 @@ export class Game {
                         amount: 10,
                         type: ResourceType.minerals,
                     },
+                    {
+                        amount: 1,
+                        type: ResourceType.power,
+                    },
                 ],
             },
             printables: PRINTABLES,

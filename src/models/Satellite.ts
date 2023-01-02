@@ -116,9 +116,9 @@ export function createSatellite({
 
     function updateScanner(delta: number) {
         if (store.scanStatus.scanning) {
-            const progress = store.scanStatus.progress + delta;
+            const progress = store.scanStatus.progress + delta * 10;
 
-            if (progress > 10000) {
+            if (progress > 100) {
                 setStore('scanStatus', 'scanning', false);
                 setStore('scanStatus', 'progress', 0);
                 setStore('exploredArea', store.exploredArea + 1000);

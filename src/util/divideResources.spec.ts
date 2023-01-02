@@ -57,7 +57,7 @@ describe('util: divideResources', () => {
             type: ResourceType.minerals,
         }, {
             amount: 100,
-            type: ResourceType.alloys,
+            type: ResourceType.power,
         } ], [ {
             amount: 10,
             type: ResourceType.minerals,
@@ -70,13 +70,13 @@ describe('util: divideResources', () => {
             type: ResourceType.minerals,
         }, {
             amount: 100,
-            type: ResourceType.alloys,
+            type: ResourceType.power,
         } ], [ {
             amount: 10,
             type: ResourceType.minerals,
         }, {
             amount: 50,
-            type: ResourceType.alloys,
+            type: ResourceType.power,
         } ])).toEqual(0.1);
     });
 })

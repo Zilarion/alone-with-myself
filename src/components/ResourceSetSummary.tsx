@@ -1,27 +1,20 @@
-import { ResourceSet } from '../models/types/ResourceSet';
-import { FormattedResource } from './FormattedResource';
-import { Table } from './Table';
+import { ResourceStorage } from '../models/ResourceStorage';
+import { ResourceType } from '../models/types/ResourceType';
+import { FormattedMinerals } from './FormattedMinerals';
+import { FormattedPower } from './FormattedPower';
 
 interface ResourceSetSummaryProps {
-    resources: ResourceSet;
-    showHeader?: boolean;
-    compact?: boolean;
+    storage: ResourceStorage;
 }
 
 export const ResourceSetSummary = (props: ResourceSetSummaryProps) => {
-    const data = () => {
-        return props.resources.map((resource) => [
-            resource.type,
-            <FormattedResource
-                value={resource.amount}
-                type={resource.type}
-                compact={props.compact}
-            />,
-        ]);
-    };
+    return <>
+        <FormattedMinerals
+            amount={props.storage.findOrNull(ResourceType.minerals)?.amount ?? 0}
+        />
 
-    return <Table
-        headers={props.showHeader ? [ 'Resource', 'Amount', 'Production' ] : []}
-        data={data()}
-    />;
+        <FormattedPower
+            amount={props.storage.findOrNull(ResourceType.power)?.amount ?? 0}
+        />
+    </>;
 };

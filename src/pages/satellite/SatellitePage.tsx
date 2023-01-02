@@ -9,7 +9,6 @@ import { MultipleSelector } from '../../components/MultipleSelector';
 import { PrintablesList } from '../../components/PrintablesList';
 import { useGame } from '../../hooks/useGame';
 import { PrintQueue } from './internal/PrintQueue';
-import { SatelliteSummary } from './internal/SatelliteSummary';
 
 export const SatellitePage = () => {
     const { satellite } = useGame();
@@ -18,7 +17,7 @@ export const SatellitePage = () => {
     return <Grid
         gap="$2"
         padding="$2"
-        templateColumns="repeat(3, 1fr)"
+        templateColumns="repeat(2, 1fr)"
         templateRows="1fr"
         maxH="100%"
         width="100%"
@@ -42,9 +41,6 @@ export const SatellitePage = () => {
         </Card>
         <Card title="Print queue">
             <PrintQueue printers={satellite.printers} />
-        </Card>
-        <Card title="Resources">
-            <SatelliteSummary satellite={satellite} />
         </Card>
     </Grid>;
 };

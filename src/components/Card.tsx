@@ -14,7 +14,6 @@ export const Card = (props: CardProps) => {
     return <Flex
         direction={'column'}
         gap='$2'
-        maxW="$sm"
         borderWidth="1px"
         borderColor="$neutral6"
         borderRadius="$lg"
