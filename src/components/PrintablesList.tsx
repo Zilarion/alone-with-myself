@@ -17,7 +17,6 @@ export const PrintablesList = (props: PrintableSummaryProps) => {
     return <Grid
         templateColumns={'1fr 1fr'}
         gap='$2'
-        overflow='scroll'
     >
         <For each={props.printables}>
             {printable => <PrintableItem

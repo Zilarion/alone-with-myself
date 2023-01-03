@@ -11,7 +11,7 @@ export const printerSnapshot: PrinterSnapshot = {
     cost: [
         {
             type: ResourceType.minerals,
-            amount: 1000,
+            amount: 30,
         },
     ],
     duration: 20,

@@ -22,6 +22,10 @@ export class Game {
                         amount: 50000,
                         type: ResourceType.minerals,
                     },
+                    {
+                        amount: 50000,
+                        type: ResourceType.power,
+                    },
                 ],
             },
             storage: {
