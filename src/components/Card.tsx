@@ -1,5 +1,4 @@
 import {
-    Box,
     Flex,
     Heading,
 } from '@hope-ui/solid';
@@ -16,15 +15,11 @@ export const Card = (props: CardProps) => {
         gap='$2'
         borderWidth="1px"
         borderColor="$neutral6"
-        borderRadius="$lg"
         padding='$4'
-        overflow="hidden"
     >
         <Heading level="6">
             {props.title}
         </Heading>
-        <Box overflow='scroll'>
-            {props.children}
-        </Box>
+        {props.children}
     </Flex>;
 };
