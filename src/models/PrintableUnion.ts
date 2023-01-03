@@ -1,9 +1,4 @@
 import {
-    createHarvester,
-    Harvester,
-    HarvesterSnapshot,
-} from './Harvester';
-import {
     createManufacturer,
     Manufacturer,
     ManufacturerSnapshot,
@@ -17,8 +12,6 @@ import { PrintableType } from './types/PrintableType';
 
 export function createPrintableInstance(props: PrintableSnapshot) {
     switch (props.type) {
-        case PrintableType.harvester:
-            return createHarvester(props);
         case PrintableType.printer:
             return createPrinter(props);
         case PrintableType.manufacturer:
@@ -26,5 +19,5 @@ export function createPrintableInstance(props: PrintableSnapshot) {
     }
 }
 
-export type PrintableSnapshot = HarvesterSnapshot | PrinterSnapshot | ManufacturerSnapshot;
-export type PrintableInstance = Harvester | Printer | Manufacturer;
+export type PrintableSnapshot = PrinterSnapshot | ManufacturerSnapshot;
+export type PrintableInstance = Printer | Manufacturer;

@@ -22,23 +22,11 @@ export class Game {
                         amount: 50000,
                         type: ResourceType.minerals,
                     },
-                    {
-                        amount: 50000,
-                        type: ResourceType.power,
-                    },
                 ],
             },
-            storage: {
-                resources: [
-                    {
-                        amount: 10,
-                        type: ResourceType.minerals,
-                    },
-                    {
-                        amount: 1,
-                        type: ResourceType.power,
-                    },
-                ],
+            materials: {
+                mass: 100,
+                power: 0,
             },
             printables: PRINTABLES,
         });
@@ -58,10 +46,10 @@ export class Game {
         this._animationFrameId = window.requestAnimationFrame(this._tick);
     }
 
-    private _worldUpdate(dialatedDelta: number) {
+    private _worldUpdate(delta: number) {
         [ this._satellite ].forEach((entity) => {
             const start = performance.now();
-            entity.update(dialatedDelta);
+            entity.update(delta);
 
             const duration = performance.now() - start;
             if (duration > 100) {

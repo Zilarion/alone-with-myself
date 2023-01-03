@@ -6,7 +6,7 @@ import {
 } from '@hope-ui/solid';
 
 import { useGame } from '../hooks/useGame';
-import { ResourceSetSummary } from './ResourceSetSummary';
+import { MaterialsSummary } from './ResourceSetSummary';
 
 export const HeaderNavigation = () => {
     const { satellite } = useGame();
@@ -27,7 +27,7 @@ export const HeaderNavigation = () => {
                 <Text>{`Explored area: ${explored()}%`}</Text>
             </Flex>
 
-            <ResourceSetSummary storage={satellite.storage} />
+            <MaterialsSummary materials={satellite.materials} />
         </Flex>
     );
 };

@@ -5,26 +5,33 @@ import { ResourceType } from '../models/types/ResourceType';
 export const manufacturerSnapshots: ManufacturerSnapshot[] = [
     {
         type: PrintableType.manufacturer,
+        id: 'Solar Collector',
+        amount: 1,
+        duration: 5,
+        cost: 10,
+        powerUsage: 0,
+        consumes: [],
+        produces: {
+            power: 5,
+            mass: 0,
+        },
+    },
+    {
+        type: PrintableType.manufacturer,
         id: 'Miner',
-        cost: [
-            {
-                type: ResourceType.minerals,
-                amount: 10,
-            },
-        ],
         duration: 5,
         amount: 1,
+        cost: 10,
+        powerUsage: 1,
         consumes: [
-            {
-                type: ResourceType.power,
-                amount: 1,
-            },
-        ],
-        produces: [
             {
                 type: ResourceType.minerals,
                 amount: 1,
             },
         ],
+        produces: {
+            power: 0,
+            mass: 1,
+        },
     },
 ];

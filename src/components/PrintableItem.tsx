@@ -2,42 +2,31 @@ import { Flex } from '@hope-ui/solid';
 
 import { PrintableInstance } from '../models/PrintableUnion';
 import { Printers } from '../models/Printers';
-import { ResourceStorage } from '../models/ResourceStorage';
-import { PrintableType } from '../models/types/PrintableType';
-import { ResourceType } from '../models/types/ResourceType';
-import { multiplyResources } from '../util/multiplyResources';
+import { Materials } from '../models/types/Materials';
 import { Button } from './Button';
-import { FormattedMinerals } from './FormattedMinerals';
+import { FormattedMass } from './FormattedMinerals';
 import { FormattedPower } from './FormattedPower';
 
 interface PrintableItemProps {
     printable: PrintableInstance;
     printableCount: number;
-    storage: ResourceStorage;
+    storage: Materials;
+    spentMass: (amount: number) => void;
     printers: Printers;
 }
 
 export const PrintableItem = (props: PrintableItemProps) => {
     const disabled = () => props.printable.maxAffordable(props.storage) < props.printableCount;
-    const minerals = () => props.printable.cost.find((resource) => resource.type === ResourceType.minerals)?.amount ?? 0;
-    const power = () => {
-        if (props.printable.type !== PrintableType.manufacturer) {
-            return 0;
-        }
-        return props.printable.consumes.find((resource) => resource.type === ResourceType.power)?.amount ?? 0;
-    };
+    const mass = () => props.printable.cost;
+    const power = () => props.printable.powerUsage;
 
     return <Button
         disabled={disabled()}
         fullWidth
         onClick={() => {
-            props.storage.decrement(
-                multiplyResources(
-                    props.printable.cost,
-                    props.printableCount,
-                ),
+            props.spentMass(
+                props.printable.cost * props.printableCount,
             );
-
             props.printers.addPrintTask({
                 printable: props.printable,
                 count: props.printableCount,
@@ -48,8 +37,8 @@ export const PrintableItem = (props: PrintableItemProps) => {
             {`${props.printable.id} (${props.printable.amount})`}
 
             <Flex gap="$2">
-                <FormattedMinerals
-                    amount={minerals()}
+                <FormattedMass
+                    amount={mass()}
                 />
                 <FormattedPower
                     amount={power()}
