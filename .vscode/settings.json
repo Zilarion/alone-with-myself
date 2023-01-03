@@ -19,5 +19,6 @@
     "typescript.tsdk": "node_modules\\typescript\\lib",
     "vitest.enable": true,
     "vitest.commandLine": "npm run test --",
-    "files.insertFinalNewline": true
+    "files.insertFinalNewline": true,
+    "testing.automaticallyOpenPeekView": "never"
 }

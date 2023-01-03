@@ -1,9 +1,8 @@
 import { createStore } from 'solid-js/store';
 
 import { assert } from '../util/assert';
-import { resourcesInStorage } from '../util/resourcesInStorage';
 import { IPrintable } from './IPrintable';
-import { ResourceStorage } from './ResourceStorage';
+import { Materials } from './types/Materials';
 import { PrintableType } from './types/PrintableType';
 
 export interface PrinterSnapshot extends IPrintable {
@@ -17,6 +16,7 @@ export function createPrinter({
     cost,
     id,
     duration,
+    powerUsage,
     amount = 0,
 }: PrinterSnapshot) {
     const [ store, setStore ] = createStore({
@@ -24,17 +24,14 @@ export function createPrinter({
         cost,
         id,
         duration,
+        powerUsage,
         amount,
         get capacityPerSecond() {
             return this.amount;
         },
-
-        maxAffordable(storage: ResourceStorage) {
+        maxAffordable(materials: Materials) {
             return Math.floor(
-                resourcesInStorage(
-                    storage,
-                    store.cost,
-                ),
+                materials.mass / this.cost,
             );
         },
         add(increment: number) {

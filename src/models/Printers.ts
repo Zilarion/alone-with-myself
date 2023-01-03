@@ -28,7 +28,16 @@ export function createPrinters({
         addPrintTask(task: PrintTaskSnapshot) {
             setStore('tasks', [ ...store.tasks, createPrintTask(task) ]);
         },
-        update(delta: number) {
+        update(
+            delta: number,
+            power: number
+        ) {
+            const consumedPower = store.printers.amount * store.printers.powerUsage * delta;
+            const isWorking = store.tasks.length > 0;
+            if (consumedPower > power || !isWorking) {
+                return { consumedPower: 0 };
+            }
+
             const capacity = store.capacityPerSecond * delta;
             let remainingCapacity = capacity;
 
@@ -48,6 +57,8 @@ export function createPrinters({
                     setStore('tasks', store.tasks.filter(t => t !== task));
                 }
             });
+
+            return { consumedPower };
         },
     });
 

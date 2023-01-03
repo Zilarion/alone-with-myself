@@ -1,7 +1,7 @@
 import { createStore } from 'solid-js/store';
 
+import { assert } from '../util/assert';
 import { assertDefined } from '../util/assertDefined';
-import { Harvester } from './Harvester';
 import { Manufacturer } from './Manufacturer';
 import {
     createPrintableInstance,
@@ -15,11 +15,12 @@ import {
     createResourceStorage,
     ResourceStorageSnapshot,
 } from './ResourceStorage';
+import { Materials } from './types/Materials';
 import { PrintableType } from './types/PrintableType';
 
 interface SatelliteSnapshot {
     printTasks?: PrintTaskSnapshot[];
-    storage: ResourceStorageSnapshot;
+    materials: Materials;
     totalSatelliteResources: ResourceStorageSnapshot;
     printables: PrintableSnapshot[];
     name: string;
@@ -35,7 +36,7 @@ export function createSatellite({
     totalArea = 1000,
     exploredArea = 0,
     printables,
-    storage,
+    materials,
     totalSatelliteResources,
 }: SatelliteSnapshot) {
     const printableInstances = printables.map(createPrintableInstance);
@@ -55,8 +56,8 @@ export function createSatellite({
         totalArea,
         exploredArea,
         name,
+        materials,
         printables: printableInstances,
-        storage: createResourceStorage(storage),
         totalSatelliteResources: createResourceStorage(totalSatelliteResources),
         printers,
         scanStatus: {
@@ -69,48 +70,57 @@ export function createSatellite({
         get fullyExplored() {
             return this.exploredArea === this.totalArea;
         },
-        get harvesters(): Harvester[] {
-            return this.printables.filter((printable): printable is Harvester =>
-                printable.type === PrintableType.harvester
-            );
-        },
         get manufacters(): Manufacturer[] {
             return this.printables.filter((printable): printable is Manufacturer =>
                 printable.type === PrintableType.manufacturer
             );
         },
         update(delta: number) {
-            store.printers.update(delta);
-            updateHarvesters(delta);
             updateManufacturers(delta);
-            updateScanner(delta);
-        },
-    });
-
-    function updateHarvesters(delta: number) {
-        store.harvesters.forEach(harvester => {
-            const harvestedResources = harvester.harvestingOver(
+            const { consumedPower } = store.printers.update(
                 delta,
-                store.totalSatelliteResources
+                store.materials.power
             );
 
-            store.totalSatelliteResources.decrement(harvestedResources);
-            store.storage.increment(harvestedResources);
-        });
-    }
+            store.spentPower(consumedPower);
+
+            updateScanner(delta);
+        },
+        spentMass(amount: number) {
+            const newMassValue = store.materials.mass - amount;
+            assert(newMassValue >= 0, 'Not enough mass to use');
+            setStore('materials', 'mass', newMassValue);
+        },
+        spentPower(amount: number) {
+            if (amount <= 0) {
+                return;
+            }
+            const newPowerValue = this.materials.power - amount;
+            assert(newPowerValue >= 0, 'Not enough power to use');
+            setStore('materials', 'power', newPowerValue);
+        },
+        addMaterials(increment: Materials) {
+            setStore('materials', 'power', this.materials.power + increment.power);
+            setStore('materials', 'mass', this.materials.mass + increment.mass);
+        },
+    });
 
     function updateManufacturers(delta: number) {
         store.manufacters.forEach(manufacturer => {
             const {
                 consumedResources,
-                producedResources,
+                producedMaterials,
+                consumedPower,
             } = manufacturer.manufactureOver(
                 delta,
-                store.storage
+                store.totalSatelliteResources,
+                store.materials.power,
             );
 
-            store.storage.decrement(consumedResources);
-            store.storage.increment(producedResources);
+            store.totalSatelliteResources.decrement(consumedResources);
+
+            store.addMaterials(producedMaterials);
+            store.spentPower(consumedPower);
         });
     }
 

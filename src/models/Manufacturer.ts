@@ -1,16 +1,19 @@
 import { createStore } from 'solid-js/store';
 
 import { assert } from '../util/assert';
+import { multiplyMaterials } from '../util/multiplyMaterials';
 import { multiplyResources } from '../util/multiplyResources';
 import { resourcesInStorage } from '../util/resourcesInStorage';
 import { IPrintable } from './IPrintable';
 import { ResourceStorage } from './ResourceStorage';
+import { Materials } from './types/Materials';
 import { PrintableType } from './types/PrintableType';
 import { ResourceSet } from './types/ResourceSet';
 
 export interface ManufacturerSnapshot extends IPrintable {
     type: PrintableType.manufacturer;
-    produces: ResourceSet;
+    powerUsage: number;
+    produces: Materials;
     consumes: ResourceSet;
 }
 
@@ -24,6 +27,7 @@ export function createManufacturer({
     amount = 0,
     produces,
     consumes,
+    powerUsage,
 }: ManufacturerSnapshot) {
     const [ store, setStore ] = createStore({
         type,
@@ -33,6 +37,7 @@ export function createManufacturer({
         amount,
         produces,
         consumes,
+        powerUsage,
         get totalProduction() {
             return multiplyResources(this.produces, this.amount);
         },
@@ -43,35 +48,39 @@ export function createManufacturer({
         manufactureOver(
             delta: number,
             storage: ResourceStorage,
+            availablePower: number,
         ) {
             const consumedResources = multiplyResources(
                 this.consumes,
                 this.amount * delta
             );
-            const producedResources = multiplyResources(
+            const producedMaterials = multiplyMaterials(
                 this.produces,
                 this.amount * delta
             );
 
-            if (resourcesInStorage(storage, consumedResources) < 1) {
+            const consumedPower = this.powerUsage * this.amount * delta;
+            if (resourcesInStorage(storage, consumedResources) < 1 || consumedPower > availablePower) {
                 return {
                     consumedResources: [],
-                    producedResources: [],
+                    producedMaterials: {
+                        power: 0,
+                        mass: 0,
+                    },
+                    consumedPower: 0,
                 };
             }
 
             return {
                 consumedResources,
-                producedResources,
+                producedMaterials,
+                consumedPower,
             };
         },
 
-        maxAffordable(storage: ResourceStorage) {
+        maxAffordable(materials: Materials) {
             return Math.floor(
-                resourcesInStorage(
-                    storage,
-                    store.cost,
-                ),
+                materials.mass / this.cost
             );
         },
         add(increment: number) {

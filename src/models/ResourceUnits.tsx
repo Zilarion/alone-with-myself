@@ -6,5 +6,5 @@ import { ResourceType } from './types/ResourceType';
 
 export const RESOURCE_TO_ICON = new Map<ResourceType, JSX.Element>([
     [ ResourceType.power, () => <BoltIcon fontSize='inherit' /> ],
-    [ ResourceType.minerals, () => <MassIcon fontSize='inherit' /> ],
+    [ ResourceType.mass, () => <MassIcon fontSize='inherit' /> ],
 ]);

@@ -34,7 +34,8 @@ export const SatellitePage = () => {
                 <PrintablesList
                     printables={satellite.printables}
                     printableCount={printableCount()}
-                    storage={satellite.storage}
+                    storage={satellite.materials}
+                    spentMass={satellite.spentMass}
                     printers={satellite.printers}
                 />
             </Flex>
