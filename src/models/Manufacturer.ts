@@ -53,7 +53,7 @@ export function createManufacturer({
                 this.amount * delta
             );
 
-            if (!resourcesInStorage(storage, consumedResources)) {
+            if (resourcesInStorage(storage, consumedResources) < 1) {
                 return {
                     consumedResources: [],
                     producedResources: [],
