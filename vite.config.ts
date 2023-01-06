@@ -15,6 +15,7 @@ export default defineConfig({
     globals: true,
     setupFiles: './setupVitest.ts',
     coverage: {
+      all: true,
       provider: 'c8',
     }
   },
