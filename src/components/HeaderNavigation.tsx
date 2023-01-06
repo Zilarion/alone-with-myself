@@ -1,5 +1,4 @@
 import {
-    Box,
     Flex,
     Heading,
     Text,
@@ -7,6 +6,7 @@ import {
 
 import { useGame } from '../hooks/useGame';
 import { MaterialsSummary } from './MaterialsSummary';
+import { VerticalDivider } from './VerticalDivider';
 
 export const HeaderNavigation = () => {
     const { satellite } = useGame();
@@ -23,7 +23,7 @@ export const HeaderNavigation = () => {
                 alignItems={'center'}
             >
                 <Heading level="6">{satellite.name}</Heading>
-                <Box width={'1px'} height={'20px'} background={'$whiteAlpha6'} margin="$2" />
+                <VerticalDivider />
                 <Text>{`Explored area: ${explored()}%`}</Text>
             </Flex>
 
