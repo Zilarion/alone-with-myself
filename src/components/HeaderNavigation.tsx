@@ -27,7 +27,10 @@ export const HeaderNavigation = () => {
                 <Text>{`Explored area: ${explored()}%`}</Text>
             </Flex>
 
-            <MaterialsSummary materials={satellite.materials} />
+            <MaterialsSummary
+                materials={satellite.materials}
+                change={satellite.estimatedProduction}
+            />
         </Flex>
     );
 };
