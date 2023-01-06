@@ -16,7 +16,7 @@
     "typescript.preferences.quoteStyle": "single",
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
-    "typescript.tsdk": "node_modules\\typescript\\lib",
+    "typescript.tsdk": "node_modules/typescript/lib",
     "vitest.enable": true,
     "vitest.commandLine": "npm run test --",
     "files.insertFinalNewline": true,
