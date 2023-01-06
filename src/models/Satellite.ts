@@ -1,7 +1,9 @@
 import { createStore } from 'solid-js/store';
 
+import { addMaterials } from '../util/addMaterials';
 import { assert } from '../util/assert';
 import { assertDefined } from '../util/assertDefined';
+import { multiplyMaterials } from '../util/multiplyMaterials';
 import { Manufacturer } from './Manufacturer';
 import {
     createPrintableInstance,
@@ -60,6 +62,10 @@ export function createSatellite({
         printables: printableInstances,
         totalSatelliteResources: createResourceStorage(totalSatelliteResources),
         printers,
+        estimatedProduction: {
+            power: 0,
+            mass: 0,
+        },
         scanStatus: {
             scanning: false,
             progress: 0,
@@ -76,14 +82,20 @@ export function createSatellite({
             );
         },
         update(delta: number) {
-            updateManufacturers(delta);
-            const { consumedPower } = store.printers.update(
-                delta,
-                store.materials.power
+            const manufacturerMaterialChanges = updateManufacturers(delta);
+            const printerMaterialChanges = updatePrinters(delta);
+
+            const totalMaterialChanges = addMaterials(
+                manufacturerMaterialChanges,
+                printerMaterialChanges
             );
 
-            store.spentPower(consumedPower);
+            const estimatedProduction = multiplyMaterials(
+                totalMaterialChanges,
+                1 / delta
+            );
 
+            setStore('estimatedProduction', estimatedProduction);
             updateScanner(delta);
         },
         spentMass(amount: number) {
@@ -105,7 +117,26 @@ export function createSatellite({
         },
     });
 
+    function updatePrinters(delta: number) {
+        const { consumedPower } = store.printers.update(
+            delta,
+            store.materials.power
+        );
+
+        store.spentPower(consumedPower);
+
+        return {
+            power: -consumedPower,
+            mass: 0,
+        };
+    }
+
     function updateManufacturers(delta: number) {
+        let combinedProduction = {
+            mass: 0,
+            power: 0,
+        };
+
         store.manufacters.forEach(manufacturer => {
             const {
                 consumedResources,
@@ -119,9 +150,22 @@ export function createSatellite({
 
             store.totalSatelliteResources.decrement(consumedResources);
 
+            combinedProduction = addMaterials(
+                combinedProduction,
+                producedMaterials
+            );
+            combinedProduction = addMaterials(
+                combinedProduction,
+                {
+                    power: -consumedPower,
+                    mass: 0,
+                }
+            );
             store.addMaterials(producedMaterials);
             store.spentPower(consumedPower);
         });
+
+        return combinedProduction;
     }
 
     function updateScanner(delta: number) {

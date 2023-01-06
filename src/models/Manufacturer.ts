@@ -19,6 +19,15 @@ export interface ManufacturerSnapshot extends IPrintable {
 
 export interface Manufacturer extends ReturnType<typeof createManufacturer> {}
 
+const NO_PRODUCTION = {
+    consumedResources: [],
+    producedMaterials: {
+        power: 0,
+        mass: 0,
+    },
+    consumedPower: 0,
+};
+
 export function createManufacturer({
     type,
     cost,
@@ -50,6 +59,17 @@ export function createManufacturer({
             storage: ResourceStorage,
             availablePower: number,
         ) {
+            if (this.amount === 0) {
+                return NO_PRODUCTION;
+            }
+
+            const consumedPower = this.powerUsage * this.amount * delta;
+            const hasPower = availablePower >= consumedPower;
+
+            if (!hasPower) {
+                return NO_PRODUCTION;
+            }
+
             const consumedResources = multiplyResources(
                 this.consumes,
                 this.amount * delta
@@ -59,16 +79,8 @@ export function createManufacturer({
                 this.amount * delta
             );
 
-            const consumedPower = this.powerUsage * this.amount * delta;
-            if (resourcesInStorage(storage, consumedResources) < 1 || consumedPower > availablePower) {
-                return {
-                    consumedResources: [],
-                    producedMaterials: {
-                        power: 0,
-                        mass: 0,
-                    },
-                    consumedPower: 0,
-                };
+            if (resourcesInStorage(storage, consumedResources) < 1) {
+                return NO_PRODUCTION;
             }
 
             return {
