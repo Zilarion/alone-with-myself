@@ -47,13 +47,6 @@ export function createManufacturer({
         produces,
         consumes,
         powerUsage,
-        get totalProduction() {
-            return multiplyResources(this.produces, this.amount);
-        },
-        get totalConsumption() {
-            return multiplyResources(this.consumes, this.amount);
-        },
-
         manufactureOver(
             delta: number,
             storage: ResourceStorage,
