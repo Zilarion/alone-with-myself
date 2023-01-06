@@ -6,11 +6,18 @@ import { FormatPower } from './FormatPower';
 
 interface ResourceSetSummaryProps {
     materials: Materials;
+    disabled?: boolean;
 }
 
 export const MaterialsSummary = (props: ResourceSetSummaryProps) => {
-    return <Flex gap="$4">
-        <FormatMass amount={props.materials.mass} />
-        <FormatPower amount={props.materials.power} />
+    return <Flex gap="$2">
+        <FormatMass
+            amount={props.materials.mass}
+            disabled={props.disabled}
+        />
+        <FormatPower
+            amount={props.materials.power}
+            disabled={props.disabled}
+        />
     </Flex>;
 };

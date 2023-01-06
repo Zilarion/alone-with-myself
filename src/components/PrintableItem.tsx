@@ -4,8 +4,8 @@ import { PrintableInstance } from '../models/PrintableUnion';
 import { Printers } from '../models/Printers';
 import { Materials } from '../models/types/Materials';
 import { Button } from './Button';
-import { FormatMass } from './FormatMass';
-import { FormatPower } from './FormatPower';
+import { MaterialsSummary } from './MaterialsSummary';
+import { VerticalDivider } from './VerticalDivider';
 
 interface PrintableItemProps {
     printable: PrintableInstance;
@@ -17,8 +17,11 @@ interface PrintableItemProps {
 
 export const PrintableItem = (props: PrintableItemProps) => {
     const disabled = () => props.printable.maxAffordable(props.storage) < props.printableCount;
-    const mass = () => props.printable.cost;
-    const power = () => props.printable.powerUsage;
+
+    const materialCost = () => ({
+        mass: props.printable.cost * props.printableCount,
+        power: props.printable.powerUsage * props.printableCount,
+    });
 
     return <Button
         disabled={disabled()}
@@ -33,13 +36,15 @@ export const PrintableItem = (props: PrintableItemProps) => {
             });
         }}
     >
-        <Flex direction='column' gap='$2'>
+        <Flex direction='row' gap='$2' alignItems='center'>
             {`${props.printable.id} (${props.printable.amount})`}
 
-            <Flex gap="$2">
-                <FormatMass amount={props.printable.cost} />
-                <FormatPower amount={props.printable.powerUsage} />
-            </Flex>
+            <VerticalDivider />
+            Cost:
+            <MaterialsSummary
+                disabled={disabled()}
+                materials={materialCost()}
+            />
         </Flex>
     </Button>;
 };

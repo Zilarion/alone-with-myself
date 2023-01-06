@@ -3,9 +3,16 @@ import BoltIcon from '@suid/icons-material/BoltOutlined';
 
 import { FormatNumber } from './FormatNumber';
 
-export const FormatPower = (props: { amount: number }) => {
+interface FormatPowerProps {
+    amount: number;
+    disabled?: boolean;
+}
+
+export const FormatPower = (props: FormatPowerProps) => {
+    const color = () => props.disabled ? '$neutral7' : 'yellow';
+
     return (
-        <Text color="yellow" display="flex" alignItems='center'>
+        <Text color={color()} display="flex" alignItems='center'>
             <FormatNumber
                 value={props.amount}
                 compact

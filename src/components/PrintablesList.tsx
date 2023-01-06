@@ -1,4 +1,4 @@
-import { Grid } from '@hope-ui/solid';
+import { Flex } from '@hope-ui/solid';
 import { For } from 'solid-js';
 
 import { PrintableInstance } from '../models/PrintableUnion';
@@ -15,8 +15,8 @@ interface PrintableSummaryProps {
 }
 
 export const PrintablesList = (props: PrintableSummaryProps) => {
-    return <Grid
-        templateColumns={'1fr 1fr'}
+    return <Flex
+        flexDirection='column'
         gap='$2'
     >
         <For each={props.printables}>
@@ -28,5 +28,5 @@ export const PrintablesList = (props: PrintableSummaryProps) => {
                 printers={props.printers}
             />}
         </For>
-    </Grid>;
+    </Flex>;
 };

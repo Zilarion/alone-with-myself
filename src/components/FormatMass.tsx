@@ -3,9 +3,16 @@ import MassIcon from '@suid/icons-material/CycloneOutlined';
 
 import { FormatNumber } from './FormatNumber';
 
-export const FormatMass = (props: { amount: number }) => {
+interface FormatMassProps {
+    amount: number;
+    disabled?: boolean;
+}
+
+export const FormatMass = (props: FormatMassProps) => {
+    const color = () => props.disabled ? '$neutral7' : '$info10';
+
     return (
-        <Text color="$info10" display="flex" alignItems='center'>
+        <Text color={color()} display="flex" alignItems='center'>
             <FormatNumber
                 value={props.amount}
                 compact
