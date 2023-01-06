@@ -4,8 +4,8 @@ import { PrintableInstance } from '../models/PrintableUnion';
 import { Printers } from '../models/Printers';
 import { Materials } from '../models/types/Materials';
 import { Button } from './Button';
-import { FormattedMass } from './FormattedMinerals';
-import { FormattedPower } from './FormattedPower';
+import { FormatMass } from './FormatMass';
+import { FormatPower } from './FormatPower';
 
 interface PrintableItemProps {
     printable: PrintableInstance;
@@ -37,12 +37,8 @@ export const PrintableItem = (props: PrintableItemProps) => {
             {`${props.printable.id} (${props.printable.amount})`}
 
             <Flex gap="$2">
-                <FormattedMass
-                    amount={mass()}
-                />
-                <FormattedPower
-                    amount={power()}
-                />
+                <FormatMass amount={props.printable.cost} />
+                <FormatPower amount={props.printable.powerUsage} />
             </Flex>
         </Flex>
     </Button>;

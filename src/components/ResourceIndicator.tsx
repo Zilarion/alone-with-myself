@@ -1,7 +1,7 @@
 import { Text } from '@hope-ui/solid';
 
 import { Resource } from '../models/types/ResourceSet';
-import { FormattedResource } from './FormattedResource';
+import { FormatNumber } from './FormatNumber';
 
 interface ResourceIndicatorProps {
     resource: Resource;
@@ -12,7 +12,7 @@ export const ResourceIndicator = (props: ResourceIndicatorProps) => {
         <Text color="$primary">
             {props.resource.type}
         </Text>
-        <FormattedResource
+        <FormatNumber
             value={props.resource.amount}
             type={props.resource.type}
         />

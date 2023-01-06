@@ -6,7 +6,7 @@ import {
 } from '@hope-ui/solid';
 
 import { useGame } from '../hooks/useGame';
-import { MaterialsSummary } from './ResourceSetSummary';
+import { MaterialsSummary } from './MaterialsSummary';
 
 export const HeaderNavigation = () => {
     const { satellite } = useGame();
